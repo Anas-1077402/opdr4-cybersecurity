@@ -3,4 +3,8 @@
 
 {% block content %}
 <h2>Registreren als Ervaringsdeskundige</h2>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    </form>
 {% endblock %}
