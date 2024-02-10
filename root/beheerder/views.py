@@ -1,22 +1,16 @@
-from .forms import BeheerderForm
 from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from .forms import RegistratieFormulier
 
-def register(request):
+def home_view(request):
+    return render(request, 'home.html')
+
+def signup(request):
     if request.method == 'POST':
-        form = BeheerderForm(request.POST)
+        form = RegistratieFormulier(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             return redirect('home/index_test.html')
     else:
-        form = BeheerderForm()
-
+        form = RegistratieFormulier()
     return render(request, 'signup.html', {'form': form})
-
-
-
-def dashboard(request):
-    return render(request, "home/index_test.html")
-
-
-def login(request):
-    return render(request, "home/login.html")

@@ -1,12 +1,8 @@
+# models.py
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+class CustomUser(AbstractUser):
+    # hier later extra vakken toevoegen...
+    functie = models.CharField(max_length=100, blank=True, null=True)
 
-class register(models.Model):
-    beheerder_id = models.AutoField(primary_key=True)
-    email = models.EmailField(unique=True)
-    username = models.CharField(max_length=255, unique=True)
-    password = models.CharField(max_length=255)
-    voornaam = models.CharField(max_length=255)
-    achternaam = models.CharField(max_length=255)
-    functie = models.CharField(max_length=255)
-    status = models.CharField(max_length=255)
