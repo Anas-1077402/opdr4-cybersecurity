@@ -2,18 +2,18 @@
 {% block title %}Registreren{% endblock %}
 
 {% block content %}
-<h2>Registreren als Ervaringsdeskundige</h2>
-    <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input class="btn btn-primary" type="submit" value="Registreren">
-    </form>
-
-    {% if form.errors %}
-  <div class="alert alert-danger">
-    {% for field, error in form.errors.items %}
-      <strong>{{ field }}:</strong> {{ error }}
-    {% endfor %}
-  </div>
-{% endif %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+    <h2 class="mb-0">Registreren als Ervaringsdeskundige</h2>
+        </div>
+        <div class="card-body">
+            <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" value="Registreren">
+        </form>
+        </div>
+      </div>
+    </div>
 {% endblock %}
