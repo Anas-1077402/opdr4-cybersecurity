@@ -8,4 +8,7 @@ class Ervaringsdeskundige(AbstractUser):
     gebruikersnaam = models.CharField(max_length=100)
     voornaam = models.CharField(max_length=100)
     achternaam = models.CharField(max_length=100)
-    #hier ga ik nog meer models toevoegen
+    postcode = models.CharField(max_length=10)
+    geslacht = models.CharField(max_length=10, choices=[('M','Man'),('V', 'Vrouw'), ('0', 'Anders')])
+    geboortedatum = models.DateField()
+    #hier ga ik nog meer velden toevoegen
