@@ -1,10 +1,10 @@
 {% extends "home/base.html" %}
-{% block title %}Homepage{% endblock %}
+{% block title %}Registreren{% endblock %}
 
 {% block content %}
 <div class="container">
 <h1>Registreer als Ervaringsdeskundige:</h1>
-<form action="POST">
+<form action="" method="POST">
   <div class="container">
     <div class="form-group d-inline col-2">
   Gebruikersnaam:
@@ -19,24 +19,28 @@
     <input id="postcode" type="text">
 </div>
 <div class="form-group">
-Geslacht:<br>
+    Geslacht:<br>
+    <label>
     Man
     <input type="radio" checked="checked" value="Man" name="geslacht">
+    </label>
+    <label>
     Vrouw
     <input type="radio" value="Vrouw" name="geslacht">
+    </label>
 </div>
 <div class="form-group">
   Geboortedatum:
-  <input id="geboortedatum" type="date">
+  <input id="geboortedatum" name="geboortedatum" type="date">
   Beperking:
-  <input id="beperking" type="text">
+  <input id="beperking" name="beperking" type="text">
   Hulpmiddelen:
-  <input id="hulpmiddelen" type="text"><br>
+  <input id="hulpmiddelen" name="hulpmiddelen" type="text"><br>
 </div
 <div class="form-group">
-<label for="type onderzoek">Type onderzoek:</label>
+<label for="onderzoek">Type onderzoek:</label>
 
-<select id="onderzoek">
+<select id="onderzoek" name="onderzoek" >
   <option value="">1</option>
   <option value="">2</option>
   <option value="">3</option>
@@ -44,9 +48,9 @@ Geslacht:<br>
 </select><br>
 </div>
 <div class="form-group">
-<label for="type benadering">Voorkeur benadering:</label>
+<label for="benadering">Voorkeur benadering:</label>
 
-<select id="benadering">
+<select id="benadering" name="benadering">
   <option value="">Telefonisch</option>
   <option value="">Per mail</option>
   <option value="">Op locatie</option>
@@ -55,15 +59,15 @@ Geslacht:<br>
     <br></div>
       <div class="form-group">
   Beschikbaarheid:
-  <input id="beschikbaarheid" type="date">
+  <input name="beschikbaarheid" id="beschikbaarheid" type="date">
   Bijzonderheden:
-  <input id="bijzonderheden" type="text">
+  <input name="bijzonderheden" id="bijzonderheden" type="text">
       </div>
   <div class="form-group">
   Toezichthouder:
-  <input id="toezichthouder" type="text">
+  <input name="toezichthouder" id="toezichthouder" type="text">
   Naam voogd:
-  <input id="naamvoogd" type="text"><br>
+  <input id="naamvoogd" name="naamvoogd" type="text"><br>
   </div>
       <div class="form-group">
   Telefoonnummer voogd of toezichthouder:
@@ -71,7 +75,7 @@ Geslacht:<br>
   Wachtwoord:
   <input id="password" type="password">
   </div>
-  <input class="btn btn-primary" type="submit" value="submit">
+  <input class="btn btn-primary" type="submit" value="Registreren">
   </div>
 </form>
 </div>
