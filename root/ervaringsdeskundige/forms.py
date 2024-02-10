@@ -1,5 +1,6 @@
 from django import forms
-from .models import Ervaringsdeskundige #model nog toevoegen
+from .models import Ervaringsdeskundige
+
 
 class RegisterForm(forms.ModelForm):
     class Meta:
