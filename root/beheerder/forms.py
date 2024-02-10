@@ -1,5 +1,10 @@
 from django import forms
+from .models import register
 
-class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+class BeheerderForm(forms.ModelForm):
+    class Meta:
+        model = register
+        fields = ['email', 'username', 'password', 'voornaam', 'achternaam', 'functie', 'status']
+        widgets = {
+            'password': forms.PasswordInput(),
+        }

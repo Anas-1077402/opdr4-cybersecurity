@@ -1,9 +1,17 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render
-
+from .forms import BeheerderForm
+from django.shortcuts import render, redirect
 
 def register(request):
-    return render(request, "home/register.html")
+    if request.method == 'POST':
+        form = BeheerderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home/index_test.html')
+    else:
+        form = BeheerderForm()
+
+    return render(request, 'signup.html', {'form': form})
+
 
 
 def dashboard(request):
