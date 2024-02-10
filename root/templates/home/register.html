@@ -6,29 +6,34 @@
 <h1>Registreer als Ervaringsdeskundige:</h1>
 <form action="POST">
   <div class="container">
-    <div class="d-inline col-2">
+    <div class="form-group d-inline col-2">
   Gebruikersnaam:
   <input id="username" type="text"><br>
   Voornaam:
 <input id="voornaam" type="text">
     </div>
-<div class="col-2">
+<div class="form-group col-2">
   Achternaam:
     <input id="achternaam" type="text">
   Postcode:
     <input id="postcode" type="text">
 </div>
+<div class="form-group">
 Geslacht:<br>
     Man
     <input type="radio" checked="checked" value="Man" name="geslacht">
     Vrouw
     <input type="radio" value="Vrouw" name="geslacht">
+</div>
+<div class="form-group">
   Geboortedatum:
   <input id="geboortedatum" type="date">
   Beperking:
   <input id="beperking" type="text">
   Hulpmiddelen:
   <input id="hulpmiddelen" type="text"><br>
+</div
+<div class="form-group">
 <label for="type onderzoek">Type onderzoek:</label>
 
 <select id="onderzoek">
@@ -37,7 +42,8 @@ Geslacht:<br>
   <option value="">3</option>
   <option value="">4</option>
 </select><br>
-
+</div>
+<div class="form-group">
 <label for="type benadering">Voorkeur benadering:</label>
 
 <select id="benadering">
@@ -46,20 +52,26 @@ Geslacht:<br>
   <option value="">Op locatie</option>
   <option value=""></option>
 </select>
-<br>
+    <br></div>
+      <div class="form-group">
   Beschikbaarheid:
-  <input id="geboortedatum" type="date">
+  <input id="beschikbaarheid" type="date">
   Bijzonderheden:
   <input id="bijzonderheden" type="text">
+      </div>
+  <div class="form-group">
   Toezichthouder:
   <input id="toezichthouder" type="text">
   Naam voogd:
-  <input id="toezichthouder" type="text"><br>
+  <input id="naamvoogd" type="text"><br>
+  </div>
+      <div class="form-group">
   Telefoonnummer voogd of toezichthouder:
-  <input id="toezichthouder" type="tel">
+  <input id="telvt" type="tel">
   Wachtwoord:
   <input id="password" type="password">
-  <input type="submit" value="submit">
+  </div>
+  <input class="btn btn-primary" type="submit" value="submit">
   </div>
 </form>
 </div>
