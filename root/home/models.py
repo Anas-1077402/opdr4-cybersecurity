@@ -3,11 +3,22 @@ from django.db import models
 
 
 # class gebruiker():
-class Organistatie(models.Model):
+class Organisatie(models.Model):
     naam = models.CharField(max_length=255)
     website = models.URLField(blank=True)
-    beschrijving = models.CharField(max_length=255, blank=True)
+    beschrijving = models.CharField(max_length=500, blank=True)
     contactpersoon = models.CharField(max_length=255)
     email = models.EmailField()
     telefoonnummer = models.CharField(max_length=64)
-    overige_details = models.CharField(max_length=255)
+    overige_details = models.CharField(max_length=500)
+
+
+class Onderzoeken(models.Model):
+    organisatie_id = models.ForeignKey(Organisatie, on_delete=models.CASCADE)
+    titel = models.CharField(max_length=255)
+    status = models.IntegerField(default=0)
+    avili = models.BooleanField(default=True)
+    datef = models.DateField()
+    datet = models.DateField()
+    location = models.CharField(max_length=255, blank=True, default='')
+    met_belonging = models.BooleanField(default=False)
