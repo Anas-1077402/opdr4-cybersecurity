@@ -7,7 +7,7 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home/index_test.html') #word naar index gestuurd als succesvol ingevuld
+            return redirect('/') #word naar index gestuurd als succesvol ingevuld
     else:
         form = RegisterForm()
     return render(request, 'home/register.html', {'form': form})

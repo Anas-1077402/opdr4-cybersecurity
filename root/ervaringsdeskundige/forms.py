@@ -6,4 +6,7 @@ from .models import Ervaringsdeskundige
 class RegisterForm(UserCreationForm):
     class Meta:
         model = Ervaringsdeskundige
-        fields = ('email', 'gebruikersnaam', 'voornaam', 'achternaam', 'postcode', 'geslacht', 'gebruikte_hulpmiddelen', 'geboorte_datum', 'bijzonderheden', 'voogd', 'voornaam_voogd', 'achternaam_voogd', 'email_voogd', 'voorkeur_benadering', 'telefonisch_onderzoek', 'internet_onderzoek', 'locatie_onderzoek', 'bijzonderheden_beschikbaarheid')
+        fields = ('email', 'username', 'first_name', 'last_name', 'postcode', 'geslacht', 'gebruikte_hulpmiddelen',
+                  'geboorte_datum', 'bijzonderheden', 'voogd', 'voornaam_voogd', 'achternaam_voogd', 'email_voogd',
+                  'voorkeur_benadering', 'type_onderzoek', 'bijzonderheden_beschikbaarheid')
+
