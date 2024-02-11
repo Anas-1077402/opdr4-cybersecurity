@@ -3,25 +3,32 @@ from django.db import models
 
 
 class Ervaringsdeskundige(AbstractUser):
-    email = models.EmailField()
-    username = models.CharField(max_length=100)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     postcode = models.CharField(max_length=10)
     geslacht = models.CharField(max_length=10, choices=[('M','Man'),('V', 'Vrouw'), ('0', 'Anders')])
-    geboorte_datum = models.DateField()
+    email = models.EmailField()
+    telefoonnummer = models.CharField(max_length=100)
+    geboortedatum = models.DateField()
+    TYPE_BEPERKING_CHOICES = [
+        ('auditief', 'Auditieve beperkingen'),
+        ('visueel', 'Visuele beperkingen'),
+        ('motorisch', 'Motorische / lichamelijke beperkingen'),
+        ('cognitief', 'Cognitieve / neurologische beperkingen'),
+]
+    type_beperking = models.CharField(max_length=100, choices=TYPE_BEPERKING_CHOICES, verbose_name='Type beperking')
     gebruikte_hulpmiddelen = models.CharField(max_length=100)
     bijzonderheden = models.CharField(max_length=100, default='', blank=True)
-    voogd = models.CharField(max_length=100)
-    voornaam_voogd = models.CharField(max_length=100)
-    achternaam_voogd = models.CharField(max_length=100)
-    email_voogd = models.EmailField(max_length=100)
+    toezichthouder = models.CharField(max_length=100, default='')
+    naam_voogd_of_toezichthouder = models.CharField(max_length=100)
+    email_voogd_of_toezichthouder = models.EmailField(max_length=100)
+    telefoonnummer_voogd_of_toezichthouder = models.CharField(max_length=100)
     VOORKEUR_BENADERING_CHOICES = [('Internet', 'Via Internet'), ('Telefonisch', 'Telefonisch'), ('Locatie', 'Op locatie'),]
     voorkeur_benadering = models.CharField(max_length=20, choices=VOORKEUR_BENADERING_CHOICES, blank=False)
     TYPE_ONDERZOEK_CHOICES = [('Telefonisch Onderzoek', 'Telefonisch Onderzoek'), ('Online Onderzoek', 'Online Onderzoek'), ('Op locatie', 'Onderzoek op locatie'), ]
     type_onderzoek = models.CharField(max_length=100,  default='', choices=TYPE_ONDERZOEK_CHOICES, blank=False)
     bijzonderheden_beschikbaarheid = models.CharField(max_length=100, default='', blank=True)
-
+    username = models.CharField(max_length=100)
     #userpermission
     groups = models.ManyToManyField(
         Group,
