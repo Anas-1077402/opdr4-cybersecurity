@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
+from rest_framework.decorators import api_view
 from home.models import Organisatie, Onderzoeken
 from home.serializers import OrganisatieSerializer, OnderzoekenSerializer
 
@@ -17,6 +18,7 @@ def register(request):
     return render(request, "home/register.html")
 
 
+@api_view(['GET', 'POST'])
 def API(request):
     if request.method == 'GET':
         all_organisaties = Organisatie.objects.all()
@@ -32,6 +34,7 @@ def API(request):
         return JsonResponse(serializer.errors, status=400)
 
 
+@api_view(['GET', 'POST'])
 def organisatie_details(request, pk):
     try:
         organistatie = Organisatie.objects.get(pk=pk)
@@ -50,9 +53,10 @@ def organisatie_details(request, pk):
         return JsonResponse(serializer.errors, status=400)
 
 
+@api_view(['GET', 'POST'])
 def lijst_onderzoeken(request):
     if request.method == 'GET':
-        onderzoeken_per_org = Onderzoeken.objects.filter(organistatie=2)
+        onderzoeken_per_org = Onderzoeken.objects.filter(organisatie_id=2)
         serializer = OnderzoekenSerializer(onderzoeken_per_org, many=True)
         return JsonResponse(serializer.data, safe=False)
 
