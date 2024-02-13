@@ -10,4 +10,8 @@ def register(request):
             return redirect('/') #word naar index gestuurd als succesvol ingevuld
     else:
         form = RegisterForm()
-    return render(request, 'home/register.html', {'form': form})
+    return render(request, 'ervaringsdeskundige/register.html', {'form': form})
+
+
+def login(request):
+    return render(request,'ervaringsdeskundige/login.html')
