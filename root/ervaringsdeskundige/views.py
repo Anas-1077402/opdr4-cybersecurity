@@ -1,0 +1,17 @@
+from django.shortcuts import render, redirect
+from .forms import RegisterForm
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/') #word naar index gestuurd als succesvol ingevuld
+    else:
+        form = RegisterForm()
+    return render(request, 'ervaringsdeskundige/register.html', {'form': form})
+
+
+def login(request):
+    return render(request,'ervaringsdeskundige/login.html')
