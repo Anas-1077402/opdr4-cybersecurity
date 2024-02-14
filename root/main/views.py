@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
-from root.main.models_test import Organisatie, Onderzoeken
+from main.models_test import Organisatie, Onderzoeken
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
 
 
