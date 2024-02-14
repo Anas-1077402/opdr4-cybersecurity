@@ -54,7 +54,7 @@ def organisatie_details(request, pk):
         return JsonResponse(serializer.errors, status=400)
 
 
-@api_view(['GET', 'POST', 'PUT'])
+@api_view(['GET', 'POST'])
 def lijst_onderzoeken(request):
     if request.method == 'GET':
         onderzoeken_per_org = Onderzoeken.objects.filter(organisatie_id=2)
