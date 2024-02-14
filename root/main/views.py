@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
-from home.models import Organisatie, Onderzoeken
-from home.serializers import OrganisatieSerializer, OnderzoekenSerializer
+from root.main.models_test import Organisatie, Onderzoeken
+from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
 
 
 def index(request):
