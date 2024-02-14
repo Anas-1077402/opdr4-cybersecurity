@@ -1,5 +1,8 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from main.models import Toezichthouders
+from beheerder.models import CustomUser
+
 
 
 class Ervaringsdeskundige(AbstractUser):
@@ -10,25 +13,18 @@ class Ervaringsdeskundige(AbstractUser):
     email = models.EmailField()
     telefoonnummer = models.CharField(max_length=100)
     geboortedatum = models.DateField()
-    TYPE_BEPERKING_CHOICES = [
-        ('auditief', 'Auditieve beperkingen'),
-        ('visueel', 'Visuele beperkingen'),
-        ('motorisch', 'Motorische / lichamelijke beperkingen'),
-        ('cognitief', 'Cognitieve / neurologische beperkingen'),
-]
-    type_beperking = models.CharField(max_length=100, default='', choices=TYPE_BEPERKING_CHOICES, verbose_name='Type beperking')
     gebruikte_hulpmiddelen = models.TextField(max_length=200)
     bijzonderheden = models.TextField(max_length=100, default='', blank=True)
-    toezichthouder = models.BooleanField(default=False, verbose_name='Toezichthouder')
-    naam_voogd_of_toezichthouder = models.CharField(max_length=100)
-    email_voogd_of_toezichthouder = models.EmailField(max_length=100)
-    telefoonnummer_voogd_of_toezichthouder = models.CharField(max_length=100)
-    VOORKEUR_BENADERING_CHOICES = [('Internet', 'Via Internet'), ('Telefonisch', 'Telefonisch'), ('Locatie', 'Op locatie'),]
-    voorkeur_benadering = models.CharField(max_length=20, choices=VOORKEUR_BENADERING_CHOICES, blank=False)
-    TYPE_ONDERZOEK_CHOICES = [('Telefonisch Onderzoek', 'Telefonisch Onderzoek'), ('Online Onderzoek', 'Online Onderzoek'), ('Op locatie', 'Onderzoek op locatie'), ]
-    type_onderzoek = models.CharField(max_length=100,  default='', choices=TYPE_ONDERZOEK_CHOICES, blank=False)
     bijzonderheden_beschikbaarheid = models.TextField(max_length=100, blank=True)
     username = models.CharField(max_length=100)
+    voorkeur_benadering = models.CharField(max_length=20)
+    toezichthouder = models.ForeignKey(
+        Toezichthouders,
+        on_delete=models.CASCADE,
+        related_name='ervaringsdeskundige_toezichthouders'
+    )
+    datum_goedgekeurd = models.DateTimeField(blank=True, null=True)
+    goedegekeurd_door = models.ForeignKey(CustomUser, models.DO_NOTHING, db_column='goedegekeurd_door', blank=True, null=True)
     #userpermission
     groups = models.ManyToManyField(
         Group,
@@ -46,3 +42,21 @@ class Ervaringsdeskundige(AbstractUser):
         help_text='Specific permissions for this user.',
         related_query_name='ervaringsdeskundige',
     )
+
+
+class BeperkingenErvaringsdeskundigen(models.Model):
+    beperking_id = models.IntegerField()
+    ervaringsdeskundigen_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'Beperkingen_ervaringsdeskundigen'
+
+
+class BeperkingenOnderzoeken(models.Model):
+    onderzoeks_id = models.IntegerField()
+    beperking_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'Beperkingen_onderzoeken'
