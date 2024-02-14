@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
-from home.models import Toezichthouders
+from main.models import Toezichthouders
 from beheerder.models import CustomUser
 
 
