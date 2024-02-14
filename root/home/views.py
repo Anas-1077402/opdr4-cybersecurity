@@ -25,16 +25,17 @@ def API(request):
         serializer = OrganisatieSerializer(all_organisaties, many=True)
         return JsonResponse(serializer.data, safe=False)
 
-    elif request.method == 'PUT':
+    elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = OrganisatieSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
+        print("het komt heer")
         return JsonResponse(serializer.errors, status=400)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'PUT'])
 def organisatie_details(request, pk):
     try:
         organistatie = Organisatie.objects.get(pk=pk)
@@ -53,17 +54,18 @@ def organisatie_details(request, pk):
         return JsonResponse(serializer.errors, status=400)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'PUT'])
 def lijst_onderzoeken(request):
     if request.method == 'GET':
         onderzoeken_per_org = Onderzoeken.objects.filter(organisatie_id=2)
         serializer = OnderzoekenSerializer(onderzoeken_per_org, many=True)
         return JsonResponse(serializer.data, safe=False)
 
-    elif request.method == 'PUT':
+    elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = OnderzoekenSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
+        print('It got here')
         return JsonResponse(serializer.errors, status=400)

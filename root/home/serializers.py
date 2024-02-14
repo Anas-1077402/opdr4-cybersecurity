@@ -13,7 +13,7 @@ class OrganisatieSerializer(serializers.Serializer):
     overige_details = serializers.CharField(max_length=500)
 
     def create(self, validated_data):
-        return Organisatie.objects.create(validated_data)
+        return Organisatie.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.naam = validated_data.get('naam', instance.naam)
@@ -32,6 +32,7 @@ class OnderzoekenSerializer(serializers.ModelSerializer):
         model = Onderzoeken
         fields = [
             'id',
+            'organisatie_id',
             'titel',
             'status',
             'avili',
