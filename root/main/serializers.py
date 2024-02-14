@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Organisatie, Onderzoeken
+from .models_test import Organisatie, Onderzoeken
 
 
 class OrganisatieSerializer(serializers.Serializer):
