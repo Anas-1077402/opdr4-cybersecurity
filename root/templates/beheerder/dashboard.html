@@ -1,21 +1,118 @@
-{% extends "home/base.html" %}
-
+{% extends "beheerder/base.html" %}
+{% load static %}
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-<div class="container">
-  
-<h1>Je zit in het systeem</h1>
-<a href="/beheerder/logout">log uit</a><br><br>
-<ul>
-    {% for admin in pending_admins %}
-      <h3>{{ admin.first_name }} {{ admin.last_name}}</h3>
-      {% if admin.status == 1 %} <em>In afwachting</em><br><br> {% endif %}
-        
-      <a class="btn btn-primary" href="change_status/{{ admin.id }}/approved">Keur goed</a>
-      <a class="btn btn-primary" href="change_status/{{ admin.id }}/declined">Keur fout</a>
-      <br><br><br><br>
-    {% endfor %}
-  </ul>
+<div id="body_dashboard">
+    <div id="topbar">
+        <a href="#">
+          <img style="margin: 20px;" src="{% static 'images/logo_accessibility.png' %}" width="200px" alt="test">
+        </a>
+        <div id="search">
+            <i id="search_icon" class="fa-solid fa-magnifying-glass"></i>
+            <h3 id="search_name">Zoeken</h3>
+        </div>
+    </div>
+
+    <div id="dashboard_content">
+        <div id="grey_background" class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+            <ul class="nav nav-pills flex-column mb-auto">
+              <li class="nav-item">
+                <a href="#" class="nav-link active" aria-current="page">
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                  Ervaringsdeskundigen
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                  Onderzoeken
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                  Beheerders
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                  Customers
+                </a>
+              </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+              <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-user" style="padding-right: 15px;" width="32" height="32" class="rounded-circle me-2"></i>
+                <strong>{{ user.first_name}} {{ user.last_name}}</strong>
+              </a>
+              <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+                <li><a class="dropdown-item" href="#">Instellingen</a></li>
+                <li><a class="dropdown-item" href="#">Profiel</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/beheerder/logout">Log uit</a></li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div id="stat_cards">
+                <div class="card">
+                    <h3>Aantal onderzoeken</h3>
+                    <p class="number">113</p>
+                </div>
+                <div class="card">
+                    <h3>Aantal ervaringsdeskundigen</h3>
+                    <p class="number">276</p>
+                </div>
+                <div class="card">
+                    <h3>Aantal beheerders</h3>
+                    <p class="number">35</p>
+                </div>
+            </div>
+            <div class="table_padding">
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Naam</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Functie</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for admin in pending_admins %}
+                        <tr>
+                            <td><a href="/beheerder/checkout_admin/{{ admin.id }}">{{ admin.first_name }} {{ admin.last_name}}</a></td>
+                            <td>{{ admin.email }}</td>
+                            <td>{{ admin.functie }}</td>
+                            <td>{% if admin.status == 1 %}In afwachting... {% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- <ul>
+        {% for admin in pending_admins %}
+        <h3>{{ admin.first_name }} {{ admin.last_name}}</h3>
+        {% if admin.status == 1 %} <em>In afwachting</em><br><br> {% endif %}
+            
+        <a class="btn btn-primary" href="change_status/{{ admin.id }}/approved">Keur goed</a>
+        <a class="btn btn-primary" href="change_status/{{ admin.id }}/declined">Keur fout</a>
+        <br><br><br><br>
+        {% endfor %}
+    </ul> -->
 </div>
 {% endblock %}

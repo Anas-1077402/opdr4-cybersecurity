@@ -5,19 +5,22 @@ from .forms import RegistratieFormulier
 from django.contrib.auth.decorators import login_required
 from beheerder.models import CustomUser
 
+
 def home_view(request):
     return render(request, 'home.html')
 
 @login_required()
 def dashboard_beheerder(request):
     pending_admins = CustomUser.objects.filter(status=1)
-    return render(request, 'beheerder/dashboard.html', {'pending_admins': pending_admins})
+    current_user = request.user
+    return render(request, 'beheerder/dashboard.html', {'pending_admins': pending_admins, 'user': current_user})
+
 
 def signup(request):
     if request.method == 'POST':
         form = RegistratieFormulier(request.POST)
         if form.is_valid():
-            user = form.save()
+            form.save()
             return redirect('/home/index_test.html')
     else:
         form = RegistratieFormulier()
@@ -32,15 +35,16 @@ def login_beheerder(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None and user.status == 2:
-                login(request, user)
-                print("dit gaat goed")
-                return redirect('dashboard')
+            login(request, user)
+            print("dit gaat goed")
+            return redirect('dashboard')
         else:
             print("dit gaat fout")
             messages.success(request, ("Het inloggen ging fout"))
             return render(request, 'beheerder/login.html', {})
     else:
         return render(request, 'beheerder/login.html', {})
+
 
 def logout_beheerder(request):
     logout(request)
