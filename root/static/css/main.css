@@ -126,12 +126,12 @@ p {
     background-color: #ffffff;
     border-color: #ffffff;
     color: #848484;
-    box-shadow: 0 0 10px rgba(104, 149, 210, 0.5);
+    box-shadow: 0 0 10px rgba(30, 166, 128, 0.5);
 }
 
 
 .number {
-    color: #6895D2;
+    color: #1ea680;
     font-size: 120px;
 
 }
