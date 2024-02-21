@@ -6,6 +6,16 @@
 <div class="container">
   
 <h1>Je zit in het systeem</h1>
-<a href="/beheerder/logout">log uit</a>
+<a href="/beheerder/logout">log uit</a><br><br>
+<ul>
+    {% for admin in pending_admins %}
+      <h3>{{ admin.first_name }} {{ admin.last_name}}</h3>
+      {% if admin.status == 1 %} <em>In afwachting</em><br><br> {% endif %}
+        
+      <a class="btn btn-primary" href="change_status/{{ admin.id }}/approved">Keur goed</a>
+      <a class="btn btn-primary" href="change_status/{{ admin.id }}/declined">Keur fout</a>
+      <br><br><br><br>
+    {% endfor %}
+  </ul>
 </div>
 {% endblock %}
