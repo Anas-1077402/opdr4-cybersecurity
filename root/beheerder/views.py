@@ -31,16 +31,16 @@ def login_beheerder(request):
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
-            login(request, user)
-            print("dit gaat goed")
-            return redirect('dashboard')
+        if user is not None and user.status == 2:
+                login(request, user)
+                print("dit gaat goed")
+                return redirect('dashboard')
         else:
             print("dit gaat fout")
             messages.success(request, ("Het inloggen ging fout"))
-            return render(request, 'authentication/login.html', {})
+            return render(request, 'beheerder/login.html', {})
     else:
-        return render(request, 'authentication/login.html', {})
+        return render(request, 'beheerder/login.html', {})
 
 def logout_beheerder(request):
     logout(request)
