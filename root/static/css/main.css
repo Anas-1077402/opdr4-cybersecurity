@@ -111,6 +111,7 @@ p {
     color: rgb(117, 117, 117);
     font-weight: 800;
     margin-bottom: 50px;
+    margin-top: 30px;
 
 
 }
@@ -121,17 +122,17 @@ p {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    width: 400px;
+    width: 450px;
     height: 300px;
     background-color: #ffffff;
     border-color: #ffffff;
     color: #848484;
-    box-shadow: 0 0 10px rgba(30, 166, 128, 0.5);
+    box-shadow: 0 0 10px rgba(13, 110, 253, 1);
 }
 
 
 .number {
-    color: #1ea680;
+    color: rgba(13, 110, 253, 1);
     font-size: 120px;
 
 }
@@ -149,18 +150,40 @@ p {
 }
 
 .table-container {
-    overflow: hidden;
-    border-radius: 10px; /* Pas de gewenste border-radius waarde aan */
+    display: flex;
 
 }
 
 .table-container table {
     border-collapse: separate;
     border-spacing: 0;
-    width: 100%;
 }
 
 .table_padding {
     padding-right: 115px;
     padding-left: 115px;
+}
+
+
+
+th {
+    font-size: 20px;
+}
+
+td {
+    font-size: 20px;
+}
+
+#card {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.table {
+
+    padding: 10px;
+}
+
+body {
+    background-color: rgb(245, 245, 245);
 }
