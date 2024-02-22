@@ -3,9 +3,24 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-<div class="container">
-  
-<h1>Je zit in het systeem</h1>
-<a href="/beheerder/logout">log uit</a>
+<div class="container" style="border:1px solid #cecece;">
+    <div class="col">
+        <h2 class="text-center">Onderzoeken</h2>
+        {% for item in research %}
+        <div id="{{ item.id }}" class="card text-center mb-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.titel }} </h5>
+                <p class="card-text">Beschrijving</p>
+                <p class="card-text">Type onderzoek</p>
+                <p class="card-text">Locatie</p>
+                <p class="card-text">Doelgroep beperking</p>
+                <p class="card-text">Doelgroep leeftijd</p>
+                <p class="card-text">Datum</p>
+                <a href="#" class="btn btn-primary">Keur goed</a>
+                <a href="#" class="btn btn-primary">Keur af</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

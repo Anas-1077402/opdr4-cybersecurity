@@ -18,6 +18,14 @@ def register(request):
     return render(request, "home/register.html")
 
 
+def dashboard(request):
+    list_research = Onderzoeken.objects.filter(status=0)
+    context = {
+        'research': list_research
+    }
+    return render(request, "beheerder/dashboard.html", context)
+
+
 @api_view(['GET', 'POST'])
 def API(request):
     if request.method == 'GET':

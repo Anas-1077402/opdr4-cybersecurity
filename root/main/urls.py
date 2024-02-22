@@ -9,4 +9,5 @@ urlpatterns = [
     path("API", views.API, name="api_list_test"),
     path("API/<int:pk>", views.organisatie_details, name="organisatie_details"),
     path("API/organisatie/onderzoeken", views.lijst_onderzoeken, name="lijst_onderzoeken"),
+    path("beheerder/dashboard", views.dashboard, name="dashboard"),
 ]
