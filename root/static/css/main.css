@@ -99,6 +99,7 @@ p {
     color: black;
     font-size: 23px;
     font-weight: 600;
+    margin-right: 25px;
 }
 
 #stat_cards {
@@ -116,7 +117,7 @@ p {
 
 }
 
-.card {
+.card_stat {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -144,9 +145,10 @@ p {
 }
 
 #grey_background {
-    background-color: rgb(245, 245, 245);
+    background-color: rgb(230, 230, 230);
     font-size: 20px;
     height: 100%;
+    border-radius: 10px;
 }
 
 .table-container {
