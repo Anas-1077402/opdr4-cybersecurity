@@ -12,6 +12,29 @@ class OrganisatieSerializer(serializers.Serializer):
     telefoonnummer = serializers.CharField(max_length=64)
     overige_details = serializers.CharField(max_length=500)
 
+
+    # onderzoeks_id = serializers.AutoField(primary_key=True)
+    # organisatie = serializers.ForeignKey('Organisaties', models.DO_NOTHING)
+    # status = serializers.IntegerField()
+    # titel = serializers.TextField()
+    # omschrijving = serializers.TextField()
+    # datum_vanaf = serializers.DateTimeField()
+    # datum_tot = serializers.DateTimeField()
+    # soort_onderzoek = serializers.IntegerField()
+    # locatie = serializers.TextField(blank=True, null=True)
+    # met_beloning = serializers.IntegerField()
+    # beloning = serializers.TextField(blank=True, null=True)
+    # doelgroep_leeftijd_van = serializers.IntegerField()
+    # doelgroep_leeftijd_tot = serializers.IntegerField()
+    # contact_opgenomen = serializers.IntegerField()
+    # opmerkingen_beheerder = serializers.IntegerField(blank=True, null=True)
+    # type_onderzoek = serializers.ForeignKey('TypeOnderzoek', serializers.DO_NOTHING, db_column='type_onderzoek')
+
+    class Meta:
+        managed = False
+        db_table = 'Onderzoeken'
+
+
     def create(self, validated_data):
         return Organisatie.objects.create(**validated_data)
 
