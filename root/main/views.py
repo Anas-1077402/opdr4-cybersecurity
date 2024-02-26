@@ -56,8 +56,14 @@ def organisatie_details(request, pk):
 
 @api_view(['GET', 'POST'])
 def lijst_onderzoeken(request):
+    API_key = request.GET.get('api')
+
     if request.method == 'GET':
-        onderzoeken_per_org = Onderzoeken.objects.filter(organisatie_id=2)
+        organisation = Organisaties.objects.get(api_key=API_key)
+
+        organisation_id = organisation.organisatie_id
+
+        onderzoeken_per_org = Onderzoeken.objects.filter(organisatie_id=organisation_id)
         serializer = OnderzoekenSerializer(onderzoeken_per_org, many=True)
         return JsonResponse(serializer.data, safe=False)
 
