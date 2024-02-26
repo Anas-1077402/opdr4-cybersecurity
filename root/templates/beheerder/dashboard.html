@@ -4,10 +4,10 @@
 
 {% block content %}
 <div class="container" style="border:1px solid #cecece;">
-    <div class="col">
+    <div id="research" class="col">
         <h2 class="text-center">Onderzoeken</h2>
         {% for item in research %}
-        <div id="{{ item.id }}" class="card text-center mb-3" style="width: 18rem;">
+        <div id="{{ item.id }}" class="card text-center mb-3" style="width: 18rem;cursor: pointer;" onclick="location.href='beheerder/dashboard/research/{{ item.id }}';">
             <div class="card-body">
                 <h5 class="card-title">{{ item.titel }} </h5>
                 <p class="card-text">Beschrijving</p>
@@ -16,8 +16,8 @@
                 <p class="card-text">Doelgroep beperking</p>
                 <p class="card-text">Doelgroep leeftijd</p>
                 <p class="card-text">Datum</p>
-                <a href="#" class="btn btn-primary">Keur goed</a>
-                <a href="#" class="btn btn-primary">Keur af</a>
+                <a href="/bruh" class="btn btn-primary 1">Keur goed</a>
+                <a href="/bruh2" class="btn btn-primary 0">Keur af</a>
             </div>
         </div>
         {% endfor %}

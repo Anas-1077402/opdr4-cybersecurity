@@ -10,4 +10,5 @@ urlpatterns = [
     path("API/<int:pk>", views.organisatie_details, name="organisatie_details"),
     path("API/organisatie/onderzoeken", views.lijst_onderzoeken, name="lijst_onderzoeken"),
     path("beheerder/dashboard", views.dashboard, name="dashboard"),
+    path("beheerder/dashboard/all", views.get_dashboard, name="get_dashboard"),
 ]
