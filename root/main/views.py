@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
-from main.models_test import Organisatie, Onderzoeken
+from main.models import Organisaties, Onderzoeken
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
 
 
@@ -21,7 +21,7 @@ def register(request):
 @api_view(['GET', 'POST'])
 def API(request):
     if request.method == 'GET':
-        all_organisaties = Organisatie.objects.all()
+        all_organisaties = Organisaties.objects.all()
         serializer = OrganisatieSerializer(all_organisaties, many=True)
         return JsonResponse(serializer.data, safe=False)
 
@@ -38,8 +38,8 @@ def API(request):
 @api_view(['GET', 'POST', 'PUT'])
 def organisatie_details(request, pk):
     try:
-        organistatie = Organisatie.objects.get(pk=pk)
-    except Organisatie.DoesNotExist:
+        organistatie = Organisaties.objects.get(pk=pk)
+    except Organisaties.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == 'GET':

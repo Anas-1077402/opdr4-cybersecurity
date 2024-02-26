@@ -126,14 +126,14 @@ class Toezichthouders(models.Model):
         db_table = 'Toezichthouders'
 
 
-# class TypeOnderzoek(models.Model):
-#     telefonisch = models.BooleanField(blank=True, null=True)
-#     internet = models.BooleanField(blank=True, null=True)
-#     locatie = models.BooleanField(blank=True, null=True)
+class TypeOnderzoek(models.Model):
+    telefonisch = models.BooleanField(blank=True, null=True)
+    internet = models.BooleanField(blank=True, null=True)
+    locatie = models.BooleanField(blank=True, null=True)
 
-#     class Meta:
-#         managed = False
-#         db_table = 'Type_onderzoek'
+    class Meta:
+        managed = False
+        db_table = 'Type_onderzoek'
 
 
 class AuthGroup(models.Model):
