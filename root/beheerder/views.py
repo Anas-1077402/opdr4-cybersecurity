@@ -16,6 +16,21 @@ def dashboard_beheerder(request):
     return render(request, 'beheerder/dashboard.html', {'pending_admins': pending_admins, 'user': current_user})
 
 
+@login_required()
+def edit_profile(request):
+    current_user = request.user
+    if request.method == 'POST':
+        print("test")
+        form = RegistratieFormulier(request.POST, instance=current_user)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = RegistratieFormulier(instance=current_user)
+
+    return render(request, 'beheerder/edit_profile.html', {'form': form})
+
+
 def signup(request):
     if request.method == 'POST':
         form = RegistratieFormulier(request.POST)
