@@ -68,10 +68,19 @@ def lijst_onderzoeken(request):
         return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = OnderzoekenSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        print('It got here')
-        return JsonResponse(serializer.errors, status=400)
+        organisation = Organisaties.objects.get(api_key=API_key)
+        organisation_id = organisation.organisatie_id
+
+        user_organisatie_id = request.user.organisatie_id
+
+        if user_organisatie_id == organisation_id:
+            data = JSONParser().parse(request)
+            serializer = OnderzoekenSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse(serializer.data, status=201)
+            print('It got here')
+
+        if organisation.DoesNotExist:
+            return JsonResponse(serializer.errors, status=400)
+    
