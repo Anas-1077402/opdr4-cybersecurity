@@ -1,0 +1,21 @@
+<h2 class="text-center">Onderzoeken</h2>
+{% for item in research %}
+<div id="{{ item.id }}" class="card text-center mb-3" style="width: 18rem;cursor: pointer;" onclick="location.href='beheerder/dashboard/research/{{ item.id }}';">
+    <div class="card-body">
+        <h5 class="card-title">{{ item.titel }}</h5>
+        {% if item.status == 0 %}
+        <p class="card-text">Status: ongekeurd</p>
+        {% elif item.status == 1 %}
+        <p class="card-text">Status: goed gekeurd</p>
+        {% endif %}
+        <p class="card-text">Beschrijving</p>
+        <p class="card-text">Type onderzoek</p>
+        <p class="card-text">Locatie</p>
+        <p class="card-text">Doelgroep beperking</p>
+        <p class="card-text">Doelgroep leeftijd</p>
+        <p class="card-text">Datum</p>
+        <a href="/bruh" class="btn btn-primary 1">Keur goed</a>
+        <a href="/bruh2" class="btn btn-primary 0">Keur af</a>
+    </div>
+</div>
+{% endfor %}

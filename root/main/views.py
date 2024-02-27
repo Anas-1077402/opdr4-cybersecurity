@@ -1,9 +1,11 @@
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from main.models_test import Organisatie, Onderzoeken
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
+from main.testdata import research
 
 
 def index(request):
@@ -19,17 +21,27 @@ def register(request):
 
 
 def dashboard(request):
-    list_research = Onderzoeken.objects.all() #filter(status=0)
-    context = {
-        'research': list_research
-    }
-    return render(request, "beheerder/dashboard.html", context)
+    return render(request, "beheerder/dashboard.html")
 
 
 @api_view(['GET'])
-def get_dashboard():
-    list_research = Onderzoeken.objects.filter(status=0)
-    return JsonResponse(list_research)
+def get_dashboard(request):
+    data = dict()
+    context = {
+        'research': research
+    }
+    data['research'] = render_to_string("beheerder/dashboard_research.html", context, request=request)
+    return JsonResponse(data)
+
+
+"""
+        list_research = Onderzoeken.objects.filter(status=0)
+        serializer = OnderzoekenSerializer(list_research, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    else:
+        HttpResponse(status=400)
+"""
 
 
 @api_view(['GET', 'POST'])

@@ -1,14 +1,13 @@
 
 
 async function getResearchStatus() {
-    const response_promise = await fetch("/beheerder/dashboard");
+    const response_promise = await fetch("/beheerder/dashboard/all");
     const anwser = await response_promise.json();
-    console.log(response_promise)
-    console.log(anwser)
+    document.getElementById('research').innerHTML = anwser['research'];
 }
 
 window.addEventListener('load', function() {
-    if (document.getElementsByClassName('btn btn-primary 1')) {
+    if (document.getElementById('research')) {
         getResearchStatus();
         setInterval(getResearchStatus, 1000)
     }
