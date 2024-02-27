@@ -1,5 +1,9 @@
 Bronnen wp3:
 https://www.youtube.com/watch?v=eosXCVcgtPw&t=155s
+https://www.youtube.com/watch?v=ynToND_xOAM
+
+Styling: 
+https://getbootstrap.com/
 
 
 Prompt chatgpt: 

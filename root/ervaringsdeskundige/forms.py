@@ -8,4 +8,3 @@ class RegisterForm(UserCreationForm):
         model = Ervaringsdeskundige
         fields = ('first_name', 'last_name', 'postcode', 'geslacht','email', 'telefoonnummer', 'geboortedatum', 'gebruikte_hulpmiddelen',
                   'bijzonderheden', 'bijzonderheden_beschikbaarheid', 'username',)
-

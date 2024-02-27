@@ -31,7 +31,6 @@ def API(request):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
-        print("het komt heer")
         return JsonResponse(serializer.errors, status=400)
 
 
@@ -83,4 +82,4 @@ def lijst_onderzoeken(request):
 
         if organisation.DoesNotExist:
             return JsonResponse(serializer.errors, status=400)
-    
+
