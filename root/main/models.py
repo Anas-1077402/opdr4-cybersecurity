@@ -6,7 +6,7 @@
 # #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-from beheerder.models import CustomUser
+
 
 
 # class Beheerders(models.Model):
@@ -61,46 +61,46 @@ from beheerder.models import CustomUser
 #         db_table = 'Medewerkers_organisatie'
 
 
-# class Onderzoeken(models.Model):
-#     onderzoeks_id = models.AutoField(primary_key=True)
-#     organisatie = models.ForeignKey('Organisaties', models.DO_NOTHING)
-#     status = models.IntegerField()
-#     titel = models.TextField()
-#     omschrijving = models.TextField()
-#     datum_vanaf = models.DateTimeField()
-#     datum_tot = models.DateTimeField()
-#     soort_onderzoek = models.IntegerField()
-#     locatie = models.TextField(blank=True, null=True)
-#     met_beloning = models.IntegerField()
-#     beloning = models.TextField(blank=True, null=True)
-#     doelgroep_leeftijd_van = models.IntegerField()
-#     doelgroep_leeftijd_tot = models.IntegerField()
-#     contact_opgenomen = models.IntegerField()
-#     opmerkingen_beheerder = models.IntegerField(blank=True, null=True)
-#     type_onderzoek = models.ForeignKey('TypeOnderzoek', models.DO_NOTHING, db_column='type_onderzoek')
+class Onderzoeken(models.Model):
+    onderzoeks_id = models.AutoField(primary_key=True)
+    organisatie = models.ForeignKey('Organisaties', models.DO_NOTHING)
+    status = models.IntegerField()
+    titel = models.TextField()
+    omschrijving = models.TextField()
+    datum_vanaf = models.DateTimeField()
+    datum_tot = models.DateTimeField()
+    soort_onderzoek = models.IntegerField()
+    locatie = models.TextField(blank=True, null=True)
+    met_beloning = models.IntegerField()
+    beloning = models.TextField(blank=True, null=True)
+    doelgroep_leeftijd_van = models.IntegerField()
+    doelgroep_leeftijd_tot = models.IntegerField()
+    contact_opgenomen = models.IntegerField()
+    opmerkingen_beheerder = models.IntegerField(blank=True, null=True)
+    type_onderzoek = models.ForeignKey('TypeOnderzoek', models.DO_NOTHING, db_column='type_onderzoek')
 
-#     class Meta:
-#         managed = False
-#         db_table = 'Onderzoeken'
+    class Meta:
+        managed = False
+        db_table = 'Onderzoeken'
 
 
-# class Organisaties(models.Model):
-#     organisatie_id = models.AutoField(primary_key=True, blank=True)
-#     voornaam = models.TextField(blank=True, null=True)
-#     achternaam = models.TextField(blank=True, null=True)
-#     kvk = models.TextField(db_column='KVK', blank=True, null=True)  # Field name made lowercase.
-#     website = models.TextField(blank=True, null=True)
-#     beschrijving = models.TextField(blank=True, null=True)
-#     contact_persoon = models.TextField(blank=True, null=True)
-#     email = models.TextField(blank=True, null=True)
-#     telefoonnummer = models.IntegerField(blank=True, null=True)
-#     api_key = models.TextField(blank=True, null=True)
-#     status = models.TextField(blank=True, null=True)
-#     type = models.TextField(blank=True, null=True)
+class Organisaties(models.Model):
+    organisatie_id = models.AutoField(primary_key=True, blank=True)
+    voornaam = models.TextField(blank=True, null=True)
+    achternaam = models.TextField(blank=True, null=True)
+    kvk = models.TextField(db_column='KVK', blank=True, null=True)  # Field name made lowercase.
+    website = models.TextField(blank=True, null=True)
+    beschrijving = models.TextField(blank=True, null=True)
+    contact_persoon = models.TextField(blank=True, null=True)
+    email = models.TextField(blank=True, null=True)
+    telefoonnummer = models.IntegerField(blank=True, null=True)
+    api_key = models.TextField(blank=True, null=True)
+    status = models.TextField(blank=True, null=True)
+    type = models.TextField(blank=True, null=True)
 
-#     class Meta:
-#         managed = False
-#         db_table = 'Organisaties'
+    class Meta:
+        managed = False
+        db_table = 'Organisaties'
 
 
 # class Statuscodes(models.Model):
@@ -126,14 +126,14 @@ class Toezichthouders(models.Model):
         db_table = 'Toezichthouders'
 
 
-# class TypeOnderzoek(models.Model):
-#     telefonisch = models.BooleanField(blank=True, null=True)
-#     internet = models.BooleanField(blank=True, null=True)
-#     locatie = models.BooleanField(blank=True, null=True)
+class TypeOnderzoek(models.Model):
+    telefonisch = models.BooleanField(blank=True, null=True)
+    internet = models.BooleanField(blank=True, null=True)
+    locatie = models.BooleanField(blank=True, null=True)
 
-#     class Meta:
-#         managed = False
-#         db_table = 'Type_onderzoek'
+    class Meta:
+        managed = False
+        db_table = 'Type_onderzoek'
 
 
 class AuthGroup(models.Model):
