@@ -1,14 +1,14 @@
 from typing import Any
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Beheerders
+from ervaringsdeskundige.models import User
 
 class RegistratieFormulier(UserCreationForm):
     functie = forms.CharField(max_length=100,)
 
     class Meta:
-        model = Beheerders
-        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2', 'functie')
+        model = User
+        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
@@ -18,4 +18,3 @@ class RegistratieFormulier(UserCreationForm):
         self.fields['email'].widget.attrs.update({'class': 'form-control'})
         self.fields['password1'].widget.attrs.update({'class': 'form-control'})
         self.fields['password2'].widget.attrs.update({'class': 'form-control'})
-        self.fields['functie'].widget.attrs.update({'class': 'form-control'})

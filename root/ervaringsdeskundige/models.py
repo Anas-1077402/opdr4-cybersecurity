@@ -1,11 +1,8 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 from main.models import Toezichthouders
-from beheerder.models import Beheerders
 
-
-
-class Ervaringsdeskundige(AbstractUser):
+class User(AbstractUser):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     postcode = models.CharField(max_length=10)
@@ -16,32 +13,32 @@ class Ervaringsdeskundige(AbstractUser):
     gebruikte_hulpmiddelen = models.TextField(max_length=200)
     bijzonderheden = models.TextField(max_length=100, default='', blank=True)
     bijzonderheden_beschikbaarheid = models.TextField(max_length=100, blank=True)
-    username = models.CharField(max_length=100)
+    username = models.CharField(max_length=100, unique=True)
     voorkeur_benadering = models.CharField(max_length=20)
     status = models.CharField(max_length=10)
     toezichthouder = models.ForeignKey(
         Toezichthouders,
         on_delete=models.CASCADE,
-        related_name='ervaringsdeskundige_toezichthouders'
+        related_name='user_toezichthouders'
     )
     datum_goedgekeurd = models.DateTimeField(blank=True, null=True)
-    goedegekeurd_door = models.ForeignKey(Beheerders, models.DO_NOTHING, db_column='goedegekeurd_door', blank=True, null=True)
+    goedegekeurd_door = models.CharField(max_length=100, null=True)
     #userpermission
     groups = models.ManyToManyField(
         Group,
         verbose_name='groups',
-        related_name='ervaringsdeskundige_groups',
+        related_name='user_groups',
         blank=True,
         help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
-        related_query_name='ervaringsdeskundige',
+        related_query_name='user',
     )
     user_permissions = models.ManyToManyField(
         Permission,
         verbose_name='user permissions',
-        related_name='ervaringsdeskundige_user_permissions',
+        related_name='user_user_permissions',
         blank=True,
         help_text='Specific permissions for this user.',
-        related_query_name='ervaringsdeskundige',
+        related_query_name='user',
     )
 
 

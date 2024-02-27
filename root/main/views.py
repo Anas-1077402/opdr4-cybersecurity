@@ -1,17 +1,41 @@
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from main.models import Organisaties, Onderzoeken
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login as auth_login, authenticate, logout
+from django.contrib import messages
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
 
 
 def index(request):
     return render(request, "home/index_test.html")
 
+def custom_login(request):
+    if request.user.is_authenticated and request.user.is_staff == 1:
+        return redirect('/beheerder/dashboard')
 
-def login(request):
-    return render(request, "home/login.html")
+    if request.user.is_authenticated and request.user.is_staff == 0:
+        return redirect('/ervaringsdeskundige/dashboard')
+
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        print(user)
+        if user is not None and user.status == 2:
+            auth_login(request, user)
+            if request.user.is_authenticated and request.user.is_staff == 1:
+                return redirect('/beheerder/dashboard')
+
+            if request.user.is_authenticated and request.user.is_staff == 0:
+                return redirect('/ervaringsdeskundige/dashboard')
+        else:
+            messages.success(request, ("Het inloggen ging fout"))
+            return render(request, 'home/login.html', {})
+
+    else:
+        return render(request, 'home/login.html', {})
 
 
 def register(request):
