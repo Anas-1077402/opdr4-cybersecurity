@@ -20,7 +20,6 @@ def dashboard_beheerder(request):
 def edit_profile(request):
     current_user = request.user
     if request.method == 'POST':
-        print("test")
         form = RegistratieFormulier(request.POST, instance=current_user)
         if form.is_valid():
             form.save()
@@ -43,7 +42,6 @@ def signup(request):
 
 
 def login_beheerder(request):
-    print("test")
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -51,10 +49,8 @@ def login_beheerder(request):
 
         if user is not None and user.status == 2:
             login(request, user)
-            print("dit gaat goed")
             return redirect('dashboard')
         else:
-            print("dit gaat fout")
             messages.success(request, ("Het inloggen ging fout"))
             return render(request, 'beheerder/login.html', {})
     else:
@@ -68,7 +64,6 @@ def logout_beheerder(request):
 
 def change_status(request, user_id, action):
     pending_admin = get_object_or_404(CustomUser, id=user_id)
-    print("test")
     if action == 'approved':
         pending_admin.status = 2
         pending_admin.save()
