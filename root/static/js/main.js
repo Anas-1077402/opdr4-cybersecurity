@@ -1,5 +1,3 @@
-
-
 async function getResearchStatus() {
     const response_promise = await fetch("/beheerder/dashboard/all");
     const anwser = await response_promise.json();
