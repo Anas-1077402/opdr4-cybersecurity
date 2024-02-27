@@ -39,7 +39,7 @@ def signup(request):
             return redirect('/home/index_test.html')
     else:
         form = RegistratieFormulier()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'beheerder/signup.html', {'form': form})
 
 
 def login_beheerder(request):

@@ -4,11 +4,16 @@
 
 {% block content %}
 <div class="container">
-  
+  <h1>Beheerder registratie</h1>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
+    Voornaam:
+    {{ form.first_name }}
+
+    Achternaam:
+
+    {{ form.last_name }}
+    <br><button class="btn btn-primary" type="submit">Sign up</button>
 </form>
 
 </div>
