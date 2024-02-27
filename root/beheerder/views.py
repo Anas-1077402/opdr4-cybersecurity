@@ -49,7 +49,7 @@ def logout_beheerder(request):
 
 @staff_member_required
 def change_status(request, user_id, action):
-    pending_admin = get_object_or_404(Beheerders, id=user_id)
+    pending_admin = get_object_or_404(User, id=user_id)
     if action == 'approved':
         pending_admin.status = 2
         pending_admin.save()

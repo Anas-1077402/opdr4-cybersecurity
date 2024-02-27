@@ -4,6 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from ervaringsdeskundige.models import User
+from .forms import RegisterForm
 
 
 def register(request):
@@ -21,3 +22,16 @@ def register(request):
 def dashboard_ervaringsdeskundige(request):
     current_user = request.user
     return render(request, 'ervaringsdeskundige/dashboard.html', {'user': current_user})
+
+@login_required
+def edit_profile(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = RegisterForm(request.POST, instance=current_user)
+        if form.is_valid():
+            form.save()
+            return redirect('/ervaringsdeskundige/dashboard')
+    else:
+        form = RegisterForm(instance=current_user)
+
+    return render(request, 'ervaringsdeskundige/edit_profile.html', {'form': form})
