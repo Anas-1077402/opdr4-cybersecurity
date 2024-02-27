@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 from main.models import Toezichthouders
-from beheerder.models import CustomUser
+from beheerder.models import Beheerders
 
 
 
@@ -18,13 +18,14 @@ class Ervaringsdeskundige(AbstractUser):
     bijzonderheden_beschikbaarheid = models.TextField(max_length=100, blank=True)
     username = models.CharField(max_length=100)
     voorkeur_benadering = models.CharField(max_length=20)
+    status = models.CharField(max_length=10)
     toezichthouder = models.ForeignKey(
         Toezichthouders,
         on_delete=models.CASCADE,
         related_name='ervaringsdeskundige_toezichthouders'
     )
     datum_goedgekeurd = models.DateTimeField(blank=True, null=True)
-    goedegekeurd_door = models.ForeignKey(CustomUser, models.DO_NOTHING, db_column='goedegekeurd_door', blank=True, null=True)
+    goedegekeurd_door = models.ForeignKey(Beheerders, models.DO_NOTHING, db_column='goedegekeurd_door', blank=True, null=True)
     #userpermission
     groups = models.ManyToManyField(
         Group,

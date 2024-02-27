@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import RegistratieFormulier
 from django.contrib.auth.decorators import login_required
-from beheerder.models import CustomUser
+from beheerder.models import Beheerders
 
 
 def home_view(request):
@@ -11,7 +11,7 @@ def home_view(request):
 
 @login_required()
 def dashboard_beheerder(request):
-    pending_admins = CustomUser.objects.filter(status=1)
+    pending_admins = Beheerders.objects.filter(status=1)
     current_user = request.user
     return render(request, 'beheerder/dashboard.html', {'pending_admins': pending_admins, 'user': current_user})
 
@@ -67,7 +67,7 @@ def logout_beheerder(request):
 
 
 def change_status(request, user_id, action):
-    pending_admin = get_object_or_404(CustomUser, id=user_id)
+    pending_admin = get_object_or_404(Beheerders, id=user_id)
     if action == 'approved':
         pending_admin.status = 2
         pending_admin.save()

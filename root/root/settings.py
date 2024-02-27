@@ -74,6 +74,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'root.wsgi.application'
 
+AUTHENTICATION_BACKENDS = [
+    'beheerder.backends.BeheerdersAuthBackend',
+    'ervaringsdeskundige.backends.ErvaringsdeskundigeAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -134,5 +140,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'beheerder.CustomUser'
-
+AUTH_USER_MODEL = 'beheerder.Beheerders'

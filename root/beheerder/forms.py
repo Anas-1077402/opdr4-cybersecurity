@@ -1,13 +1,13 @@
 from typing import Any
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
+from .models import Beheerders
 
 class RegistratieFormulier(UserCreationForm):
     functie = forms.CharField(max_length=100,)
 
     class Meta:
-        model = CustomUser
+        model = Beheerders
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2', 'functie')
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
