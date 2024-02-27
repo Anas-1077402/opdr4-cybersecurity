@@ -74,12 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'root.wsgi.application'
 
-AUTHENTICATION_BACKENDS = [
-    'beheerder.backends.BeheerdersAuthBackend',
-    'ervaringsdeskundige.backends.ErvaringsdeskundigeAuthBackend',
-    'django.contrib.auth.backends.ModelBackend',
-]
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

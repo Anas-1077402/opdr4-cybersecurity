@@ -19,7 +19,7 @@ def register(request):
 
 def login_ervaringsdeskundige(request):
     if request.user.is_authenticated:
-        return redirect('/')
+        return redirect('/ervaringsdeskundige/dashboard')
 
     if request.method == "POST":
         username = request.POST["username"]
@@ -29,7 +29,7 @@ def login_ervaringsdeskundige(request):
         print(user)
         if user is not None:
             login(request, user)
-            return redirect('/')
+            return redirect('/ervaringsdeskundige/dashboard')
         else:
             print("het werkt niet")
             messages.success(request, ("Het inloggen ging fout"))
@@ -37,3 +37,9 @@ def login_ervaringsdeskundige(request):
 
     else:
         return render(request, 'ervaringsdeskundige/login.html', {})
+
+
+@login_required()
+def dashboard_ervaringsdeskundige(request):
+    current_user = request.user
+    return render(request, 'ervaringsdeskundige/dashboard.html', {'user': current_user})

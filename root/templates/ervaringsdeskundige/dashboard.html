@@ -1,0 +1,50 @@
+{% extends "ervaringsdeskundige/base.html" %}
+{% load static %}
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+<div id="body_dashboard">
+    
+    <div id="dashboard_content">
+      
+        <div id="grey_background" class="d-flex flex-column flex-shrink-0 mr-3 p-3" style="width: 280px;">
+          
+            <ul class="nav nav-pills flex-column mb-auto">
+              <li class="nav-item">
+                <a href="#" class="nav-link active" aria-current="page">
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                  Ingeschreven onderzoeken
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                  Afgeronde onderzoeken
+                </a>
+              </li>
+            </ul>
+            <hr>
+          </div>
+          <div style="margin-left: 15px;">
+            <h1 style="margin-left: 15px;">ervaringsdeskundigen Dashboard</h1>
+            <div id="stat_cards">
+                <div class="card_stat">
+                    <h3>Aantal onderzoeken voltooid</h3>
+                    <p class="number">11</p>
+                </div>
+                <div class="card_stat">
+                    <h3>Aantal ingeschreven onderzoeken</h3>
+                    <p class="number">24</p>
+                </div>
+                <div class="card_stat">
+                    <h3>Lopende onderzoeken</h3>
+                    <p class="number">2</p>
+                </div>
+            </div>
+            
+<div class="hatsieflatsie"> <br><br><br></div>
+{% endblock %}
+
