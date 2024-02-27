@@ -42,6 +42,9 @@ def signup(request):
 
 
 def login_beheerder(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -53,13 +56,14 @@ def login_beheerder(request):
         else:
             messages.success(request, ("Het inloggen ging fout"))
             return render(request, 'beheerder/login.html', {})
+
     else:
         return render(request, 'beheerder/login.html', {})
 
 
 def logout_beheerder(request):
     logout(request)
-    return redirect("/login")
+    return redirect("/beheerder/login-beheerder")
 
 
 def change_status(request, user_id, action):
