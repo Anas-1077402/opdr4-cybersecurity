@@ -51,21 +51,14 @@ def dashboard(request):
 @api_view(['GET'])
 def get_dashboard(request):
     data = dict()
+    list_research = Onderzoeken.objects.filter(status=1)
+    count_research = list_research.count()
     context = {
-        'research': research
+        'research': list_research,
+        'count_research': count_research,
     }
     data['research'] = render_to_string("beheerder/dashboard_research.html", context, request=request)
     return JsonResponse(data)
-
-
-"""
-        list_research = Onderzoeken.objects.filter(status=0)
-        serializer = OnderzoekenSerializer(list_research, many=True)
-        return JsonResponse(serializer.data, safe=False)
-
-    else:
-        HttpResponse(status=400)
-"""
 
 
 @api_view(['GET', 'POST'])

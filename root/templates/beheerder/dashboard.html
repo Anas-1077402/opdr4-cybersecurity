@@ -2,9 +2,32 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-<div class="container" style="border:1px solid #cecece;">
-    <div id="research" class="col">
-        <h2 class="text-center">Onderzoeken</h2>
+<div class="container" style="border:1px solid #cecece;background-color: aliceblue;">
+    <div class="row row-cols-3 row-cols-3 row-cols-3">
+        <div id="research" class="col border-end">
+            <h2 class="text-center border-bottom pb-1">Onderzoeken: 0</h2>
+            <div class="card text-center mb-3" style="width: 22rem;height: 26rem;">
+                <div class="card-body">
+                    <h5 class="card-title">placeholder</h5>
+                </div>
+            </div>
+        </div>
+        <div id="experience_expert" class="col border-end">
+            <h2 class="text-center border-bottom pb-1">Ervaringsdeskundiges: 0</h2>
+            <div class="card text-center mb-3" style="width: 22rem;height: 26rem;">
+                <div class="card-body">
+                    <h5 class="card-title">placeholder</h5>
+                </div>
+            </div>
+        </div>
+        <div id="organization" class="col">
+            <h2 class="text-center border-bottom pb-1">Organisaties: 0</h2>
+            <div class="card text-center mb-3" style="width: 22rem;height: 26rem;">
+                <div class="card-body">
+                    <h5 class="card-title">placeholder</h5>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
