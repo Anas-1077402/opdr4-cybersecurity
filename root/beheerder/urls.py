@@ -9,6 +9,4 @@ urlpatterns = [
     path('change_status/<int:user_id>/<str:action>/', views.change_status, name='change_status'),
     path('edit_profile', views.edit_profile, name="edit_profile"),
 
-
 ]
-
