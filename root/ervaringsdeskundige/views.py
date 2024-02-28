@@ -35,3 +35,7 @@ def edit_profile(request):
         form = RegisterForm(instance=current_user)
 
     return render(request, 'ervaringsdeskundige/edit_profile.html', {'form': form})
+
+def logout_ervaringsdeskundige(request):
+    logout(request)
+    return redirect("/login")
