@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from ervaringsdeskundige.models import User
 from .forms import RegisterForm
+from main.models import Onderzoeken
 
 
 def register(request):
@@ -40,3 +41,8 @@ def edit_profile(request):
 def logout_ervaringsdeskundige(request):
     logout(request)
     return redirect("/login")
+
+@login_required
+def onderzoeken(request):
+    investigations = Onderzoeken.objects.all()
+    return render(request, 'ervaringsdeskundige/onderzoeken.html', {'investigations': investigations})

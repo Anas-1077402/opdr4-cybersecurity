@@ -42,7 +42,6 @@ def signup(request):
     return render(request, 'beheerder/signup.html', {'form': form})
 
 
-
 def logout_beheerder(request):
     logout(request)
     return redirect("/login")
