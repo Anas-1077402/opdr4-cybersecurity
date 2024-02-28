@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from ervaringsdeskundige.models import User
 from .forms import RegisterForm
-from main.models import Onderzoeken
+from main.models import Onderzoeken, Deelnames
 
 
 def register(request):
@@ -46,3 +46,16 @@ def logout_ervaringsdeskundige(request):
 def onderzoeken(request):
     investigations = Onderzoeken.objects.all()
     return render(request, 'ervaringsdeskundige/onderzoeken.html', {'investigations': investigations})
+
+@login_required
+def register_investigation(request, investigation_id):
+    user_id = request.user.id
+
+    new_register_investigation = Deelnames(ervaringsdeskundige_id=user_id, onderzoeks_id=investigation_id, status=2)
+    new_register_investigation.save()
+
+    return redirect('/ervaringsdeskundige/register_investigation_succes')
+
+@login_required
+def register_investigation_succes(request):
+    return render(request, 'ervaringsdeskundige/register_investigation_succes.html')

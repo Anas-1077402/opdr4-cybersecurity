@@ -1,6 +1,18 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
-from main.models import Toezichthouders
+
+class Toezichthouders(models.Model):
+    ervaringsdeskundige = models.IntegerField(blank=True, null=True)
+    voornaam_1 = models.TextField()
+    achternaam_1 = models.TextField()
+    telefoonnummer_1 = models.TextField()
+    voornaam_2 = models.TextField(blank=True, null=True)
+    achternaam_2 = models.TextField(blank=True, null=True)
+    telefoonnummer_2 = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'Toezichthouders'
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=100)
@@ -41,7 +53,6 @@ class User(AbstractUser):
         related_query_name='user',
     )
 
-
 class BeperkingenErvaringsdeskundigen(models.Model):
     beperking_id = models.IntegerField()
     ervaringsdeskundigen_id = models.IntegerField()
@@ -58,3 +69,5 @@ class BeperkingenOnderzoeken(models.Model):
     class Meta:
         managed = False
         db_table = 'Beperkingen_onderzoeken'
+
+

@@ -1,0 +1,47 @@
+{% extends "ervaringsdeskundige/base.html" %}
+{% load static %}
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+<div id="body_dashboard">
+    
+    <div id="dashboard_content">
+      
+        <div id="grey_background" class="d-flex flex-column flex-shrink-0 mr-3 p-3" style="width: 280px;">
+          
+            <ul class="nav nav-pills flex-column mb-auto">
+              <li class="nav-item">
+                <a href="/ervaringsdeskundige/dashboard" class="nav-link link-dark" aria-current="page">
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="/ervaringsdeskundige/onderzoeken" class="nav-link active">
+                  Onderzoeken
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                  Ingeschreven onderzoeken
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                  Afgeronde onderzoeken
+                </a>
+              </li>
+            </ul>
+            <hr>
+          </div>
+            <div class="d-flex align-items-center justify-content-center m-4 p-1">
+                <div class="d-flex flex-column align-items-center justify-content-center">
+                <h1>Uw aanmeldingsverzoek is succesvol ingediend ✅</h1><br>
+                <h4><em>Uw verzoek wordt zo snel mogelijk gekeurd...</em></h4><br>
+                <iframe src="https://giphy.com/embed/23LYMTOwp0gdFx3xZE" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+            </div>
+            </div>
+
+            
+<div class="hatsieflatsie"> <br><br><br></div>
+{% endblock %}
+

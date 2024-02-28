@@ -6,6 +6,7 @@
 # #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from ervaringsdeskundige.models import User
 
 
 
@@ -32,16 +33,14 @@ from django.db import models
 #         db_table = 'Beperkingen'
 
 
+class Deelnames(models.Model):
+    onderzoeks = models.ForeignKey('Onderzoeken', models.DO_NOTHING)
+    ervaringsdeskundige = models.ForeignKey(User, models.DO_NOTHING, )
+    status = models.IntegerField()
 
-
-# class Deelnames(models.Model):
-#     onderzoeks = models.ForeignKey('Onderzoeken', models.DO_NOTHING)
-#     ervaringsdeskundige = models.ForeignKey('ErvaringsdeskundigeErvaringsdeskundige', models.DO_NOTHING)
-#     status = models.IntegerField()
-
-#     class Meta:
-#         managed = False
-#         db_table = 'Deelnames'
+    class Meta:
+        managed = False
+        db_table = 'Deelnames'
 
 
 # class MedewerkersOrganisatie(models.Model):

@@ -16,7 +16,7 @@
                 </a>
               </li>
               <li>
-                <a href="#" class="nav-link active">
+                <a href="onderzoeken" class="nav-link active">
                   Onderzoeken
                 </a>
               </li>
@@ -56,7 +56,11 @@
                           {% else %}
                               Geen beloning beschikbaar
                           {% endif %}</td>
-                      <td><a class="btn btn-primary" href="change_status/{{ admin.id }}/approved">Meld aan</a></td>
+                      <td>
+                        <form method="post" action="investigation/{{ investigation.onderzoeks_id }}">
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-primary">Meld aan</button>
+                        </form></td>
                   </tr>
                   {% endfor %}
                   </tbody>
