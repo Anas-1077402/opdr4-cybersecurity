@@ -3,6 +3,7 @@ from django import forms
 from django.forms import DateInput
 from django.contrib.auth.forms import UserCreationForm
 from .models import User
+from main.models import Beperkingen
 
 
 class RegisterForm(UserCreationForm):
@@ -28,3 +29,8 @@ class RegisterForm(UserCreationForm):
         self.fields['gebruikte_hulpmiddelen'].widget.attrs.update({'class': 'form-control'})
         self.fields['bijzonderheden'].widget.attrs.update({'class': 'form-control'})
         self.fields['bijzonderheden_beschikbaarheid'].widget.attrs.update({'class': 'form-control'})
+
+
+
+class BeperkingForm(forms.Form):
+    beperkingen = forms.ModelMultipleChoiceField(queryset=Beperkingen.objects.all(), widget=forms.CheckboxSelectMultiple)

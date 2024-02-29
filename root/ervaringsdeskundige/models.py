@@ -29,7 +29,7 @@ class User(AbstractUser):
     bijzonderheden_beschikbaarheid = models.TextField(max_length=100, blank=True)
     username = models.CharField(max_length=100, unique=True)
     voorkeur_benadering = models.CharField(max_length=20)
-    status = models.CharField(max_length=10, default=0)
+    status = models.CharField(max_length=10, default=1)
     toezichthouder = models.ForeignKey(
         Toezichthouders,
         on_delete=models.CASCADE,

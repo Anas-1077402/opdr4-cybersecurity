@@ -1,36 +1,10 @@
+
 {% extends "home/base.html" %}
+{% load static %}
 {% block title %}Registreren{% endblock %}
 
 {% block content %}
-<!-- <div class="container mt-5">
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-    <h2 class="mb-0">Registreren als Ervaringsdeskundige</h2>
-        </div>
-        <div class="card-body">
-            {% if form.errors %}
-                <div class="alert alert-danger">
-                    <strong>Oeps! Er zijn enkele fouten opgetreden:</strong>
-                    <ul>
-                        {% for field, errors in form.errors.items %}
-                            {% for error in errors %}
-                                <li>{{ field|title }}: {{ error }}</li>
-                            {% endfor %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-        <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input class="btn btn-primary" type="submit" value="Registreren">
-        </form>
-        </div>
-      </div>
-    </div>
 
-
-    <br><br><br> -->
 
     <section class="vh-50" style="background-color: #2779e2;">
         <br><br><br>
@@ -205,6 +179,49 @@
                     </div>
                   </div>
 
+                  <hr class="mx-n3">
+      
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Beperkingen</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+                        <select class="selectpicker" data-width="100%" data-live-search="true" name="selected_limitations" multiple title="Selecteer uw beperking(en)">
+                            <optgroup label="Auditieve beperking">
+                                {% for limitation in limitations %}
+                                    {% if limitation.soort == "Auditieve beperking" %}
+                                        <option value="{{ limitation.id }}">{{ limitation.omschrijving }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </optgroup>
+                            <optgroup label="Visuele beperking">
+                                {% for limitation in limitations %}
+                                    {% if limitation.soort == "Visuele beperking" %}
+                                        <option value="{{ limitation.id }}">{{ limitation.omschrijving }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </optgroup>
+                            <optgroup label="Motorische / lichamelijke beperking">
+                                {% for limitation in limitations %}
+                                    {% if limitation.soort == "Motorische / lichamelijke beperkingen" %}
+                                        <option value="{{ limitation.id }}">{{ limitation.omschrijving }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </optgroup>
+                            <optgroup label="Cognitieve / neurologische beperking">
+                                {% for limitation in limitations %}
+                                    {% if limitation.soort == "Cognitieve / neurologische beperkingen" %}
+                                        <option value="{{ limitation.id }}">{{ limitation.omschrijving }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </optgroup>
+                        </select>
+                          
+                    </div>
+                  </div>
+
                   
                   <hr class="mx-n3">
       
@@ -264,5 +281,4 @@
           </div>
         </div>
         <br><br><br>
-      </section>
 {% endblock %}
