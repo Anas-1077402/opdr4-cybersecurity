@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from ervaringsdeskundige.models import User
-from .forms import RegisterForm
+from .forms import RegisterForm, ToezichthoudersForm
 from main.models import (
     Onderzoeken,
     Deelnames,
@@ -17,6 +17,8 @@ def register(request):
     limitations = Beperkingen.objects.all()
     if request.method == "POST":
         form = RegisterForm(request.POST)
+        supervisors_post = ToezichthoudersForm(request.POST)
+
         if form.is_valid():
             user = form.save()
 
@@ -29,14 +31,21 @@ def register(request):
                     ervaringsdeskundigen_id=user_id,
                 )
                 ervaringsdeskundige_beperking.save()
+
+            if supervisors_post.is_valid():
+                toezichthouder = supervisors_post.save(commit=False)
+                toezichthouder.ervaringsdeskundige = user_id
+                toezichthouder.save()
+
             return redirect("/")
     else:
         form = RegisterForm()
+        supervisors = ToezichthoudersForm()
 
     return render(
         request,
         "ervaringsdeskundige/register.html",
-        {"form": form, "limitations": limitations},
+        {"form": form, "limitations": limitations, "supervisors": supervisors},
     )
 
 

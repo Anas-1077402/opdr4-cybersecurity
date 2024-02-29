@@ -189,3 +189,8 @@ td {
 body {
     background-color: rgb(245, 245, 245);
 }
+
+.hidden {
+    display: none;
+    transition: opacity 0.5s ease-out;
+}
