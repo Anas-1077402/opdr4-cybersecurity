@@ -16,3 +16,6 @@ Prompt chatgpt:
 "kan ik 2 codes zoals path('change_status/<int:user_id>/<str:action>/') doorgeven in een link?"
 "hoe kan ik op 2 verschillende plekken verschillend authenticeren?"
 "kan ik ook 1 auth user model gebruiken?"
+"hoe zet voeg ik bootstrap select toe?"
+"wat is de goede volgorde van mijn script tags"
+"hoe zet ik default info in mijn serializer"

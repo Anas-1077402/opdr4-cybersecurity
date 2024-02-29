@@ -21,7 +21,7 @@
                 </a>
               </li>
               <li>
-                <a href="#" class="nav-link active">
+                <a href="registered_investigations" class="nav-link active">
                   Ingeschreven onderzoeken
                 </a>
               </li>
@@ -57,9 +57,9 @@
                               Geen beloning beschikbaar
                           {% endif %}</td>
                       <td>
-                        <form method="post" action="investigation/{{ investigation.onderzoeks_id }}">
+                        <form method="post" action="unsubscribe_investigation/{{ investigation.onderzoeks_id }}">
                           {% csrf_token %}
-                          <button type="submit" class="btn btn-primary">Meld aan</button>
+                          <button type="submit" class="btn btn-primary">Schrijf uit</button>
                         </form></td>
                   </tr>
                   {% endfor %}

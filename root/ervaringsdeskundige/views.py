@@ -122,5 +122,8 @@ def register_investigation_succes(request):
     return render(request, "ervaringsdeskundige/register_investigation_succes.html")
 
 @login_required
-def unsubscribe_investigation(request):
+def unsubscribe_investigation(request, investigation_id):
+    user_id = request.user.id
+    investigation_delete = Deelnames.objects.filter(ervaringsdeskundige_id=user_id, onderzoeks_id=investigation_id)
+    investigation_delete.delete()
     return render(request, "ervaringsdeskundige/unsubscribe_investigation.html")
