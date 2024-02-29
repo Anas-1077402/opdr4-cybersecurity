@@ -26,9 +26,9 @@ class RegisterForm(UserCreationForm):
         self.fields['geslacht'].widget.attrs.update({'class': 'form-control'})
         self.fields['telefoonnummer'].widget.attrs.update({'class': 'form-control'})
         self.fields['geboortedatum'].widget.attrs.update({'class': 'form-control', 'type': "date", 'id': "geboortedatum", 'onchange': "ageChecker()"})
-        self.fields['gebruikte_hulpmiddelen'].widget.attrs.update({'class': 'form-control'})
-        self.fields['bijzonderheden'].widget.attrs.update({'class': 'form-control'})
-        self.fields['bijzonderheden_beschikbaarheid'].widget.attrs.update({'class': 'form-control'})
+        self.fields['gebruikte_hulpmiddelen'].widget.attrs.update({'class': 'form-control', 'style': "height: 100px; resize: none;"})
+        self.fields['bijzonderheden'].widget.attrs.update({'class': 'form-control', 'style': "height: 100px; resize: none;"})
+        self.fields['bijzonderheden_beschikbaarheid'].widget.attrs.update({'class': 'form-control', 'style': "height: 100px; resize: none;"})
 
 
 class BeperkingForm(forms.Form):
