@@ -2,6 +2,7 @@ Bronnen wp3:
 https://www.youtube.com/watch?v=eosXCVcgtPw&t=155s
 https://www.youtube.com/watch?v=ynToND_xOAM
 https://reintech.io/blog/writing-custom-authentication-backend-django
+https://developer.snapappointments.com/bootstrap-select/examples/#multiple-select-boxes
 
 Styling: 
 https://getbootstrap.com/

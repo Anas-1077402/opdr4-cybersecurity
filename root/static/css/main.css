@@ -103,33 +103,39 @@ p {
 }
 
 #stat_cards {
-
     background-color: rgb(245, 245, 245);
-    justify-content: center;
     display: flex;
-    flex-grow: 1;   
-    gap: 100px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
     color: rgb(117, 117, 117);
     font-weight: 800;
     margin-bottom: 50px;
     margin-top: 30px;
-
-
 }
 
 .card_stat {
+    flex: 1 0 300px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    width: 450px;
-    height: 300px;
     background-color: #ffffff;
-    border-color: #ffffff;
+    border: 1px solid #ffffff;
     color: #848484;
     box-shadow: 0 0 10px rgba(13, 110, 253, 1);
+    margin: 10px;
 }
+
+
+@media (max-width: 767px) {
+    .card_stat {
+        flex: 1 0 100%;
+        max-width: none;
+    }
+}
+
 
 
 .number {

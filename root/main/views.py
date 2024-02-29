@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
+from rest_framework.response import Response
 
 
 def index(request):
@@ -84,9 +85,7 @@ def lijst_onderzoeken(request):
     if request.method == 'GET':
         try:
             organisation = Organisaties.objects.get(api_key=API_key)
-
             organisation_id = organisation.organisatie_id
-
             onderzoeken_per_org = Onderzoeken.objects.filter(organisatie_id=organisation_id)
             serializer = OnderzoekenSerializer(onderzoeken_per_org, many=True)
             return JsonResponse(serializer.data, safe=False)
@@ -97,12 +96,17 @@ def lijst_onderzoeken(request):
     elif request.method == 'POST':
         try:
             Organisaties.objects.get(api_key=API_key)
-
             data = JSONParser().parse(request)
             serializer = OnderzoekenSerializer(data=data)
+            print("test1")           
             if serializer.is_valid():
                 serializer.save()
+                print("test2")
                 return JsonResponse(serializer.data, status=201)
+            else:
+                print("Validation errors:", serializer.errors)
 
         except Organisaties.DoesNotExist:
             return JsonResponse({'error': 'Ongeldige API-key'}, status=400)
+
+    return Response({'error': 'Onverwachte fout'}, status=500)

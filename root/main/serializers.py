@@ -62,3 +62,10 @@ class OnderzoekenSerializer(serializers.ModelSerializer):
             'opmerkingen_beheerder',
             'type_onderzoek',
         ]
+        read_only_fields = ['status', 'contact_opgenomen']
+
+    def create(self, validated_data):
+        validated_data['status'] = 1
+        validated_data['contact_opgenomen'] = 0
+
+        return super(OnderzoekenSerializer, self).create(validated_data)

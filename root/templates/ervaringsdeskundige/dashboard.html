@@ -21,7 +21,7 @@
                 </a>
               </li>
               <li>
-                <a href="#" class="nav-link link-dark">
+                <a href="registered_investigations" class="nav-link link-dark">
                   Ingeschreven onderzoeken
                 </a>
               </li>
@@ -33,22 +33,27 @@
             </ul>
             <hr>
           </div>
-          <div style="margin-left: 15px;"><br>
-            <h1 style="margin-left: 15px;">Welkom {{ user.first_name}}👋!</h1>
-            <div id="stat_cards">
-                <div class="card_stat">
-                    <h3>Aantal onderzoeken voltooid</h3>
-                    <p class="number">11</p>
-                </div>
-                <div class="card_stat">
-                    <h3>Aantal ingeschreven onderzoeken</h3>
-                    <p class="number">24</p>
-                </div>
-                <div class="card_stat">
-                    <h3>Lopende onderzoeken</h3>
-                    <p class="number">2</p>
+          <div class="container-xl">
+            <div style="margin-left: 15px;">
+                <br>
+                <h1 style="margin-left: 15px;">Welkom {{ user.first_name}}👋!</h1>
+                <div id="stat_cards" class="row">
+                    <div class="col-md-4 card_stat">
+                        <h3>Aantal onderzoeken voltooid</h3>
+                        <p class="number">11</p>
+                    </div>
+                    <div class="col-md-4 card_stat">
+                        <h3>Aantal ingeschreven onderzoeken</h3>
+                        <p class="number">24</p>
+                    </div>
+                    <div class="col-md-4 card_stat">
+                        <h3>Lopende onderzoeken</h3>
+                        <p class="number">2</p>
+                    </div>
                 </div>
             </div>
+        </div>        
+        
             
 <div class="hatsieflatsie"> <br><br><br></div>
 {% endblock %}

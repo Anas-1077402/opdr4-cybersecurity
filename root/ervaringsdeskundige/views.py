@@ -85,13 +85,34 @@ def onderzoeken(request):
 
 
 @login_required
+def registered_investigations(request):
+    user_id = request.user.id
+
+    current_investigations = Deelnames.objects.filter(ervaringsdeskundige_id=user_id)
+
+    investigation_ids = current_investigations.values_list('onderzoeks_id', flat=True)
+
+    investigations = Onderzoeken.objects.filter(onderzoeks_id__in=investigation_ids)
+
+    return render(
+        request,
+        "ervaringsdeskundige/registered_investigations.html",
+        {"investigations": investigations},
+    )
+
+
+
+@login_required
 def register_investigation(request, investigation_id):
     user_id = request.user.id
 
-    new_register_investigation = Deelnames(
-        ervaringsdeskundige_id=user_id, onderzoeks_id=investigation_id, status=2
-    )
-    new_register_investigation.save()
+    existing = Deelnames.objects.filter(ervaringsdeskundige_id=user_id, onderzoeks_id=investigation_id)
+
+    if not existing:
+        new_register_investigation = Deelnames(
+            ervaringsdeskundige_id=user_id, onderzoeks_id=investigation_id, status=2
+        )
+        new_register_investigation.save()
 
     return redirect("/ervaringsdeskundige/register_investigation_succes")
 
@@ -99,3 +120,7 @@ def register_investigation(request, investigation_id):
 @login_required
 def register_investigation_succes(request):
     return render(request, "ervaringsdeskundige/register_investigation_succes.html")
+
+@login_required
+def unsubscribe_investigation(request):
+    return render(request, "ervaringsdeskundige/unsubscribe_investigation.html")
