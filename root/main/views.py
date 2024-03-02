@@ -51,7 +51,7 @@ def dashboard(request):
 def research_item(request, pk):
     research_item_data = Onderzoeken.objects.get(pk=pk)
     context = {
-        "research_item_data": research_item_data
+        "data": research_item_data
     }
     return render(request, "beheerder/dashboard/dashboard_research_item.html", context)
 

@@ -1,6 +1,6 @@
 <h2 class="text-center border-bottom pb-1">Onderzoeken: {{ count_research }}</h2>
 {% for item in research %}
-<div id="{{ item.onderzoeks_id }}" class="card text-center mb-3" style="width: 22rem;height: 26rem;cursor: pointer;" onclick="location.href='dashboard/research/{{ item.onderzoeks_id }}';">
+<div id="{{ item.onderzoeks_id }}" class="card text-center mb-3" style="width: 22rem;height: 26rem;cursor: pointer;" tabindex="0" onclick="location.href='dashboard/research/{{ item.onderzoeks_id }}';">
     <div class="card-body">
         <h5 class="card-title">{{ item.titel }}</h5>
         {% if item.status == 0 %}
