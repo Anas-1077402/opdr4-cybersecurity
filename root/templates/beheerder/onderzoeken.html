@@ -34,13 +34,21 @@
                     <h2 class="p-3">Onderzoeken in afwachting</h2>
                       <thead>
                       <tr>
-                          <th scope="col">Naam</th>
-                          <th scope="col">Email</th>
-                          <th scope="col">Functie</th>
+                          <th scope="col">Titel</th>
+                          <th scope="col">Datum vanaf</th>
+                          <th scope="col">Datum tot</th>
                           <th scope="col">Status</th>
                       </tr>
                       </thead>
                       <tbody>
+                        {% for onderzoek in onderzoeken %}
+                            <tr>
+                                <td>{{ onderzoek.titel }}</td>
+                                <td>{{ onderzoek.datum_vanaf }}</td>
+                                <td>{{ onderzoek.datum_tot }}</td>
+                                <td>{{ onderzoek.status }}</td>
+                            </tr>
+                        {% endfor %}
                           {% for admin in pending_admins %}
                       <tr>
                           <td><a href="/beheerder/checkout_admin/{{ admin.id }}">{{ admin.first_name }} {{ admin.last_name}}</a></td>
