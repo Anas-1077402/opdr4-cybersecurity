@@ -61,3 +61,9 @@ def change_status(request, user_id, action):
         pending_admin.status = 3
         pending_admin.save()
         return redirect('/beheerder/dashboard')
+
+
+@staff_member_required
+def onderzoeken(request):
+
+    return render(request, 'beheerder/onderzoeken.html')
