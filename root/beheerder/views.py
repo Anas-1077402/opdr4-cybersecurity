@@ -9,9 +9,10 @@ from ervaringsdeskundige.models import User
 def home_view(request):
     return render(request, 'home.html')
 
+
 @staff_member_required
 def dashboard_beheerder(request):
-    pending_admins = User.objects.filter(status=1)
+    pending_admins = User.objects.filter(status=1).filter(is_staff=1)
     current_user = request.user
     return render(request, 'beheerder/dashboard/dashboard.html', {'pending_admins': pending_admins, 'user': current_user})
 
@@ -51,11 +52,12 @@ def logout_beheerder(request):
 def change_status(request, user_id, action):
     pending_admin = get_object_or_404(User, id=user_id)
     if action == 'approved':
+        print("check2")
         pending_admin.status = 2
         pending_admin.save()
-        redirect('dashboard')
+        return redirect('/beheerder/dashboard')
 
     if action == 'declined':
         pending_admin.status = 3
         pending_admin.save()
-        redirect('dashboard')
+        return redirect('/beheerder/dashboard')
