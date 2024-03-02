@@ -10,5 +10,6 @@ urlpatterns = [
     path("API/organisatie/onderzoeken", views.lijst_onderzoeken, name="lijst_onderzoeken"),
     path("beheerder/dashboard", views.dashboard, name="dashboard"),
     path("beheerder/dashboard/all", views.get_dashboard, name="get_dashboard"),
+    path("beheerder/dashboard/research/<int:pk>", views.research_item, name="research_items"),
     path("login", views.custom_login, name="customlogin"),
 ]

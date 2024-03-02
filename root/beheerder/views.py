@@ -13,7 +13,7 @@ def home_view(request):
 def dashboard_beheerder(request):
     pending_admins = User.objects.filter(status=1)
     current_user = request.user
-    return render(request, 'beheerder/dashboard.html', {'pending_admins': pending_admins, 'user': current_user})
+    return render(request, 'beheerder/dashboard/dashboard.html', {'pending_admins': pending_admins, 'user': current_user})
 
 
 @staff_member_required

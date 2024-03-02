@@ -45,19 +45,32 @@ def register(request):
 
 
 def dashboard(request):
-    return render(request, "beheerder/dashboard.html")
+    return render(request, "beheerder/dashboard/dashboard.html")
+
+
+def research_item(request, pk):
+    research_item_data = Onderzoeken.objects.get(pk=pk)
+    context = {
+        "research_item_data": research_item_data
+    }
+    return render(request, "beheerder/dashboard/dashboard_research_item.html", context)
 
 
 @api_view(['GET'])
 def get_dashboard(request):
     data = dict()
-    list_research = Onderzoeken.objects.filter(status=1)
+    list_research = Onderzoeken.objects.filter(status=1).select_related("organisatie")
     count_research = list_research.count()
+    """
+    for n in list_research:
+        print(n)
+    print(list_research.query)
+    """
     context = {
         'research': list_research,
         'count_research': count_research,
     }
-    data['research'] = render_to_string("beheerder/dashboard_research.html", context, request=request)
+    data['research'] = render_to_string("beheerder/dashboard/dashboard_research.html", context, request)
     return JsonResponse(data)
 
 
