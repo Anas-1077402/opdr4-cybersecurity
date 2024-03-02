@@ -1,12 +1,30 @@
 {% extends "beheerder/base.html" %}
 {% load static %}
 {% block title %}Homepage{% endblock %}
-
 {% block content %}
+<script>
+    function goedkeuren(onderzoeksId) {
+        updateStatus(onderzoeksId, 2);
+    }
+
+    function afkeuren(onderzoeksId) {
+        updateStatus(onderzoeksId, 3);
+    }
+
+function updateStatus(onderzoeksId, nieuweStatus) {
+    fetch(`/beheerder/update_status/${onderzoeksId}/${nieuweStatus}/`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            location.reload();
+        })
+        .catch(error => console.error('Error:', error));
+}
+</script>
 <div id="grey_background" class="d-flex flex-column flex-shrink-0 mr-3 p-3" style="width: 280px;">
             <ul class="nav nav-pills flex-column mb-auto">
               <li class="nav-item">
-                <a href="{% url 'dashboard' %}" class="nav-link active" aria-current="page">
+                <a href="{% url 'dashboard' %}" class="nav-link dark">
                   Dashboard
                 </a>
               </li>
@@ -16,7 +34,7 @@
                 </a>
               </li>
               <li>
-                <a href="{% url 'onderzoeken' %}" class="nav-link link-dark">
+                <a href="{% url 'onderzoeken' %}" class="nav-link active" aria-current="page" >
                   Onderzoeken
                 </a>
               </li>
@@ -42,12 +60,18 @@
                       </thead>
                       <tbody>
                         {% for onderzoek in onderzoeken %}
+                            {% if onderzoek.status == 1 %}
                             <tr>
                                 <td>{{ onderzoek.titel }}</td>
                                 <td>{{ onderzoek.datum_vanaf }}</td>
                                 <td>{{ onderzoek.datum_tot }}</td>
-                                <td>{{ onderzoek.status }}</td>
+                                <td
+                                    class="{% if onderzoek.status == 0 %}status-awaiting{% elif onderzoek.status == 2 %}status-approved{% elif onderzoek.status == 3 %}status-rejected{% endif %}">{{ onderzoek.status }}
+                                    <button class="btn btn-success" onclick="goedkeuren({{ onderzoek.onderzoeks_id }});">Goedkeuren</button>
+                                    <button class="btn btn-danger" onclick="afkeuren({{ onderzoek.onderzoeks_id }});">Afkeuren</button>
+                                </td>
                             </tr>
+                            {% endif %}
                         {% endfor %}
                           {% for admin in pending_admins %}
                       <tr>

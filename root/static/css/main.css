@@ -189,3 +189,15 @@ td {
 body {
     background-color: rgb(245, 245, 245);
 }
+
+.status-awaiting {
+    background-color: yellow;
+}
+
+.status-approved {
+    background-color: green;
+}
+
+.status-rejected {
+    background-color: red;
+}

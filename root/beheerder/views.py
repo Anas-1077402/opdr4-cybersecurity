@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import RegistratieFormulier
+from django.http import JsonResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from main.models import Onderzoeken
 from ervaringsdeskundige.models import User
@@ -43,7 +44,6 @@ def signup(request):
     return render(request, 'beheerder/signup.html', {'form': form})
 
 
-
 def logout_beheerder(request):
     logout(request)
     return redirect("/login")
@@ -66,6 +66,14 @@ def change_status(request, user_id, action):
 
 @staff_member_required
 def onderzoeken(request):
-    onderzoeken = Onderzoeken.objects.values('titel', 'datum_vanaf', 'datum_tot', 'status')
+    onderzoeken = Onderzoeken.objects.values('titel', 'datum_vanaf', 'datum_tot', 'status', 'onderzoeks_id')
 
     return render(request, 'beheerder/onderzoeken.html', {'onderzoeken': onderzoeken})
+
+
+def update_status(request, onderzoeks_id, nieuwe_status):
+    print(f"Update status voor onderzoek {onderzoeks_id} naar {nieuwe_status}")
+    onderzoek = Onderzoeken.objects.get(onderzoeks_id=onderzoeks_id)
+    onderzoek.status = nieuwe_status
+    onderzoek.save()
+    return JsonResponse({'message': 'Status bijgewerkt'}, status=200)
