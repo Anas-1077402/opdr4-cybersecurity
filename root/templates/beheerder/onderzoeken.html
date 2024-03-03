@@ -71,8 +71,8 @@ function updateStatus(onderzoeksId, nieuweStatus) {
                                 <td>{{ onderzoek.locatie }}</td>
                                 <td>{{ onderzoek.status }}</td>
                                 <td>
-                                    <a class="btn btn-primary" href="#">Bijwerken</a>
-                                    <a class="btn btn-danger" href="#">Verwijderen</a>
+                                    <a href="{% url 'bewerk_onderzoek' onderzoek.onderzoeks_id %}" class="btn btn-primary">Bewerken</a>
+                                    <a href="{% url 'verwijder_onderzoek' onderzoek.onderzoeks_id %}" class="btn btn-danger">Verwijderen</a>
                                 </td>
                             </tr>
                         {% endfor %}

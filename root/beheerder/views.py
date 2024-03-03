@@ -77,3 +77,26 @@ def update_status(request, onderzoeks_id, nieuwe_status):
     onderzoek.status = nieuwe_status
     onderzoek.save()
     return JsonResponse({'message': 'Status bijgewerkt'}, status=200)
+
+def bewerk_onderzoek(request, onderzoeks_id):
+    onderzoek = get_object_or_404(Onderzoeken, onderzoeks_id=onderzoeks_id)
+
+    if request.method == 'POST':
+        onderzoek.titel = request.POST['titel']
+        onderzoek.omschrijving = request.POST['omschrijving']
+        # Voeg andere velden toe zoals datum, locatie, etc.
+        onderzoek.save()
+
+        return redirect('/beheerder/onderzoeken')
+
+    return render(request, 'beheerder/bewerk_onderzoek.html', {'onderzoek': onderzoek})
+
+
+def verwijder_onderzoek(request, onderzoeks_id):
+    onderzoek = get_object_or_404(Onderzoeken, onderzoeks_id=onderzoeks_id)
+
+    if request.method == 'POST':
+        onderzoek.delete()
+        return redirect('onderzoeken')
+
+    return render(request, 'verwijder_onderzoek.html', {'onderzoek': onderzoek})

@@ -10,4 +10,6 @@ urlpatterns = [
     path('edit_profile', views.edit_profile, name="edit_profile"),
     path('onderzoeken', views.onderzoeken, name="onderzoeken"),
     path('update_status/<int:onderzoeks_id>/<int:nieuwe_status>/', views.update_status, name='update_status'),
+    path('bewerk_onderzoek/<int:onderzoeks_id>/', views.bewerk_onderzoek, name='bewerk_onderzoek'),
+    path('verwijder_onderzoek/<int:onderzoeks_id>/', views.verwijder_onderzoek, name='verwijder_onderzoek'),
 ]

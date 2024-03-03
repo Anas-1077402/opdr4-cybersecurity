@@ -1,0 +1,15 @@
+{% extends "beheerder/base.html" %}
+{% block content %}
+    <h2>Bewerk onderzoek: {{ onderzoek.titel }}</h2>
+
+  <form method="post" action="{% url 'bewerk_onderzoek' onderzoek.onderzoeks_id %}">
+    {% csrf_token %}
+    <label for="titel">Titel:</label><br>
+    <input type="text" id="titel" name="titel" value="{{ onderzoek.titel }}" required>
+<br><br>
+    <label for="omschrijving">Omschrijving:</label><br>
+    <textarea id="omschrijving" name="omschrijving" required>{{ onderzoek.omschrijving }}</textarea>
+
+    <button class="btn btn-primary" type="submit">Opslaan</button>
+  </form>
+{% endblock %}
