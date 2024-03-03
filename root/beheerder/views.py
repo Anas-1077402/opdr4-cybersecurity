@@ -66,7 +66,7 @@ def change_status(request, user_id, action):
 
 @staff_member_required
 def onderzoeken(request):
-    onderzoeken = Onderzoeken.objects.values('titel', 'datum_vanaf', 'datum_tot', 'status', 'onderzoeks_id')
+    onderzoeken = Onderzoeken.objects.values('titel', 'omschrijving','datum_vanaf', 'datum_tot', 'locatie', 'status', 'onderzoeks_id')
 
     return render(request, 'beheerder/onderzoeken.html', {'onderzoeken': onderzoeken})
 
