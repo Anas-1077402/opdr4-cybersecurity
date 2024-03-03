@@ -1,27 +1,28 @@
 <h2 class="text-center border-bottom pb-1">Onderzoeken: {{ count_research }}</h2>
 {% for item in research %}
-<div id="{{ item.onderzoeks_id }}" class="card text-center mb-3" style="width: 22rem;height: 26rem;cursor: pointer;" tabindex="0" onclick="location.href='dashboard/research/{{ item.onderzoeks_id }}';">
+<div id="{{ item.onderzoeks_id }}" class="card text-center mb-3" style="width: 30rem;height: 25rem;cursor: pointer;" tabindex="0" onclick="location.href='dashboard/research/{{ item.onderzoeks_id }}';">
     <div class="card-body">
         <h5 class="card-title">{{ item.titel }}</h5>
-        {% if item.status == 0 %}
-        <p class="card-text">Status: ongekeurd</p>
-        {% elif item.status == 1 %}
-        <p class="card-text">Status: goed gekeurd</p>
-        {% endif %}
-        <p class="card-text">{{ item.omschrijving }}</p>
-        {% if item.soort_onderzoek == 1 %}
-        <p class="card-text">Telefoonisch</p>
-        {% elif item.soort_onderzoek == 2 %}
-        <p class="card-text">internet</p>
-        {% elif item.soort_onderzoek == 3 %}
-        <p class="card-text">Op locatie</p>
-        {% endif %}
-        <p class="card-text">Locatie: {{ item.locatie }}</p>
-        <p class="card-text">Doelgroep beperking: {{ item.KVK }}</p>
-        <p class="card-text">Doelgroep leeftijd: {{ item.doelgroep_leeftijd_van }} - {{ item.doelgroep_leeftijd_tot }}</p>
-        <p class="card-text">Datum: {{ item.datum_vanaf }} - {{ item.datum_tot }}</p>
-        <a href="/bruh" class="btn btn-primary 1">Keur goed</a>
-        <a href="/bruh2" class="btn btn-primary 0">Keur af</a>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Van: {{ item.organisatie.voornaam }}</h6>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ item.omschrijving }}</li>
+            {% if item.soort_onderzoek == 1 %}
+            <li class="list-group-item">Type: Telefoonisch</li>
+            {% elif item.soort_onderzoek == 2 %}
+            <li class="list-group-item">Type: Via internet</li>
+            {% elif item.soort_onderzoek == 3 %}
+            <li class="list-group-item">Type: Op locatie</li>
+            {% endif %}
+            <li class="list-group-item">Locatie: {{ item.locatie }}</li>
+            <li class="list-group-item">Doelgroep beperking:</li>
+            <li class="list-group-item">Doelgroep leeftijd: {{ item.doelgroep_leeftijd_van }} - {{ item.doelgroep_leeftijd_tot }}</li>
+            <li class="list-group-item">Datum: {{ item.datum_vanaf }} - {{ item.datum_tot }}</li>
+            <li class="list-group-item">
+                <a href="/#" class="btn btn-primary">Keur goed</a>
+                <a href="/#" class="btn btn-primary">Keur af</a>
+                <a href="/#" class="btn btn-danger">verwijder</a>
+            </li>
+        </ul>
     </div>
 </div>
 {% endfor %}

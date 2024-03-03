@@ -2,12 +2,12 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
-from main.models import Organisaties, Onderzoeken
+from main.models import Organisaties, Onderzoeken, ErvaringsdeskundigeErvaringsdeskundige
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
-from main.testdata import research
+
 
 
 def index(request):
@@ -49,7 +49,7 @@ def dashboard(request):
 
 
 def research_item(request, pk):
-    research_item_data = Onderzoeken.objects.get(pk=pk)
+    research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie").get(pk=pk)
     context = {
         "data": research_item_data
     }
@@ -61,16 +61,16 @@ def get_dashboard(request):
     data = dict()
     list_research = Onderzoeken.objects.filter(status=1).select_related("organisatie")
     count_research = list_research.count()
-    """
-    for n in list_research:
-        print(n)
-    print(list_research.query)
-    """
+    list_experience_expert = ErvaringsdeskundigeErvaringsdeskundige.objects.filter(status=2).select_related("toezichthouder")
+    count_experience_expert = list_experience_expert.count()
     context = {
         'research': list_research,
         'count_research': count_research,
+        'experience_expert': list_experience_expert,
+        'count_experience_expert': count_experience_expert,
     }
     data['research'] = render_to_string("beheerder/dashboard/dashboard_research.html", context, request)
+    data['experience_expert'] = render_to_string("beheerder/dashboard/dashboard_experience_expert.html", context, request)
     return JsonResponse(data)
 
 
