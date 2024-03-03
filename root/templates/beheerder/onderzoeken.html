@@ -57,6 +57,7 @@ function updateStatus(onderzoeksId, nieuweStatus) {
                           <th scope="col">Datum vanaf</th>
                           <th scope="col">Datum tot</th>
                           <th scope="col">Locatie</th>
+                          <th scope="col">Opmerking beheerder</th>
                           <th scope="col">Status</th>
                           <th scope="col">Actie</th>
                       </tr>
@@ -69,6 +70,7 @@ function updateStatus(onderzoeksId, nieuweStatus) {
                                 <td>{{ onderzoek.datum_vanaf }}</td>
                                 <td>{{ onderzoek.datum_tot }}</td>
                                 <td>{{ onderzoek.locatie }}</td>
+                                <td>{{ onderzoek.opmerkingen_beheerder }}</td>
                                 <td>{{ onderzoek.status }}</td>
                                 <td>
                                     <a href="{% url 'bewerk_onderzoek' onderzoek.onderzoeks_id %}" class="btn btn-primary">Bewerken</a>

@@ -66,7 +66,7 @@ def change_status(request, user_id, action):
 
 @staff_member_required
 def onderzoeken(request):
-    onderzoeken = Onderzoeken.objects.values('titel', 'omschrijving','datum_vanaf', 'datum_tot', 'locatie', 'status', 'onderzoeks_id')
+    onderzoeken = Onderzoeken.objects.values('titel', 'omschrijving','datum_vanaf', 'datum_tot', 'locatie', 'status', 'opmerkingen_beheerder', 'onderzoeks_id')
 
     return render(request, 'beheerder/onderzoeken.html', {'onderzoeken': onderzoeken})
 
@@ -78,13 +78,14 @@ def update_status(request, onderzoeks_id, nieuwe_status):
     onderzoek.save()
     return JsonResponse({'message': 'Status bijgewerkt'}, status=200)
 
+
 def bewerk_onderzoek(request, onderzoeks_id):
     onderzoek = get_object_or_404(Onderzoeken, onderzoeks_id=onderzoeks_id)
 
     if request.method == 'POST':
         onderzoek.titel = request.POST['titel']
         onderzoek.omschrijving = request.POST['omschrijving']
-        # Voeg andere velden toe zoals datum, locatie, etc.
+        onderzoek.opmerkingen_beheerder = request.POST['opmerkingen_beheerder']
         onderzoek.save()
 
         return redirect('/beheerder/onderzoeken')
@@ -99,4 +100,4 @@ def verwijder_onderzoek(request, onderzoeks_id):
         onderzoek.delete()
         return redirect('onderzoeken')
 
-    return render(request, 'verwijder_onderzoek.html', {'onderzoek': onderzoek})
+    return render(request, 'beheerder/verwijder_onderzoek.html', {'onderzoek': onderzoek})

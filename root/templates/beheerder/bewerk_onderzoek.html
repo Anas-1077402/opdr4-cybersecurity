@@ -8,7 +8,9 @@
     <input type="text" id="titel" name="titel" value="{{ onderzoek.titel }}" required>
 <br><br>
     <label for="omschrijving">Omschrijving:</label><br>
-    <textarea id="omschrijving" name="omschrijving" required>{{ onderzoek.omschrijving }}</textarea>
+    <textarea id="omschrijving" name="omschrijving" required>{{ onderzoek.omschrijving }}</textarea><br>
+    <label for="opmerkingen_beheerder">Opmerking Beheerder:</label><br>
+    <textarea id="opmerkingen_beheerder" name="opmerkingen_beheerder" required>{{ onderzoek.opmerkingen_beheerder }}</textarea>
 
     <button class="btn btn-primary" type="submit">Opslaan</button>
   </form>
