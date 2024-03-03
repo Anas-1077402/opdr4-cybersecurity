@@ -34,14 +34,14 @@ from django.db import models
 
 
 
-# class Deelnames(models.Model):
-#     onderzoeks = models.ForeignKey('Onderzoeken', models.DO_NOTHING)
-#     ervaringsdeskundige = models.ForeignKey('ErvaringsdeskundigeErvaringsdeskundige', models.DO_NOTHING)
-#     status = models.IntegerField()
+class Deelnames(models.Model):
+    onderzoeks = models.ForeignKey('Onderzoeken', models.DO_NOTHING)
+    ervaringsdeskundige = models.ForeignKey('ErvaringsdeskundigeErvaringsdeskundige', models.DO_NOTHING)
+    status = models.IntegerField()
 
-#     class Meta:
-#         managed = False
-#         db_table = 'Deelnames'
+    class Meta:
+        managed = False
+        db_table = 'Deelnames'
 
 
 # class MedewerkersOrganisatie(models.Model):
