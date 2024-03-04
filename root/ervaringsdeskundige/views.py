@@ -11,7 +11,7 @@ from main.models import (
     Beperkingen,
     BeperkingenErvaringsdeskundigen,
 )
-
+from .models import BeperkingenOnderzoeken
 
 def register(request):
     limitations = Beperkingen.objects.all()
@@ -76,7 +76,27 @@ def logout_ervaringsdeskundige(request):
 
 @login_required
 def onderzoeken(request):
-    investigations = Onderzoeken.objects.all()
+    user = request.user
+    user_age = user.age()
+    user_available_from = user.beschikbaar_vanaf
+    user_available_until = user.beschikbaar_tot
+    limitations_user = BeperkingenErvaringsdeskundigen.objects.filter(ervaringsdeskundigen_id=user.id)
+
+    limitations_ids = limitations_user.values_list('beperking_id', flat=True)
+
+    filtered_investigations = BeperkingenOnderzoeken.objects.filter(beperking_id__in=limitations_ids)
+    filtered_investigations_ids = filtered_investigations.values_list('onderzoeks_id', flat=True)
+
+
+
+    investigations = Onderzoeken.objects.filter(
+        doelgroep_leeftijd_van__lte=user_age,
+        doelgroep_leeftijd_tot__gte=user_age,
+        datum_vanaf__lte=user_available_until,
+        datum_tot__gte=user_available_from,
+        onderzoeks_id__in=filtered_investigations_ids
+    )
+
     return render(
         request,
         "ervaringsdeskundige/onderzoeken.html",

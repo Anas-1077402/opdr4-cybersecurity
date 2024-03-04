@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.DeleteModel(
-            name='Organisatie',
+            name='Organisaties',
         ),
         migrations.AlterModelOptions(
             name='onderzoeken',

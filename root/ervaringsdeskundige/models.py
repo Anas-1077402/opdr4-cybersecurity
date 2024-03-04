@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from datetime import date
 
 
 class Toezichthouders(models.Model):
@@ -26,15 +27,12 @@ class User(AbstractUser):
     geboortedatum = models.DateField()
     gebruikte_hulpmiddelen = models.TextField(max_length=200)
     bijzonderheden = models.TextField(max_length=100, default='', blank=True)
+    beschikbaar_vanaf = models.DateTimeField()
+    beschikbaar_tot = models.DateTimeField()
     bijzonderheden_beschikbaarheid = models.TextField(max_length=100, blank=True)
     username = models.CharField(max_length=100, unique=True)
     voorkeur_benadering = models.CharField(max_length=20)
     status = models.CharField(max_length=10, default=1)
-    toezichthouder = models.ForeignKey(
-        Toezichthouders,
-        on_delete=models.CASCADE,
-        related_name='user_toezichthouders'
-    )
     datum_goedgekeurd = models.DateTimeField(blank=True, null=True)
     goedegekeurd_door = models.CharField(max_length=100, null=True)
     #userpermission
@@ -54,6 +52,11 @@ class User(AbstractUser):
         help_text='Specific permissions for this user.',
         related_query_name='user',
     )
+
+    def age(self):
+        date_today = date.today()
+        leeftijd = date_today.year - self.geboortedatum.year - ((date_today.month, date_today.day) < (self.geboortedatum.month, self.geboortedatum.day))
+        return leeftijd
 
 
 class BeperkingenErvaringsdeskundigen(models.Model):
