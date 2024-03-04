@@ -32,6 +32,30 @@
     {{ form.password2 }}
     <br> -->
 
-    <button class="btn btn-primary" type="submit">Update</button>
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-arrows-rotate"></i>   Update</button>
+        <button class="btn btn-danger" onclick="deleteMessage()"><i class="fa-solid fa-trash"></i>  Delete profiel</button>
+    </div>
 </form></div>
+
+
+<script>
+function deleteMessage() {
+    var inputValue = prompt("Weet u zeker dat u uw account wilt verwijderen? Zo ja, geef dan een reden waarom u uw account wilt verwijderen:");
+
+    if (inputValue === null) {
+        alert("Annulering: Geen reden opgegeven.");
+    } else if (inputValue === "") {
+        alert("Gelieve tekst in te voeren.");
+        var secondInputValue = prompt("Weet u zeker dat u uw account wilt verwijderen? Zo ja, geef dan een reden waarom u uw account wilt verwijderen:");
+        if (secondInputValue === null || secondInputValue === "") {
+            alert("Annulering: Geen reden opgegeven.");
+        } else {
+            window.location.href = "/ervaringsdeskundige/delete_account?comment=" + encodeURIComponent(secondInputValue);
+        }
+    } else {
+        window.location.href = "/ervaringsdeskundige/delete_account?comment=" + encodeURIComponent(inputValue);
+    }
+}
+</script>
 {% endblock %}

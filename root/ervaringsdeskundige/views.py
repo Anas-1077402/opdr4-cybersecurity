@@ -121,7 +121,6 @@ def registered_investigations(request):
     )
 
 
-
 @login_required
 def register_investigation(request, investigation_id):
     user_id = request.user.id
@@ -141,9 +140,20 @@ def register_investigation(request, investigation_id):
 def register_investigation_succes(request):
     return render(request, "ervaringsdeskundige/register_investigation_succes.html")
 
+
 @login_required
 def unsubscribe_investigation(request, investigation_id):
     user_id = request.user.id
     investigation_delete = Deelnames.objects.filter(ervaringsdeskundige_id=user_id, onderzoeks_id=investigation_id)
     investigation_delete.delete()
     return render(request, "ervaringsdeskundige/unsubscribe_investigation.html")
+
+
+@login_required
+def delete_account(request):
+    comment = request.GET.get('comment')
+    request.user.opmerking_verwijderd = comment
+    request.user.status = 5
+    request.user.save()
+    logout(request)
+    return redirect("/")

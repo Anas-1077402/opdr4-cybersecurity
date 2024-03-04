@@ -33,6 +33,7 @@ class User(AbstractUser):
     username = models.CharField(max_length=100, unique=True)
     voorkeur_benadering = models.CharField(max_length=20)
     status = models.CharField(max_length=10, default=1)
+    opmerking_verwijderd = models.TextField(blank=True, null=True)
     datum_goedgekeurd = models.DateTimeField(blank=True, null=True)
     goedegekeurd_door = models.CharField(max_length=100, null=True)
     #userpermission

@@ -11,4 +11,5 @@ urlpatterns = [
     path('registered_investigations', views.registered_investigations, name='registered_investigations'),
     path('register_investigation_succes', views.register_investigation_succes, name='register_investigation_succes'),
     path('unsubscribe_investigation/<int:investigation_id>', views.unsubscribe_investigation, name='unsubscribe_investigation'),
+    path('delete_account', views.delete_account, name='delete_account'),
 ]
