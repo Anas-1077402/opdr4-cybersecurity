@@ -2,59 +2,83 @@
 {% load static %}
 {% block title %}Homepage{% endblock %}
 
-{% block content %}
-<div id="body_dashboard">
-    
-    <div id="dashboard_content">
-      
-        <div id="grey_background" class="d-flex flex-column flex-shrink-0 mr-3 p-3" style="width: 280px;">
-          
-            <ul class="nav nav-pills flex-column mb-auto">
-              <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a href="/ervaringsdeskundige/onderzoeken" class="nav-link link-dark">
-                  Onderzoeken
-                </a>
-              </li>
-              <li>
-                <a href="registered_investigations" class="nav-link link-dark">
-                  Ingeschreven onderzoeken
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark">
-                  Afgeronde onderzoeken
-                </a>
-              </li>
-            </ul>
-            <hr>
-          </div>
-          <div class="container-xl">
-            <div style="margin-left: 15px;">
-                <br>
-                <h1 style="margin-left: 15px;">Welkom {{ user.first_name}}👋!</h1>
-                <div id="stat_cards" class="row">
-                    <div class="col-md-4 card_stat">
-                        <h3>Aantal onderzoeken voltooid</h3>
-                        <p class="number">11</p>
-                    </div>
-                    <div class="col-md-4 card_stat">
-                        <h3>Aantal ingeschreven onderzoeken</h3>
-                        <p class="number">24</p>
-                    </div>
-                    <div class="col-md-4 card_stat">
-                        <h3>Lopende onderzoeken</h3>
-                        <p class="number">2</p>
-                    </div>
-                </div>
-            </div>
-        </div>        
-        
-            
-<div class="hatsieflatsie"> <br><br><br></div>
-{% endblock %}
 
+
+
+{% block content %}
+<div class="container-fluid" style="height: 94vh;">
+    <div class="row">
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+          <a href="#">
+            <img style="margin: 20px; margin-left: 5px;" src="{% static 'images/logo_accessibility.png' %}" width="200px" alt="test">
+          </a>
+            <div class="position-sticky">
+              <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                  <a href="#" class="nav-link active" aria-current="page">
+                    Dashboard
+                  </a>
+                </li>
+                <li>
+                  <a href="/ervaringsdeskundige/onderzoeken" class="nav-link link-dark">
+                    Onderzoeken
+                  </a>
+                </li>
+                <li>
+                  <a href="registered_investigations" class="nav-link link-dark">
+                    Ingeschreven onderzoeken
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link link-dark">
+                    Afgeronde onderzoeken
+                  </a>
+                </li>
+              </ul>
+              <hr>
+            </div>
+        </nav>
+
+        <div style="height: 94vh;" id="dashboard_main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div id="dashboard_overflow">
+        <main >
+          <div class="text-center" style="padding-top: 20px;">
+            <div>
+                  <div id="search">
+                    <div class="dropdown">
+                      <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user" style="padding-right: 15px;" width="32" height="32" class="rounded-circle me-2"></i>
+                        <strong>{{ user.first_name}} {{ user.last_name}}</strong>
+                      </a>
+                      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+                        <li><a class="dropdown-item" href="/ervaringsdeskundige/dashboard">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="#">Instellingen</a></li>
+                        <li><a class="dropdown-item" href="/ervaringsdeskundige/edit_profile">Profiel</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/ervaringsdeskundige/logout">Log uit</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <h1 style="margin: 10px; margin-left: 40px;" class="text-start extra-bold-header">Welkom {{ user.first_name }}👋!</h1>
+            </div>
+              <div id="stat_cards" class="row">
+                  <div class="col-md-4 card_stat">
+                      <p class="number">11</p>
+                      <h6 class="card-stat-heading">Aantal onderzoeken voltooid</h6>
+                  </div>
+                  <div class="col-md-4 card_stat">
+                      <p class="number">24</p>
+                      <h6 class="card-stat-heading">Aantal ingeschreven onderzoeken</h6>
+                  </div>
+                  <div class="col-md-4 card_stat">
+                      <p class="number">2</p>
+                      <h6 class="card-stat-heading">Lopende onderzoeken</h6>
+                  </div>
+              </div>
+            </div>
+      </main>
+    </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

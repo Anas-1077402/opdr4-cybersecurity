@@ -1,4 +1,3 @@
-
 .container {
     margin-right: auto;
     margin-left: auto;
@@ -103,15 +102,13 @@ p {
 }
 
 #stat_cards {
-    background-color: rgb(245, 245, 245);
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 20px;
     color: rgb(117, 117, 117);
     font-weight: 800;
-    margin-bottom: 50px;
-    margin-top: 30px;
+    margin: 50px;
 }
 
 .card_stat {
@@ -120,14 +117,18 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 20px;
     background-color: #ffffff;
     border: 1px solid #ffffff;
     color: #848484;
-    box-shadow: 0 0 10px rgba(13, 110, 253, 1);
+    box-shadow: 0 0 50px rgb(187, 187, 187);
     margin: 10px;
 }
 
+.card-stat-heading {
+    margin-bottom: 30px;
+    margin-top: -20px;
+}
 
 @media (max-width: 767px) {
     .card_stat {
@@ -136,16 +137,13 @@ p {
     }
 }
 
-
-
 .number {
-    color: rgba(13, 110, 253, 1);
+    color: rgb(90, 90, 90);
     font-size: 120px;
-
 }
 
 #dashboard_content {
-    display: grid;
+    display: flex;
     grid-template-columns: 280px 1fr;
     background-color: rgb(245, 245, 245);
 }
@@ -172,8 +170,6 @@ p {
     padding-left: 115px;
 }
 
-
-
 th {
     font-size: 20px;
 }
@@ -194,9 +190,38 @@ td {
 
 body {
     background-color: rgb(245, 245, 245);
+    overflow: hidden;
 }
 
 .hidden {
     display: none;
     transition: opacity 0.5s ease-out;
+}
+
+.dashboard-container {
+    background-color: #ffffff;
+    margin: 20px;
+    border-radius: 20px;
+    height: 100%;
+}
+
+#sidebar {
+    border-radius: 20px;
+}
+
+#dashboard_main {
+    border-radius: 20px;
+    background-color: #eeeaea;
+}
+
+#dashboard_overflow {
+    overflow-y: auto;
+    max-height: 94vh;
+    height: 100%;
+}
+
+.extra-bold-header {
+    font-family: 'Inner', sans-serif;
+    font-weight: 800;
+    color: #4b4b4b;
 }

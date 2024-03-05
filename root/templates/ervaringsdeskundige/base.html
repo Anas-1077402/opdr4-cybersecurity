@@ -14,12 +14,13 @@
           <title>{% block title %}{% endblock %}</title>
         {% endblock %}
     </head>
-  <body>
-    {% include "ervaringsdeskundige/menu.html" %}
+  <body style="background-color: rgb(167, 167, 167);">
+    <div class="dashboard-container">
     <div id="content">{% block content %}{% endblock %}</div>
     <div id="footer">
       {% block footer %}
       {% endblock %}
     </div>
+  </div>
   </body>
 </html>

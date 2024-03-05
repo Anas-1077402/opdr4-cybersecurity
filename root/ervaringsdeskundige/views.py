@@ -69,6 +69,7 @@ def edit_profile(request):
     return render(request, "ervaringsdeskundige/edit_profile.html", {"form": form})
 
 
+@login_required()
 def logout_ervaringsdeskundige(request):
     logout(request)
     return redirect("/login")
