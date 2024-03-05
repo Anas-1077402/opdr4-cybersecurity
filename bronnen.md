@@ -19,3 +19,5 @@ Prompt chatgpt:
 "hoe zet voeg ik bootstrap select toe?"
 "wat is de goede volgorde van mijn script tags"
 "hoe zet ik default info in mijn serializer"
+"ik heb bij mijn onderzoeken tabel een leeftijd vanaf en een leeftijd tot op staan. Ik wil dat als de user ertusseninzit dat hij dat onderzoek toont"
+"Hoe doe ik op een andere manier dan een join een join in python met django."

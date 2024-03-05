@@ -1,9 +1,6 @@
-
 {% extends "ervaringsdeskundige/base.html" %}
 {% load static %}
 {% block title %}Homepage{% endblock %}
-
-
 
 
 {% block content %}
@@ -47,7 +44,7 @@
             <div id="card"  class="m-4 p-1">
               <table class="table p-3">
                 <h2 class="p-2">Onderzoeken</h2>
-                <p style="margin-left: 10px;"><em>Deze onderzoeken zijn afgestemt op jou beschikbaarheid en ervaring</em></p>
+                <p style="margin-left: 10px;"><em>Deze onderzoeken zijn afgestemt op jou beschikbaarheid, ervaring en leeftijd</em></p>
                   <thead>
                   <tr>
                       <th scope="col">Titel</th>
@@ -58,23 +55,35 @@
                   </tr>
                   </thead>
                   <tbody>
-                      {% for investigation in investigations %}
-                  <tr>
-                      <td>{{ investigation.titel }}</td>
-                      <td>{{ investigation.omschrijving }}</td>
-                      <td>{% if investigation.met_beloning == 1 %}
-                              {{ investigation.beloning }}
-                          {% else %}
-                              Geen beloning beschikbaar
-                          {% endif %}</td>
-                      <td>
-                        <form method="post" action="investigation/{{ investigation.onderzoeks_id }}">
+                    {% for investigation_id, data in investigations.items %}
+                        <tr>
+                    <td>{{ data.onderzoek.titel }}</td>
+                    <td>{{ data.onderzoek.omschrijving }}</td>
+                    <td>{% if data.onderzoek.met_beloning == 1 %}
+                            {{ data.onderzoek.beloning }}
+                        {% else %}
+                            Geen beloning beschikbaar
+                        {% endif %}</td>
+                    <td>
+                          {% for limitation in data.beperkingen %}
+                              {{ limitation.omschrijving }}{% if not forloop.last %},{% endif %}
+                          {% endfor %}
+                    </td>
+                    <td>
+                        <form method="post" action="investigation/{{ data.onderzoek.onderzoeks_id }}">
                           {% csrf_token %}
+                          {% if data.status == 0 %}
                           <button type="submit" class="btn btn-primary">Meld aan</button>
-                        </form></td>
+                          {% endif %}
+                        </form>
+                          {% if data.status == 1 %}
+                          <button class="btn btn-success">Ingeschreven</button>
+                          {% endif %}
+                    </td>
                   </tr>
-                  {% endfor %}
+                    {% endfor %}
                   </tbody>
+                  
               </table>
           </div>
             </div>
@@ -84,3 +93,5 @@
     </div>
 </div>
 {% endblock %}
+
+

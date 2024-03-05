@@ -170,13 +170,6 @@ p {
     padding-left: 115px;
 }
 
-th {
-    font-size: 20px;
-}
-
-td {
-    font-size: 20px;
-}
 
 #card {
     background-color: white;
@@ -190,7 +183,6 @@ td {
 
 body {
     background-color: rgb(245, 245, 245);
-    overflow: hidden;
 }
 
 .hidden {

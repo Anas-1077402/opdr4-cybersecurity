@@ -13,6 +13,7 @@ from main.models import (
 )
 from .models import BeperkingenOnderzoeken
 
+
 def register(request):
     limitations = Beperkingen.objects.all()
     if request.method == "POST":
@@ -88,8 +89,6 @@ def onderzoeken(request):
     filtered_investigations = BeperkingenOnderzoeken.objects.filter(beperking_id__in=limitations_ids)
     filtered_investigations_ids = filtered_investigations.values_list('onderzoeks_id', flat=True)
 
-
-
     investigations = Onderzoeken.objects.filter(
         doelgroep_leeftijd_van__lte=user_age,
         doelgroep_leeftijd_tot__gte=user_age,
@@ -98,10 +97,29 @@ def onderzoeken(request):
         onderzoeks_id__in=filtered_investigations_ids
     )
 
+    investigations_with_limitations = {}
+
+    for investigation in investigations:
+        limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=investigation.onderzoeks_id).values_list('beperking_id', flat=True)
+
+        limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+        existing = Deelnames.objects.filter(ervaringsdeskundige_id=user, onderzoeks_id=investigation.onderzoeks_id)
+
+        status = 0
+
+        if existing:
+            status = 1
+
+        investigations_with_limitations[investigation.onderzoeks_id] = {
+            'onderzoek': investigation,
+            'beperkingen': limitations,
+            'status': status,
+        }
+
     return render(
         request,
         "ervaringsdeskundige/onderzoeken.html",
-        {"investigations": investigations},
+        {"investigations": investigations_with_limitations},
     )
 
 
@@ -115,10 +133,22 @@ def registered_investigations(request):
 
     investigations = Onderzoeken.objects.filter(onderzoeks_id__in=investigation_ids)
 
+    investigations_with_limitations = {}
+
+    for investigation in investigations:
+        limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=investigation.onderzoeks_id).values_list('beperking_id', flat=True)
+
+        limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+
+        investigations_with_limitations[investigation.onderzoeks_id] = {
+            'onderzoek': investigation,
+            'beperkingen': limitations,
+        }
+
     return render(
         request,
         "ervaringsdeskundige/registered_investigations.html",
-        {"investigations": investigations},
+        {"investigations": investigations_with_limitations},
     )
 
 
