@@ -1,6 +1,6 @@
 <h2 class="text-center border-bottom pb-1">Deelname verzoeken: {{ count_attendance_request }}</h2>
 {% for item in attendance_request %}
-<div id="{{ item.id }}" class="card text-center mb-3" style="width: 30rem;height: 25rem;cursor: pointer;" tabindex="0" onclick="location.href='dashboard/research/{{ item.id }}';">
+<div id="{{ item.id }}" class="card text-center mb-3" style="width: 30rem;height: 25rem;cursor: pointer;" tabindex="0" onclick="location.href='dashboard/attendance_request/{{ item.id }}';">
     <div class="card-body">
         <h5 class="card-title">{{ item.ervaringsdeskundige_user.first_name }} {{ item.ervaringsdeskundige_user.last_name }}</h5>
         <h6 class="card-subtitle mb-2 text-body-secondary">{{ item.Onderzoeken.titel }}</h6>
