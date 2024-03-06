@@ -100,8 +100,6 @@ $(document).ready(function() {
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                console.log('Gebruikersstatus:', data.status);
-
                 for (const onderzoekId in data.registered_investigations) {
                     const onderzoek = data.registered_investigations[onderzoekId].onderzoek;
                     const onderzoekStatus = data.registered_investigations[onderzoekId].status;
@@ -119,7 +117,7 @@ $(document).ready(function() {
                 }
             },
             error: function(error) {
-                console.log('Er is helaas iets fout gegaan:', error);
+                console.log('Error:', error);
             }
         });
     }, 1000);
