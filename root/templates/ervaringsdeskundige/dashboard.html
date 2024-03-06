@@ -39,6 +39,7 @@
             </div>
         </nav>
 
+
         <div style="height: 94vh;" id="dashboard_main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div id="dashboard_overflow">
         <main >
@@ -60,10 +61,19 @@
                     </div>
                   </div>
                   <h1 style="margin: 10px; margin-left: 40px;" class="text-start extra-bold-header">Welkom {{ user.first_name }}👋!</h1>
+                  <div id="approved_alert" style="display: none;" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Holy guacamole!</strong><div id="notification-container"></div>
+                    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>                  
+                  </div>
             </div>
               <div id="stat_cards" class="row">
                   <div class="col-md-4 card_stat">
                       <p class="number">11</p>
+                      <div id="notification-bar" style="display: none;">
+                        <p id="notification-text"></p>
+                    </div>
                       <h6 class="card-stat-heading">Aantal onderzoeken voltooid</h6>
                   </div>
                   <div class="col-md-4 card_stat">
@@ -73,6 +83,7 @@
                   <div class="col-md-4 card_stat">
                       <p class="number">2</p>
                       <h6 class="card-stat-heading">Lopende onderzoeken</h6>
+
                   </div>
               </div>
             </div>
@@ -81,4 +92,43 @@
     </div>
     </div>
 </div>
+<script>
+$(document).ready(function() {
+    setInterval(function() {
+        $.ajax({
+            url: 'live_dashboard_data',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                console.log('Gebruikersstatus:', data.status);
+
+                for (const onderzoekId in data.registered_investigations) {
+                    const onderzoek = data.registered_investigations[onderzoekId].onderzoek;
+                    const onderzoekStatus = data.registered_investigations[onderzoekId].status;
+
+                    const meldingKey = `melding_displayed_${onderzoekId}`;
+
+                    if (onderzoekStatus === 3 && !localStorage.getItem(meldingKey)) {
+                        const notificationText = `Onderzoek "${onderzoek.titel}" is goedgekeurd!`;
+                        showNotification(notificationText);
+
+                        $('#approved_alert').css('display', 'block');
+
+                        localStorage.setItem(meldingKey, '1');
+                    }
+                }
+            },
+            error: function(error) {
+                console.log('Er is helaas iets fout gegaan:', error);
+            }
+        });
+    }, 1000);
+});
+
+function showNotification(text) {
+    var notificationContainer = $('#notification-container');
+    notificationContainer.html('<p>' + text + '</p>');
+}
+
+</script>
 {% endblock %}

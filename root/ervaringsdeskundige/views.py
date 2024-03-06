@@ -12,6 +12,8 @@ from main.models import (
     BeperkingenErvaringsdeskundigen,
 )
 from .models import BeperkingenOnderzoeken
+from django.http import JsonResponse
+from django.core.serializers import serialize
 
 
 def register(request):
@@ -188,3 +190,28 @@ def delete_account(request):
     request.user.save()
     logout(request)
     return redirect("/")
+
+
+@login_required
+def live_dashboard_data(request):
+    user_id = request.user.id
+
+    investigation_ids = Deelnames.objects.filter(ervaringsdeskundige_id=user_id).values_list('onderzoeks_id', flat=True)
+
+    investigations = Onderzoeken.objects.filter(onderzoeks_id__in=investigation_ids)
+    registered_investigations_list = {}
+
+    for investigation in investigations:
+        deelname = Deelnames.objects.get(ervaringsdeskundige_id=user_id, onderzoeks_id=investigation.onderzoeks_id)
+        status = deelname.status
+
+        registered_investigations_list[investigation.onderzoeks_id] = {
+            'onderzoek': {
+                'id': investigation.onderzoeks_id,
+                'titel': investigation.titel,
+            },
+            'status': status,
+        }
+
+    data = {'status': request.user.status, 'registered_investigations': registered_investigations_list}
+    return JsonResponse(data)

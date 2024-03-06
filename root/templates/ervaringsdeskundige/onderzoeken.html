@@ -40,18 +40,18 @@
         <div style="height: 94vh;" id="dashboard_main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div id="dashboard_overflow">
         <main >
-          <div class="text-center" style="padding-top: 20px;">
-            <div id="card"  class="m-4 p-1">
+          <div style="padding-top: 20px;">
+            <div id="card"  class="m-4 p-4">
               <table class="table p-3">
-                <h2 class="p-2">Onderzoeken</h2>
-                <p style="margin-left: 10px;"><em>Deze onderzoeken zijn afgestemt op jou beschikbaarheid, ervaring en leeftijd</em></p>
+                <h2 class="p-2 text-center">Onderzoeken</h2>
+                <p class="text-center" style="margin-left: 10px;"><em>Deze onderzoeken zijn afgestemt op jou beschikbaarheid, ervaring en leeftijd</em></p>
                   <thead>
                   <tr>
-                      <th scope="col">Titel</th>
-                      <th scope="col">Omschrijving</th>
-                      <th scope="col">Beloning</th>
-                      <th scope="col">Beperking</th>
-                      <th scope="col">Aanmelden</th>
+                      <th class="float-left" scope="col">Titel</th>
+                      <th class="float-left" scope="col">Omschrijving</th>
+                      <th class="float-left" scope="col">Beloning</th>
+                      <th class="float-left" scope="col">Beperking</th>
+                      <th class="text-center" scope="col">Aanmelden</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -65,11 +65,13 @@
                             Geen beloning beschikbaar
                         {% endif %}</td>
                     <td>
+                      <div style="width: 200px;" class="text-wrap">
                           {% for limitation in data.beperkingen %}
                               {{ limitation.omschrijving }}{% if not forloop.last %},{% endif %}
                           {% endfor %}
+                        </div>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <form method="post" action="investigation/{{ data.onderzoek.onderzoeks_id }}">
                           {% csrf_token %}
                           {% if data.status == 0 %}
