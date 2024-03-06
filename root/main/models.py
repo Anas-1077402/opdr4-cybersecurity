@@ -34,14 +34,14 @@ from django.db import models
 
 
 
-# class Deelnames(models.Model):
-#     onderzoeks = models.ForeignKey('Onderzoeken', models.DO_NOTHING)
-#     ervaringsdeskundige = models.ForeignKey('ErvaringsdeskundigeErvaringsdeskundige', models.DO_NOTHING)
-#     status = models.IntegerField()
+class Deelnames(models.Model):
+    onderzoeks = models.ForeignKey('Onderzoeken', models.DO_NOTHING)
+    ervaringsdeskundige = models.ForeignKey('ErvaringsdeskundigeErvaringsdeskundige', models.DO_NOTHING)
+    status = models.IntegerField()
 
-#     class Meta:
-#         managed = False
-#         db_table = 'Deelnames'
+    class Meta:
+        managed = False
+        db_table = 'Deelnames'
 
 
 # class MedewerkersOrganisatie(models.Model):
@@ -245,32 +245,33 @@ class DjangoContentType(models.Model):
 #         db_table = 'django_session'
 
 
-# class ErvaringsdeskundigeErvaringsdeskundige(models.Model):
-#     password = models.CharField(max_length=128)
-#     last_login = models.DateTimeField(blank=True, null=True)
-#     is_superuser = models.BooleanField()
-#     username = models.CharField(max_length=100)
-#     first_name = models.CharField(max_length=100)
-#     last_name = models.CharField(max_length=100)
-#     is_staff = models.BooleanField()
-#     is_active = models.BooleanField()
-#     date_joined = models.DateTimeField()
-#     email = models.CharField(max_length=254)
-#     postcode = models.CharField(max_length=10)
-#     geslacht = models.CharField(max_length=10)
-#     gebruikte_hulpmiddelen = models.TextField()
-#     bijzonderheden = models.TextField()
-#     voorkeur_benadering = models.CharField(max_length=20)
-#     geboortedatum = models.DateField()
-#     telefoonnummer = models.CharField(max_length=100)
-#     toezichthouder = models.ForeignKey(Toezichthouders, models.DO_NOTHING, blank=True, null=True)
-#     bijzonderheden_beschikbaarheid = models.TextField()
-#     datum_goedgekeurd = models.DateTimeField(blank=True, null=True)
-#     goedegekeurd_door = models.ForeignKey(BeheerderCustomuser, models.DO_NOTHING, db_column='goedegekeurd_door', blank=True, null=True)
+class ErvaringsdeskundigeErvaringsdeskundige(models.Model):
+    password = models.CharField(max_length=128)
+    last_login = models.DateTimeField(blank=True, null=True)
+    is_superuser = models.BooleanField()
+    username = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    is_staff = models.BooleanField()
+    is_active = models.BooleanField()
+    date_joined = models.DateTimeField()
+    email = models.CharField(max_length=254)
+    postcode = models.CharField(max_length=10)
+    geslacht = models.CharField(max_length=10)
+    gebruikte_hulpmiddelen = models.TextField()
+    bijzonderheden = models.TextField()
+    voorkeur_benadering = models.CharField(max_length=20)
+    geboortedatum = models.DateField()
+    telefoonnummer = models.CharField(max_length=100)
+    toezichthouder = models.ForeignKey(Toezichthouders, models.DO_NOTHING, blank=True, null=True)
+    bijzonderheden_beschikbaarheid = models.TextField()
+    datum_goedgekeurd = models.DateTimeField(blank=True, null=True)
+    goedegekeurd_door = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='goedegekeurd_door', blank=True, null=True)
+    status = models.IntegerField()
 
-#     class Meta:
-#         managed = False
-#         db_table = 'ervaringsdeskundige_ervaringsdeskundige'
+    class Meta:
+        managed = False
+        db_table = 'ervaringsdeskundige_user'
 
 
 # class ErvaringsdeskundigeErvaringsdeskundigeGroups(models.Model):

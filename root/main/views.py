@@ -1,11 +1,13 @@
+from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
-from main.models import Organisaties, Onderzoeken
+from main.models import Organisaties, Onderzoeken, ErvaringsdeskundigeErvaringsdeskundige, Deelnames
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
+
 
 
 def index(request):
@@ -40,6 +42,46 @@ def custom_login(request):
 
 def register(request):
     return render(request, "home/register.html")
+
+
+def dashboard(request):
+    return render(request, "beheerder/dashboard/dashboard.html")
+
+
+def research_item(request, pk):
+    research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie").get(pk=pk)
+    context = {
+        "data": research_item_data
+    }
+    return render(request, "beheerder/dashboard/dashboard_research_item.html", context)
+
+
+@api_view(['GET'])
+def get_dashboard(request):
+    data = dict()
+    list_research = Onderzoeken.objects.filter(status=1).select_related("organisatie")
+    count_research = list_research.count()
+    list_experience_expert = ErvaringsdeskundigeErvaringsdeskundige.objects.filter(status=2).select_related("toezichthouder")
+    count_experience_expert = list_experience_expert.count()
+    list_organization = Organisaties.objects.filter(status=1)
+    count_organization = list_organization.count()
+    list_attendance_request = Deelnames.objects.filter(status=1).select_related('onderzoeks').select_related('ervaringsdeskundige')
+    count_attendance_request = list_attendance_request.count()
+    context = {
+        'research': list_research,
+        'count_research': count_research,
+        'experience_expert': list_experience_expert,
+        'count_experience_expert': count_experience_expert,
+        'organization': list_organization,
+        'count_organization': count_organization,
+        'attendance_request': list_attendance_request,
+        'count_attendance_request': count_attendance_request,
+    }
+    data['research'] = render_to_string("beheerder/dashboard/dashboard_research.html", context, request)
+    data['experience_expert'] = render_to_string("beheerder/dashboard/dashboard_experience_expert.html", context, request)
+    data['organization'] = render_to_string("beheerder/dashboard/dashboard_organization.html", context, request)
+    data['attendance_request'] = render_to_string("beheerder/dashboard/dashboard_attendance_request.html", context, request)
+    return JsonResponse(data)
 
 
 @api_view(['GET', 'POST'])
