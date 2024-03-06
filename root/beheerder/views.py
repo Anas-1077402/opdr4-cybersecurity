@@ -86,6 +86,7 @@ def bewerk_onderzoek(request, onderzoeks_id):
         onderzoek.titel = request.POST['titel']
         onderzoek.omschrijving = request.POST['omschrijving']
         onderzoek.opmerkingen_beheerder = request.POST['opmerkingen_beheerder']
+        onderzoek.status = request.POST['status']
         onderzoek.save()
 
         return redirect('/beheerder/onderzoeken')

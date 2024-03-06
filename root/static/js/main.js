@@ -1,3 +1,20 @@
+function goedkeuren(onderzoeksId) {
+    updateStatus(onderzoeksId, 2);
+}
+
+function afkeuren(onderzoeksId) {
+    updateStatus(onderzoeksId, 3);
+}
+
+function updateStatus(onderzoeksId, nieuweStatus) {
+    fetch(`/beheerder/update_status/${onderzoeksId}/${nieuweStatus}/`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            location.reload();
+        })
+        .catch(error => console.error('Error:', error));
+}
 async function getDashboardData() {
     const response_promise = await fetch("/beheerder/dashboard/all");
     const anwser = await response_promise.json();

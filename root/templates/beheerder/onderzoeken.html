@@ -90,33 +90,6 @@ function updateStatus(onderzoeksId, nieuweStatus) {
                   </table>
               </div>
           </div>
-        <div class="d-flex justify-content-center align-items-center">
-              <div id="card" class="container m-3 p-1">
-                  <table class="table">
-                    <h2 class="p-3">Onderzoeken in afwachting</h2>
-                      <thead>
-                      <tr>
-                          <th scope="col">Titel</th>
-                          <th scope="col">Datum vanaf</th>
-                          <th scope="col">Datum tot</th>
-                          <th scope="col">Status</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                        {% for onderzoek in onderzoeken %}
-                            {% if onderzoek.status == 1 %}
-                            <tr>
-                                <td>{{ onderzoek.titel }}</td>
-                                <td>{{ onderzoek.datum_vanaf }}</td>
-                                <td>{{ onderzoek.datum_tot }}</td>
-                                <td
-                                    class="{% if onderzoek.status == 0 %}status-awaiting{% elif onderzoek.status == 2 %}status-approved{% elif onderzoek.status == 3 %}status-rejected{% endif %}">{{ onderzoek.status }}
-                                    <button class="btn btn-success" onclick="goedkeuren({{ onderzoek.onderzoeks_id }});">Goedkeuren</button>
-                                    <button class="btn btn-danger" onclick="afkeuren({{ onderzoek.onderzoeks_id }});">Afkeuren</button>
-                                </td>
-                            </tr>
-                            {% endif %}
-                        {% endfor %}
                           {% for admin in pending_admins %}
                       <tr>
                           <td><a href="/beheerder/checkout_admin/{{ admin.id }}">{{ admin.first_name }} {{ admin.last_name}}</a></td>

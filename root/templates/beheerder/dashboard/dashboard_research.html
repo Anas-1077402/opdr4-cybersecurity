@@ -7,7 +7,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{ item.omschrijving }}</li>
             {% if item.soort_onderzoek == 1 %}
-            <li class="list-group-item">Type: Telefoonisch</li>
+            <li class="list-group-item">Type: Telefonisch</li>
             {% elif item.soort_onderzoek == 2 %}
             <li class="list-group-item">Type: Via internet</li>
             {% elif item.soort_onderzoek == 3 %}
@@ -18,8 +18,8 @@
             <li class="list-group-item">Doelgroep leeftijd: {{ item.doelgroep_leeftijd_van }} - {{ item.doelgroep_leeftijd_tot }}</li>
             <li class="list-group-item">Datum: {{ item.datum_vanaf }} - {{ item.datum_tot }}</li>
             <li class="list-group-item">
-                <a href="/#" class="btn btn-primary">Keur goed</a>
-                <a href="/#" class="btn btn-primary">Keur af</a>
+                <button onclick="goedkeuren({{ item.onderzoeks_id }});" class="btn btn-success">Keur goed</button>
+                <button onclick="afkeuren({{ item.onderzoeks_id }});" class="btn btn-warning">Keur af</button>
                 <a href="/#" class="btn btn-danger">verwijder</a>
             </li>
         </ul>

@@ -2,6 +2,31 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
+<div id="grey_background" class="d-flex flex-column flex-shrink-0 mr-3 p-3" style="width: 280px;">
+            <ul class="nav nav-pills flex-column mb-auto">
+              <li class="nav-item">
+                <a href="{% url 'dashboard' %}" class="nav-link active" aria-current="page" >
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                  Ervaringsdeskundigen
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'onderzoeken' %}"  class="nav-link dark">
+                  Onderzoeken
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                  Beheerders
+                </a>
+              </li>
+            </ul>
+            <hr>
+          </div>
 <div class="container-fluid" style="border:1px solid #cecece;background-color: aliceblue;">
     <div class="row row-cols-4">
         <div id="research" class="col border-end">
