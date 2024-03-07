@@ -3,9 +3,85 @@
 {% block title %}Deelname id: {{ data.id }}{% endblock %}
 
 {% block content %}
-<div class="container border rounded bg-body">
-    <div class="row">
-
+<div class="container rounded-top border border-bottom-0 bg-primary-subtle text-center">
+    <div class="col text-center position-relative">
+        <H1 class="pt-2">
+            {{ data.ervaringsdeskundige_user.first_name }} {{ data.ervaringsdeskundige_user.last_name }} deelname aan {{ data.Onderzoeken.titel }} 
+        </H1>
+        <div class="position-absolute buttons">
+            <button type="button" class="btn btn-primary">Bewerk</button>
+            <button type="button" class="btn btn-primary">Verwijder</button>
+        </div>
+        <H6 class="mb-1">Deelnaame Id: {{ data.id}}</H6>
+        <p class="m-0">
+            {% if data.status == 1 %}
+            Status: In afwachting
+            {% elif data.status == 2 %}
+            Status: Goedgekeurd
+            {% elif data.status == 3 %}
+            Status: Afgekeurd
+            {% elif data.status == 4 %}
+            Status: Gesloten
+            {% elif data.status == 5 %}
+            Status: Verwijderd
+            {% endif %}
+        </p>
     </div>
+</div>
+<div class="container border rounded-bottom bg-body" style="height: 50rem;">
+    <div class="row m-1 border-bottom">
+        <div class="col-md-auto">
+            <H3>Omschrijving onderzoek</H3>
+            <div class="container-fluid" tabindex="0">
+                <p class="text-start p-0">{{ data.Onderzoeken.omschrijving }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row m-1 border-bottom">
+        <H3>Onderzoek doelgroep</H3>
+        <div class="col-md-auto border-end">
+            <h5>Leeftijd:</h5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {{ data.Onderzoeken.doelgroep_leeftijd_van }} - {{ data.Onderzoeken.doelgroep_leeftijd_tot }} jaar oud
+                </p>
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <h5>Beperkingen:</h5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {% if data.Onderzoeken.Beperkingen.omschrijving %}
+                    {{ data.Onderzoeken.Beperkingen.omschrijving }}
+                    {% else %}
+                    Geen
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row m-1 border-bottom">
+        <H3>Ervaringsdeskundige informatie</H3>
+        <div class="col-md-auto border-end">
+            <H5>Geboortedatum:</H5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {{ data.geboortedatum }} 
+                </p>
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <H5>Beperkingen:</H5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {% if data.ervaringsdeskundige_user.Beperkingen.omschrijving %}
+                    {{ data.ervaringsdeskundige_user.Beperkingen.omschrijving }}
+                    {% else %}
+                    Geen
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>    
 </div>
 {% endblock %}

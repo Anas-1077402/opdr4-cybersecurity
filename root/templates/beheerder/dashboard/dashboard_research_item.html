@@ -119,7 +119,7 @@
             <H5>Beheerder opmerkingen:</H5>
             <div class="container-fluid" tabindex="0">
                 <p>
-                    {% if data.opmerking_beheerder %}
+                    {% if data.opmerking_beheerder != NULL %}
                     {{ data.opmerking_beheerder }}
                     {% else %}
                     Leeg

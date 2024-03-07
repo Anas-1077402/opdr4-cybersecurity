@@ -7,8 +7,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
-
-
+from datetime import date
+from django.db.models import ExpressionWrapper, DateField, F
 
 def index(request):
     return render(request, "home/index_test.html")
@@ -91,6 +91,7 @@ def get_dashboard(request):
     count_organization = list_organization.count()
     list_attendance_request = Deelnames.objects.filter(status=1).select_related('onderzoeks').select_related('ervaringsdeskundige')
     count_attendance_request = list_attendance_request.count()
+
     context = {
         'research': list_research,
         'count_research': count_research,
@@ -101,6 +102,7 @@ def get_dashboard(request):
         'attendance_request': list_attendance_request,
         'count_attendance_request': count_attendance_request,
     }
+
     data['research'] = render_to_string("beheerder/dashboard/dashboard_research.html", context, request)
     data['experience_expert'] = render_to_string("beheerder/dashboard/dashboard_experience_expert.html", context, request)
     data['organization'] = render_to_string("beheerder/dashboard/dashboard_organization.html", context, request)
