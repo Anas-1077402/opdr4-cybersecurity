@@ -7,8 +7,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
-from datetime import date
-from django.db.models import ExpressionWrapper, DateField, F
 
 def index(request):
     return render(request, "home/index_test.html")
@@ -56,12 +54,50 @@ def research_item(request, pk):
     return render(request, "beheerder/dashboard/dashboard_research_item.html", context)
 
 
+def research_item_edit(request, pk):
+    research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie").get(pk=pk)
+    context = {
+        "data": research_item_data
+    }
+    return render(request, "beheerder/dashboard/dashboard_research_item_edit.html", context)
+
+
+def research_item_edit_save(request, pk):
+    """
+    if request.method == 'POST':
+        research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie")
+    context = {
+        "data": research_item_data
+    }
+    """
+    return redirect(f"/beheerder/dashboard/research/{pk}")
+
+
 def experience_expert_item(request, pk):
     experience_expert_item_data = ErvaringsdeskundigeErvaringsdeskundige.objects.filter(pk=pk).select_related("toezichthouder").get(pk=pk)
     context = {
         "data": experience_expert_item_data
     }
     return render(request, "beheerder/dashboard/dashboard_experience_expert_item.html", context)
+
+
+def experience_expert_item_edit(request, pk):
+    experience_expert_item_data = ErvaringsdeskundigeErvaringsdeskundige.objects.filter(pk=pk).select_related("toezichthouder").get(pk=pk)
+    context = {
+        "data": experience_expert_item_data
+    }
+    return render(request, "beheerder/dashboard/dashboard_experience_expert_item_edit.html", context)
+
+
+def experience_expert_item_edit_save(request, pk):
+    """
+    if request.method == 'POST':
+        research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie")
+    context = {
+        "data": research_item_data
+    }
+    """
+    return redirect(f"/beheerder/dashboard/experience_expert/{pk}")
 
 
 def organization_item(request, pk):
@@ -72,12 +108,50 @@ def organization_item(request, pk):
     return render(request, "beheerder/dashboard/dashboard_organization_item.html", context)
 
 
+def organization_item_edit(request, pk):
+    organization_item_data = Organisaties.objects.get(pk=pk)
+    context = {
+        "data": organization_item_data
+    }
+    return render(request, "beheerder/dashboard/dashboard_organization_item_edit.html", context)
+
+
+def organization_item_edit_save(request, pk):
+    """
+    if request.method == 'POST':
+        research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie")
+    context = {
+        "data": research_item_data
+    }
+    """
+    return redirect(f"/beheerder/dashboard/organization/{pk}")
+
+
 def attendance_request_item(request, pk):
     attendance_request_item_data = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').get(pk=pk)
     context = {
         "data": attendance_request_item_data
     }
     return render(request, "beheerder/dashboard/dashboard_attendance_request_item.html", context)
+
+
+def attendance_request_item_edit(request, pk):
+    attendance_request_item_data = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').get(pk=pk)
+    context = {
+        "data": attendance_request_item_data
+    }
+    return render(request, "beheerder/dashboard/dashboard_attendance_request_item_edit.html", context)
+
+
+def attendance_request_item_edit_save(request, pk):
+    """
+    if request.method == 'POST':
+        research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie")
+    context = {
+        "data": research_item_data
+    }
+    """
+    return redirect(f"/beheerder/dashboard/attendance_request/{pk}")
 
 
 @api_view(['GET'])

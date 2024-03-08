@@ -3,14 +3,16 @@
 {% block title %}{{ data.titel }}{% endblock %}
 
 {% block content %}
+<form method="POST" action="/beheerder/dashboard/research/{{ data.onderzoeks_id }}/edit/save">
+    {% csrf_token %}
 <div class="container rounded-top border border-bottom-0 bg-primary-subtle text-center">
     <div class="col text-center position-relative">
         <H1 class="pt-2">
             {{ data.titel }} - Id: {{ data.onderzoeks_id}} 
         </H1>
         <div class="position-absolute buttons">
-            <button type="button" class="btn btn-primary" onclick="location.href='{{ data.onderzoeks_id }}/edit';">Bewerk</button>
-            <button type="button" class="btn btn-primary">Verwijder</button>
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='../{{ data.onderzoeks_id }}';">Annuleer</button>
         </div>
         <H6 class="mb-1">Verzocht door: {{ data.organisatie.voornaam }}</H6>
         <p class="m-0">
@@ -129,4 +131,5 @@
         </div>
     </div>
 </div>
+</form>
 {% endblock %}

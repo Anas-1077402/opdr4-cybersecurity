@@ -3,14 +3,16 @@
 {% block title %}Deelname id: {{ data.id }}{% endblock %}
 
 {% block content %}
+<form method="POST" action="/beheerder/dashboard/attendance_request/{{ data.id }}/edit/save">
+    {% csrf_token %}
 <div class="container rounded-top border border-bottom-0 bg-primary-subtle text-center">
     <div class="col text-center position-relative">
         <H1 class="pt-2">
             {{ data.ervaringsdeskundige_user.first_name }} {{ data.ervaringsdeskundige_user.last_name }} deelname aan {{ data.Onderzoeken.titel }} 
         </H1>
         <div class="position-absolute buttons">
-            <button type="button" class="btn btn-primary" onclick="location.href='{{ data.id }}/edit';">Bewerk</button>
-            <button type="button" class="btn btn-primary">Verwijder</button>
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='../{{ data.id }}';">Annuleer</button>
         </div>
         <H6 class="mb-1">Deelnaame Id: {{ data.id}}</H6>
         <p class="m-0">
@@ -84,4 +86,5 @@
         </div>
     </div>    
 </div>
+</form>
 {% endblock %}

@@ -3,14 +3,16 @@
 {% block title %}{{ data.voornaam }} {{ data.achternaam }}{% endblock %}
 
 {% block content %}
+<form method="POST" action="/beheerder/dashboard/organization/{{ data.organisatie_id }}/edit/save">
+    {% csrf_token %}
 <div class="container rounded-top border border-bottom-0 bg-primary-subtle text-center">
     <div class="col text-center position-relative">
         <H1 class="pt-2">
             {{ data.voornaam }} - Id: {{ data.organisatie_id}} 
         </H1>
         <div class="position-absolute buttons">
-            <button type="button" class="btn btn-primary" onclick="location.href='{{ data.organisatie_id }}/edit';">Bewerk</button>
-            <button type="button" class="btn btn-primary">Verwijder</button>
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='../{{ data.organisatie_id }}';">Annuleer</button>
         </div>
         <H6 class="mb-1">
             KVK: {{ data.kvk}} |
@@ -80,4 +82,5 @@
         </div>
     </div>
 </div>
+</form>
 {% endblock %}
