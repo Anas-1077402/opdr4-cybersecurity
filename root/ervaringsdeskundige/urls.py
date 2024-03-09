@@ -13,4 +13,6 @@ urlpatterns = [
     path('unsubscribe_investigation/<int:investigation_id>', views.unsubscribe_investigation, name='unsubscribe_investigation'),
     path('delete_account', views.delete_account, name='delete_account'),
     path('live_dashboard_data', views.live_dashboard_data, name='live_dashboard_data'), 
+    path('75584bb7-2266-4c41-87f1-97cd5d53b5c4/notification.mp3', views.notification, name='notification'), 
+    path('inspect_investigation/<int:investigation_id>', views.inspect_investigation, name='inspect_investigation'),
 ]

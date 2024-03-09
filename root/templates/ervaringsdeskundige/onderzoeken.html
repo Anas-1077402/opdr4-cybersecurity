@@ -57,7 +57,7 @@
                   <tbody>
                     {% for investigation_id, data in investigations.items %}
                         <tr>
-                    <td>{{ data.onderzoek.titel }}</td>
+                    <td><a href="inspect_investigation/{{ data.onderzoek.onderzoeks_id }}">{{ data.onderzoek.titel }}</a></td>
                     <td>{{ data.onderzoek.omschrijving }}</td>
                     <td>{% if data.onderzoek.met_beloning == 1 %}
                             {{ data.onderzoek.beloning }}

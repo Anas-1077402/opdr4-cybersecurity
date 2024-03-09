@@ -12,8 +12,8 @@ from main.models import (
     BeperkingenErvaringsdeskundigen,
 )
 from .models import BeperkingenOnderzoeken
-from django.http import JsonResponse
-from django.core.serializers import serialize
+from django.http import JsonResponse, FileResponse
+from django.contrib.staticfiles import finders
 
 
 def register(request):
@@ -215,3 +215,36 @@ def live_dashboard_data(request):
 
     data = {'status': request.user.status, 'registered_investigations': registered_investigations_list}
     return JsonResponse(data)
+
+
+@login_required
+def notification(request):
+    mp3_file_path = finders.find('sounds/notification.mp3')
+
+    if mp3_file_path:
+        response = FileResponse(open(mp3_file_path, 'rb'), content_type='audio/mpeg')
+        return response
+
+
+@login_required
+def inspect_investigation(request, investigation_id):
+    investigations = Onderzoeken.objects.filter(onderzoeks_id=investigation_id)
+
+    investigations_with_limitations = {}
+
+    for investigation in investigations:
+        limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=investigation.onderzoeks_id).values_list('beperking_id', flat=True)
+
+        limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+
+
+        investigations_with_limitations[investigation.onderzoeks_id] = {
+            'onderzoek': investigation,
+            'beperkingen': limitations,
+        }
+
+    return render(
+        request,
+        "ervaringsdeskundige/inspect_investigation.html",
+        {"investigations": investigations_with_limitations},
+    )

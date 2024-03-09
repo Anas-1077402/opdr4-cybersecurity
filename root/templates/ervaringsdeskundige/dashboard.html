@@ -61,12 +61,14 @@
                     </div>
                   </div>
                   <h1 style="margin: 10px; margin-left: 40px;" class="text-start extra-bold-header">Welkom {{ user.first_name }}👋!</h1>
+
                   <div id="approved_alert" style="display: none;" class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Holy guacamole!</strong><div id="notification-container"></div>
+                    We hebben goed nieuws voor je! <div id="notification-container"></div>
                     <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>                  
                   </div>
+
             </div>
               <div id="stat_cards" class="row">
                   <div class="col-md-4 card_stat">
@@ -107,10 +109,12 @@ $(document).ready(function() {
                     const meldingKey = `melding_displayed_${onderzoekId}`;
 
                     if (onderzoekStatus === 3 && !localStorage.getItem(meldingKey)) {
-                        const notificationText = `Onderzoek "${onderzoek.titel}" is goedgekeurd!`;
+                        const notificationText = `Je bent <strong> goedgekeurd </strong> voor het "${onderzoek.titel}" onderzoek!`;
                         showNotification(notificationText);
 
                         $('#approved_alert').css('display', 'block');
+
+                        playSound(mp3FilePath);
 
                         localStorage.setItem(meldingKey, '1');
                     }
@@ -127,6 +131,17 @@ function showNotification(text) {
     var notificationContainer = $('#notification-container');
     notificationContainer.html('<p>' + text + '</p>');
 }
+
+function playSound(filePath) {
+    const audio = new Audio(filePath);
+    try {
+        audio.play();
+    } catch (error) {
+        console.error('Afspelen van het geluid mislukt:', error);
+    }
+}
+
+const mp3FilePath = '75584bb7-2266-4c41-87f1-97cd5d53b5c4/notification.mp3';
 
 </script>
 {% endblock %}
