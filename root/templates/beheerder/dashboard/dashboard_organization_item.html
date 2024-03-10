@@ -1,41 +1,41 @@
 {% extends "beheerder/base.html" %}
 {% load static %}
-{% block title %}{{ data.voornaam }} {{ data.achternaam }}{% endblock %}
+{% block title %}{{ data.voornaam }}{% endblock %}
 
 {% block content %}
 <div class="container rounded-top border border-bottom-0 bg-primary-subtle text-center">
     <div class="col text-center position-relative">
         <H1 class="pt-2">
-            {{ data.voornaam }} - Id: {{ data.organisatie_id}} 
+            {{ data.naam }} - Id: {{ data.organisatie_id}} 
         </H1>
-        <div class="position-absolute buttons">
+        <div class="position-absolute buttons" style="top: 15px;">
             <button type="button" class="btn btn-primary" onclick="location.href='{{ data.organisatie_id }}/edit';">Bewerk</button>
             <button type="button" class="btn btn-primary">Verwijder</button>
         </div>
         <H6 class="mb-1">
             KVK: {{ data.kvk}} |
-            {% if data.type == '1' %}
+            {% if data.type == 1 %}
             Type: Commerciëel
-            {% elif data.type == '2' %}
+            {% elif data.type == 2 %}
             Type: Non-profit
             {% endif %}
         </H6>
         <p class="m-0">
-            {% if data.status == '1' %}
+            {% if data.status == 1 %}
             Status: In afwachting
-            {% elif data.status == '2' %}
+            {% elif data.status == 2 %}
             Status: Goedgekeurd
-            {% elif data.status == '3' %}
+            {% elif data.status == 3 %}
             Status: Afgekeurd
-            {% elif data.status == '4' %}
+            {% elif data.status == 4 %}
             Status: Gesloten
-            {% elif data.status == '5' %}
+            {% elif data.status == 5 %}
             Status: Verwijderd
             {% endif %}
         </p>
     </div>
 </div>
-<div class="container border rounded-bottom bg-body" style="height: 50rem;">
+<div class="container border rounded-bottom bg-body" style="min-height: 25rem;">
     <div class="row m-1 border-bottom">
         <div class="col-md-auto">
             <H3>Omschrijving</H3>

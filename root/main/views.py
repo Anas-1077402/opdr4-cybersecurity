@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
+from ervaringsdeskundige.forms import RegisterForm
 
 def index(request):
     return render(request, "home/index_test.html")
@@ -74,11 +75,11 @@ def research_item_edit_save(request, pk):
     if request.method == 'POST':
         instance = Onderzoeken.objects.select_related("organisatie").get(pk=pk)
         data = request.POST
-        test = OnderzoekenSerializer(instance, data)
-        if test.is_valid():
-            test.save()
+        serializer = OnderzoekenSerializer(instance, data)
+        if serializer.is_valid():
+            serializer.save()
             return redirect(f"/beheerder/dashboard/research/{pk}")
-        return HttpResponse(test.errors, 400)
+        return HttpResponse(serializer.errors, 400)
     return redirect(f"/beheerder/dashboard/research/{pk}")
 
 
@@ -99,13 +100,14 @@ def experience_expert_item_edit(request, pk):
 
 
 def experience_expert_item_edit_save(request, pk):
-    """
     if request.method == 'POST':
-        research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie")
-    context = {
-        "data": research_item_data
-    }
-    """
+        instance = ErvaringsdeskundigeErvaringsdeskundige.objects.select_related("toezichthouder").get(pk=pk)
+        data = request.POST
+        serializer = RegisterForm(data, instance)
+        if serializer.is_valid():
+            serializer.save()
+            return redirect(f"/beheerder/dashboard/experience_expert/{pk}")
+        return HttpResponse(serializer.errors, 400)
     return redirect(f"/beheerder/dashboard/experience_expert/{pk}")
 
 
@@ -126,13 +128,15 @@ def organization_item_edit(request, pk):
 
 
 def organization_item_edit_save(request, pk):
-    """
     if request.method == 'POST':
-        research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie")
-    context = {
-        "data": research_item_data
-    }
-    """
+        instance = Organisaties.objects.get(pk=pk)
+        data = request.POST
+        serializer = OrganisatieSerializer(instance, data)
+        if serializer.is_valid():
+            serializer.save()
+            return redirect(f"/beheerder/dashboard/organization/{pk}")
+        print(serializer.errors)
+        return HttpResponse(serializer.errors, 400)
     return redirect(f"/beheerder/dashboard/organization/{pk}")
 
 

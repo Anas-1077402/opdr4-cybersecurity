@@ -86,17 +86,16 @@ class Onderzoeken(models.Model):
 
 class Organisaties(models.Model):
     organisatie_id = models.AutoField(primary_key=True, blank=True)
-    voornaam = models.TextField(blank=True, null=True)
-    achternaam = models.TextField(blank=True, null=True)
-    kvk = models.TextField(db_column='KVK', blank=True, null=True)  # Field name made lowercase.
+    naam = models.TextField(blank=True, null=True)
+    kvk = models.IntegerField(db_column='KVK', blank=True, null=True)  # Field name made lowercase.
     website = models.TextField(blank=True, null=True)
     beschrijving = models.TextField(blank=True, null=True)
     contact_persoon = models.TextField(blank=True, null=True)
     email = models.TextField(blank=True, null=True)
     telefoonnummer = models.IntegerField(blank=True, null=True)
     api_key = models.TextField(blank=True, null=True)
-    status = models.TextField(blank=True, null=True)
-    type = models.TextField(blank=True, null=True)
+    status = models.IntegerField(blank=True, null=True)
+    type = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
