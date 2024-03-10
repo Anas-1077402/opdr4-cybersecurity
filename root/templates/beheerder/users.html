@@ -5,6 +5,21 @@
 <script>
     function applyFilter(){
         var filterType = document.getElementById('filterType').value;
+
+        var rows = document.querySelectorAll('tbody tr');
+        rows.forEach(function (row) {
+            var isStaff = row.cells[3].innerText.toLowerCase() === 'true';
+            var isSuperuser = row.cells[2].innerText.toLowerCase() === 'true';
+
+            if (filterType === 'is_staff' && !isStaff) {
+             row.style.display = 'none';
+            } else if (filterType === 'is_superuser' && !isSuperuser){
+                row.style.display = 'none';
+            } else {
+                row.style.display = '';
+            }
+        }
+    );
     }
 
 </script>
@@ -19,7 +34,7 @@
                         <option value="is_superuser">Is Beheerder</option>
                     </select>
                     <button type="button" class="btn btn-primary" onclick="applyFilter()">
-                        <i class="bi bi-filter"></i> Filteren
+                         Filteren
                     </button>
                   <table class="table">
                     <h2 class="p-3">Alle Gebruikers</h2>
