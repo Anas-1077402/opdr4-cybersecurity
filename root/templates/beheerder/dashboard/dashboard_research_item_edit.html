@@ -1,5 +1,6 @@
 {% extends "beheerder/base.html" %}
 {% load static %}
+{% load tz %}
 {% block title %}{{ data.titel }}{% endblock %}
 
 {% block content %}
@@ -16,9 +17,10 @@
             <button type="button" class="btn btn-primary" onclick="location.href='../{{ data.onderzoeks_id }}';">Annuleer</button>
         </div>
         <H6 class="mb-1">Verzocht door: {{ data.organisatie.voornaam }}</H6>
+        <input type="hidden" id="organization_research" name="organisatie" value="{{ data.organisatie.organisatie_id }}">
         <div class="d-flex pt-2 mb-0 justify-content-center">
             <div class="form-floating mb-2">
-                <select aria-label="Kuering" id="status_select" class="form-select">
+                <select aria-label="Kuering" id="status_select" name="status" class="form-select">
                     {% if data.status == 1 %}
                         <option value=1>In afwachting</option>
                         <option value=2>Goedgekeurd</option>
@@ -51,7 +53,7 @@
         <div class="col-md-auto">
             <H3>Omschrijving</H3>
             <div class="container-fluid mb-2" tabindex="0">
-                <textarea id="research_description" type="text" name="titel" class="form-control" placeholder="{{ data.omschrijving }}"></textarea>
+                <textarea id="research_description" type="text" name="omschrijving" class="form-control" placeholder="{{ data.omschrijving }}">{{ data.omschrijving }}</textarea>
             </div>
         </div>
     </div>
@@ -61,9 +63,9 @@
             <h5>Leeftijd:</h5>
             <div class="container-fluid mb-1" tabindex="0">
                 <span class="input-group-number">Van</span>
-                <input type="number" min="0" class="form-control" value="{{ data.doelgroep_leeftijd_van }}" aria-label="doelgroep leeftijd van">
+                <input type="number" min="0" class="form-control" value="{{ data.doelgroep_leeftijd_van }}" name="doelgroep_leeftijd_van" aria-label="doelgroep leeftijd van">
                 <span class="input-group-number">Tot</span>
-                <input type="number" min="0" class="form-control" value="{{ data.doelgroep_leeftijd_tot }}" aria-label="doelgroep leeftijd tot">
+                <input type="number" min="0" class="form-control" value="{{ data.doelgroep_leeftijd_tot }}" name="doelgroep_leeftijd_tot" aria-label="doelgroep leeftijd tot">
                 <span class="input-group-number">Jaar oud</span>
             </div>
         </div>
@@ -85,7 +87,7 @@
         <div class="col-md-auto border-end">
             <H5>Soort onderzoek:</H5>
             <div class="container-fluid mb-2" tabindex="0">
-                <select aria-label="Soort onderzoek" id="research_type_select" class="form-select">
+                <select aria-label="Soort onderzoek" id="research_type_select" name="soort_onderzoek" class="form-select">
                     {% if data.soort_onderzoek == 1 %}
                         <option value=1>Telefonisch</option>
                         <option value=2>Via internet</option>
@@ -105,7 +107,7 @@
         <div class="col-md-auto border-end">
             <H5>Locatie:</H5>
             <div class="container-fluid mb-2" tabindex="0">
-                <input id="research_location" type="text" aria-label="Locatie" class="form-control" value="{{ data.locatie }}" placeholder="{{ data.locatie }}">
+                <input id="research_location" name="locatie" type="text" aria-label="Locatie" class="form-control" value="{{ data.locatie }}" placeholder="{{ data.locatie }}">
             </div>
         </div>
         <div class="col-md-auto border-end">
@@ -120,7 +122,7 @@
                         }
                     }
                 </script>
-                <select aria-label="Onderzoek beloning" id="reward_select" class="form-select mb-1" onchange="selectReward()">
+                <select aria-label="Onderzoek beloning" id="reward_select" name="met_beloning" class="form-select mb-1" onchange="selectReward()">
                     {% if data.met_beloning == 0 %}
                         <option value=0>Nee</option>
                         <option value=1>Ja</option>
@@ -134,7 +136,7 @@
                 </div>
                 {% elif data.met_beloning == 1 %}
                 <div id="research_with_reward">
-                    <input id="research_reward" type="text" aria-label="Beloning" class="form-control" value="{{ data.beloning }}" placeholder="{{ data.beloning }}"></input>
+                    <input id="research_reward" name="beloning" type="text" aria-label="Beloning" class="form-control" value="{{ data.beloning }}" placeholder="{{ data.beloning }}"></input>
                 </div>
                 {% endif %}
             </div>
@@ -142,10 +144,10 @@
         <div class="col-md-auto border-end">
             <H5>Datum:</H5>
             <div class="container-fluid mb-2" tabindex="0">
-                <label>Van {{ data.datum_vanaf }}</label>
-                <input class="form-control" type="datetime-local" aria-label="Datum onderzoek vanaf" value="{{ data.datum_vanaf }}">
-                <label>Tot {{ data.datum_tot }}</label>
-                <input class="form-control" type="datetime-local" aria-label="Datum onderzoek tot" value="{{ data.datum_tot }}">
+                <label>Van</label>
+                <input name="datum_vanaf" class="form-control" type="datetime-local" aria-label="Datum onderzoek vanaf" value="{{ data.datum_vanaf }}">
+                <label>Tot</label>
+                <input name="datum_tot" class="form-control" type="datetime-local" aria-label="Datum onderzoek tot" value="{{ data.datum_tot }}">
             </div>
         </div>
     </div>
@@ -154,7 +156,7 @@
         <div class="col-md-auto border-end">
             <H5>Contact opgenomen:</H5>
             <div class="container-fluid mb-2" tabindex="0">
-                <select aria-label="Contact opgenomen" id="reached_out_select" class="form-select mb-1">
+                <select aria-label="Contact opgenomen" id="reached_out_select" name="contact_opgenomen" class="form-select mb-1">
                     {% if data.contact_opgenomen == 0 %}
                         <option value=0>Nee</option>
                         <option value=1>Ja</option>
@@ -168,7 +170,7 @@
         <div class="col-md-auto border-end">
             <H5>Beheerder opmerkingen:</H5>
             <div class="container-fluid mb-2" tabindex="0">
-                <textarea id="admin_comments" type="text" aria-label="Beheerder opmerkingen" class="form-control" placeholder="{{ data.opmerking_beheerder }}"></textarea>
+                <textarea id="admin_comments" name="opmerkingen_beheerder" type="text" aria-label="Beheerder opmerkingen" class="form-control" placeholder="{{ data.opmerking_beheerder }}">{{ data.opmerking_beheerder }}</textarea>
             </div>
         </div>
     </div>

@@ -56,6 +56,13 @@ def research_item(request, pk):
 
 def research_item_edit(request, pk):
     research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie").get(pk=pk)
+
+    # Converts datetime to value compatiable with html input=datetime-local element
+    datetime_from = research_item_data.datum_vanaf
+    datetime_till = research_item_data.datum_tot
+    research_item_data.datum_vanaf = (str(datetime_from.date()) + 'T' + str(datetime_from.time()))
+    research_item_data.datum_tot = (str(datetime_till.date()) + 'T' + str(datetime_till.time()))
+
     context = {
         "data": research_item_data
     }
@@ -63,13 +70,15 @@ def research_item_edit(request, pk):
 
 
 def research_item_edit_save(request, pk):
-    """
+
     if request.method == 'POST':
-        research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie")
-    context = {
-        "data": research_item_data
-    }
-    """
+        instance = Onderzoeken.objects.select_related("organisatie").get(pk=pk)
+        data = request.POST
+        test = OnderzoekenSerializer(instance, data)
+        if test.is_valid():
+            test.save()
+            return redirect(f"/beheerder/dashboard/research/{pk}")
+        return HttpResponse(test.errors, 400)
     return redirect(f"/beheerder/dashboard/research/{pk}")
 
 

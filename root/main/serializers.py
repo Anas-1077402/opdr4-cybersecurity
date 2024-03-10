@@ -60,5 +60,4 @@ class OnderzoekenSerializer(serializers.ModelSerializer):
             'doelgroep_leeftijd_tot',
             'contact_opgenomen',
             'opmerkingen_beheerder',
-            'type_onderzoek',
         ]
