@@ -142,9 +142,11 @@ def organization_item_edit_save(request, pk):
 
 def attendance_request_item(request, pk):
     attendance_request_item_data = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').get(pk=pk)
+
     context = {
-        "data": attendance_request_item_data
+        "data": attendance_request_item_data,
     }
+
     return render(request, "beheerder/dashboard/dashboard_attendance_request_item.html", context)
 
 
@@ -157,13 +159,14 @@ def attendance_request_item_edit(request, pk):
 
 
 def attendance_request_item_edit_save(request, pk):
-    """
     if request.method == 'POST':
-        research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie")
-    context = {
-        "data": research_item_data
-    }
-    """
+        instance = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').get(pk=pk)
+        data = request.POST
+        if data['status']:
+            instance.status = data['status']
+            instance.save()
+            return redirect(f"/beheerder/dashboard/attendance_request/{pk}")
+        return HttpResponse(instance.errors, 400)
     return redirect(f"/beheerder/dashboard/attendance_request/{pk}")
 
 
@@ -172,11 +175,12 @@ def get_dashboard(request):
     data = dict()
     list_research = Onderzoeken.objects.filter(status=1).select_related("organisatie")
     count_research = list_research.count()
-    list_experience_expert = ErvaringsdeskundigeErvaringsdeskundige.objects.filter(status=2).select_related("toezichthouder")
+    list_experience_expert = ErvaringsdeskundigeErvaringsdeskundige.objects.select_related("toezichthouder").filter(status=2)
     count_experience_expert = list_experience_expert.count()
     list_organization = Organisaties.objects.filter(status=1)
     count_organization = list_organization.count()
-    list_attendance_request = Deelnames.objects.filter(status=1).select_related('onderzoeks').select_related('ervaringsdeskundige')
+    list_attendance_request = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').filter(status=1)
+    print(list_attendance_request.get(pk=1).ervaringsdeskundige)
     count_attendance_request = list_attendance_request.count()
 
     context = {
