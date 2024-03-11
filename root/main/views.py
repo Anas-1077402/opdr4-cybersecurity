@@ -6,8 +6,8 @@ from main.models import Organisaties, Onderzoeken, ErvaringsdeskundigeErvaringsd
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
-from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
-from ervaringsdeskundige.forms import RegisterForm
+from main.serializers import OrganisatieSerializer, OnderzoekenSerializer, ExperienceExpertSerializer
+
 
 def index(request):
     return render(request, "home/index_test.html")
@@ -79,7 +79,7 @@ def research_item_edit_save(request, pk):
         if serializer.is_valid():
             serializer.save()
             return redirect(f"/beheerder/dashboard/research/{pk}")
-        return HttpResponse(serializer.errors, 400)
+        return HttpResponse(status=400)
     return redirect(f"/beheerder/dashboard/research/{pk}")
 
 
@@ -93,6 +93,7 @@ def experience_expert_item(request, pk):
 
 def experience_expert_item_edit(request, pk):
     experience_expert_item_data = ErvaringsdeskundigeErvaringsdeskundige.objects.filter(pk=pk).select_related("toezichthouder").get(pk=pk)
+    experience_expert_item_data.geboortedatum = str(experience_expert_item_data.geboortedatum)
     context = {
         "data": experience_expert_item_data
     }
@@ -103,11 +104,11 @@ def experience_expert_item_edit_save(request, pk):
     if request.method == 'POST':
         instance = ErvaringsdeskundigeErvaringsdeskundige.objects.select_related("toezichthouder").get(pk=pk)
         data = request.POST
-        serializer = RegisterForm(data, instance)
+        serializer = ExperienceExpertSerializer(instance, data)
         if serializer.is_valid():
             serializer.save()
             return redirect(f"/beheerder/dashboard/experience_expert/{pk}")
-        return HttpResponse(serializer.errors, 400)
+        return HttpResponse(status=400)
     return redirect(f"/beheerder/dashboard/experience_expert/{pk}")
 
 
@@ -136,7 +137,7 @@ def organization_item_edit_save(request, pk):
             serializer.save()
             return redirect(f"/beheerder/dashboard/organization/{pk}")
         print(serializer.errors)
-        return HttpResponse(serializer.errors, 400)
+        return HttpResponse(status=400)
     return redirect(f"/beheerder/dashboard/organization/{pk}")
 
 
@@ -166,7 +167,7 @@ def attendance_request_item_edit_save(request, pk):
             instance.status = data['status']
             instance.save()
             return redirect(f"/beheerder/dashboard/attendance_request/{pk}")
-        return HttpResponse(instance.errors, 400)
+        return HttpResponse(status=400)
     return redirect(f"/beheerder/dashboard/attendance_request/{pk}")
 
 

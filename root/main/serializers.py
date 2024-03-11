@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Organisaties, Onderzoeken
+from .models import Organisaties, Onderzoeken, ErvaringsdeskundigeErvaringsdeskundige
 
 
 class OrganisatieSerializer(serializers.Serializer):
@@ -59,3 +59,32 @@ class OnderzoekenSerializer(serializers.ModelSerializer):
             'contact_opgenomen',
             'opmerkingen_beheerder',
         ]
+
+
+class ExperienceExpertSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ErvaringsdeskundigeErvaringsdeskundige
+        fields = [
+                'username',
+                'first_name',
+                'last_name',
+                'email',
+                'postcode',
+                'geslacht',
+                'gebruikte_hulpmiddelen',
+                'bijzonderheden',
+                'voorkeur_benadering',
+                'geboortedatum',
+                'telefoonnummer',
+                'toezichthouder',
+                'bijzonderheden_beschikbaarheid',
+                'status',
+        ]
+# 'password',
+# 'last_login',
+# 'is_superuser',
+# 'is_staff',
+# 'is_active',
+# 'date_joined',
+# 'datum_goedgekeurd',
+# 'goedegekeurd_door',
