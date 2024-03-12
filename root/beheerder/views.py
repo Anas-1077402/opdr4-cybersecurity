@@ -10,6 +10,8 @@ from django.template.loader import render_to_string
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer, ExperienceExpertSerializer
 from beheerder.models import Beheerders
 from ervaringsdeskundige.models import User
+from django.db import transaction
+
 
 
 def home_view(request):
@@ -89,6 +91,30 @@ def update_status(request, onderzoeks_id, nieuwe_status):
     return JsonResponse({'message': 'Status bijgewerkt'}, status=200)
 
 
+def update_organisatie_status(request, organisatie_id, nieuwe_status):
+    print(f"Update status voor onderzoek {organisatie_id} naar {nieuwe_status}")
+    organisatie = Organisaties.objects.get(organisatie_id=organisatie_id)
+    organisatie.status = nieuwe_status
+    organisatie.save()
+    return JsonResponse({'message': 'Status bijgewerkt'}, status=200)
+
+
+def update_ervaringsdeskundige_status(request, id, nieuwe_status):
+    print(f"Update status voor onderzoek {id} naar {nieuwe_status}")
+    ervaringsdeskundige = User.objects.get(id=id)
+    ervaringsdeskundige.status = nieuwe_status
+    ervaringsdeskundige.save()
+    return JsonResponse({'message': 'Status bijgewerkt'}, status=200)
+
+
+def update_deelnames_status(request, id, nieuwe_status):
+    print(f"Update status voor onderzoek {id} naar {nieuwe_status}")
+    deelnames = Deelnames.objects.get(id=id)
+    deelnames.status = nieuwe_status
+    deelnames.save()
+    return JsonResponse({'message': 'Status bijgewerkt'}, status=200)
+
+
 #def bewerk_onderzoek(request, onderzoeks_id):
 #    onderzoek = get_object_or_404(Onderzoeken, onderzoeks_id=onderzoeks_id)
 
@@ -103,9 +129,9 @@ def update_status(request, onderzoeks_id, nieuwe_status):
 
 #   return render(request, 'beheerder/bewerk_onderzoek.html', {'onderzoek': onderzoek})
 
-
+@transaction.atomic
 def verwijder_onderzoek(request, onderzoeks_id):
-    onderzoek = get_object_or_404(Onderzoeken, onderzoeks_id=onderzoeks_id)
+    onderzoek = Onderzoeken.objects.get(pk=onderzoeks_id)
 
     if request.method == 'POST':
         onderzoek.delete()
