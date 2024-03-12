@@ -3,12 +3,21 @@ https://www.youtube.com/watch?v=eosXCVcgtPw&t=155s
 https://www.youtube.com/watch?v=ynToND_xOAM
 https://reintech.io/blog/writing-custom-authentication-backend-django
 https://developer.snapappointments.com/bootstrap-select/examples/#multiple-select-boxes
+https://api.jquery.com/jQuery.ajax/
+https://stackoverflow.com/questions/40791207/setting-and-getting-localstorage-with-jquery
+https://blog.logrocket.com/localstorage-javascript-complete-guide/
+https://stackoverflow.com/questions/10105063/how-to-play-a-notification-sound-on-websites
+https://dequeuniversity.com/rules/axe/4.8/heading-order
+https://www.regex-tutorial.com/getCookieWithRegex.html
+
+
+
 
 Styling: 
 https://getbootstrap.com/
 
 
-Prompt chatgpt: 
+Prompts ai: 
 "waarom mijn static map niet: /static/admin/css in django. In de instellingen staat dit: STATIC_ROOT = [
     os.path.join(BASE_DIR, 'static')
 ]"
@@ -21,3 +30,5 @@ Prompt chatgpt:
 "hoe zet ik default info in mijn serializer"
 "ik heb bij mijn onderzoeken tabel een leeftijd vanaf en een leeftijd tot op staan. Ik wil dat als de user ertusseninzit dat hij dat onderzoek toont"
 "Hoe doe ik op een andere manier dan een join een join in python met django."
+"hoe haal ik live data op uit de database als ik het in een functie zet?"
+"ik wil local storage gebruiken, zodat als een melding wordt laten zien dat hij volgende keer niet weer wordt laten zien. Hoe doe ik dat?"
