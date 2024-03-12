@@ -1,31 +1,383 @@
+
 {% extends "home/base.html" %}
+{% load static %}
+
 {% block title %}Registreren{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-    <h2 class="mb-0">Registreren als Ervaringsdeskundige</h2>
-        </div>
-        <div class="card-body">
-            {% if form.errors %}
-                <div class="alert alert-danger">
-                    <strong>Oeps! Er zijn enkele fouten opgetreden:</strong>
-                    <ul>
-                        {% for field, errors in form.errors.items %}
-                            {% for error in errors %}
-                                <li>{{ field|title }}: {{ error }}</li>
+
+<script>
+function ageChecker() {
+    const outputElement = document.getElementById('output');
+      const inputDateValue = document.getElementById('geboortedatum').value;
+
+      if (inputDateValue) {
+        const date = new Date(inputDateValue);
+        const now = new Date();
+        const diff = Math.abs(now - date);
+        const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+
+        if (age < 18) {
+
+            outputElement.classList.remove('hidden');
+        } else {
+            outputElement.classList.add('hidden');
+        }
+      } else {
+        outputElement.innerHTML = "";
+        document.getElementById('output').innerHTML = "Voer een geldige geboortedatum in.";
+      }
+    }
+  </script>
+  
+
+    <section class="vh-50" style="background-color: #2779e2;">
+        <br><br><br>
+        <div class="container h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-9">
+      
+              <h1 class="text-white mb-5">Registreer als Ervaringsdeskundige</h1>
+      
+              <div class="card" style="border-radius: 15px;">
+                <div class="card-body">
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>Oeps! Er zijn enkele fouten opgetreden:</strong>
+                        <ul>
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <li>{{ field|title }}: {{ error }}</li>
+                                {% endfor %}
                             {% endfor %}
-                        {% endfor %}
-                    </ul>
+                        </ul>
+                    </div>
+                {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                    <h3>Persoonsgegevens</h3>
+                  <div class="row align-items-center pt-4 pb-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Naam</h6>
+      
+                    </div>
+                    <div class="col-md-4 pe-5">
+      
+                        {{ form.first_name }}
+                        <div class="small text-muted mt-1">Voornaam</div>
+      
+                    </div>
+                    <div class="col-md-4 pe-5">
+                        {{ form.last_name }}
+                        <div class="small text-muted mt-1">Achternaam</div>
+                      </div>
+                      
+                  </div>
+      
+
+      
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Gebruikersnaam</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.username }}
+                        
+                    </div>
+                  </div>
+      
+
+
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-6">Wachtwoord</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.password1 }}
+                        
+                    </div>
+                  </div>
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+                    </div>
+                    <div class="col-md-9 pe-5">
+                        <div class="small text-muted mt-1">- Uw wachtwoord mag niet te veel lijken op uw persoonlijke informatie. <br>
+                            - Uw wachtwoord moet ten minste 8 tekens bevatten. <br>
+                            - Uw wachtwoord mag geen veelgebruikt wachtwoord zijn. <br>
+                            - Uw wachtwoord mag niet volledig numeriek zijn.</div>
+                    </div>
+                  </div>
+                 
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Wachtwoord herhalen</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.password2 }}
+                        
+                    </div>
+                  </div>
+
+
+      
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Email adres</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.email }}
+      
+                    </div>
+                  </div>
+
+      
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Telefoonnummer</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.telefoonnummer }}
+      
+                    </div>
+                  </div>
+
+
+      
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Postcode</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.postcode }}
+                        
+                    </div>
+                  </div>
+
+
+      
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Geslacht</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.geslacht }}
+                        
+                    </div>
+                  </div>
+
+      
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Geboortedatum</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.geboortedatum }}
+                        
+                    </div>
+                  </div>
+
+
+
+                  <div id="output" class="hidden">
+                    <hr class="mx-n3">
+                    <h4>Toezichthouder</h4>
+                    <div class="small text-muted mt-1">Verplicht onder de 18 jaar.</div>
+                    <div class="row align-items-center pt-4 pb-3">
+
+                        <div class="col-md-3 ps-5">
+          
+                          <h6 class="mb-0">Naam toezichthouder 1</h6>
+          
+                        </div>
+                        <div class="col-md-4 pe-5">
+          
+                            {{ supervisors.voornaam_1 }}
+                            <div class="small text-muted mt-1">Voornaam</div>
+          
+                        </div>
+                        <div class="col-md-4 pe-5">
+                            {{ supervisors.achternaam_1 }}
+                            <div class="small text-muted mt-1">Achternaam</div>
+                          </div>
+                          
+                      </div>
+
+                      <div class="row align-items-center py-3">
+                        <div class="col-md-3 ps-5">
+          
+                          <h6 class="mb-0">Telefoonnummer toezichthouder 1</h6>
+          
+                        </div>
+                        <div class="col-md-9 pe-5">
+          
+                            {{ supervisors.telefoonnummer_1 }}
+          
+                        </div>
+                      </div>
+
+                      <hr class="mx-n3">
+
+                      <h4>Toezichthouder 2</h4>
+                    <div class="small text-muted mt-1"> *optioneel onder de 18 jaar.</div>
+                    <div class="row align-items-center pt-4 pb-3">
+
+                        <div class="col-md-3 ps-5">
+          
+                          <h6 class="mb-0">Naam toezichthouder 1</h6>
+          
+                        </div>
+                        <div class="col-md-4 pe-5">
+          
+                            {{ supervisors.voornaam_2 }}
+                            <div class="small text-muted mt-1">Voornaam</div>
+          
+                        </div>
+                        <div class="col-md-4 pe-5">
+                            {{ supervisors.achternaam_2 }}
+                            <div class="small text-muted mt-1">Achternaam</div>
+                          </div>
+                          
+                      </div>
+
+                      <div class="row align-items-center py-3">
+                        <div class="col-md-3 ps-5">
+          
+                          <h6 class="mb-0">Telefoonnummer toezichthouder 2</h6>
+          
+                        </div>
+                        <div class="col-md-9 pe-5">
+          
+                            {{ supervisors.telefoonnummer_2 }}
+          
+                        </div>
+                      </div>
+
+
+                      
+                  </div>
+
+                  <hr class="mx-n3">
+                  <h3>Ervaring</h3>
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Beperkingen</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+                        <select class="selectpicker" data-width="100%" data-live-search="true" name="selected_limitations" multiple title="Selecteer uw beperking(en)">
+                            <optgroup label="Auditieve beperking">
+                                {% for limitation in limitations %}
+                                    {% if limitation.soort == "Auditieve beperking" %}
+                                        <option value="{{ limitation.id }}">{{ limitation.omschrijving }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </optgroup>
+                            <optgroup label="Visuele beperking">
+                                {% for limitation in limitations %}
+                                    {% if limitation.soort == "Visuele beperking" %}
+                                        <option value="{{ limitation.id }}">{{ limitation.omschrijving }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </optgroup>
+                            <optgroup label="Motorische / lichamelijke beperking">
+                                {% for limitation in limitations %}
+                                    {% if limitation.soort == "Motorische / lichamelijke beperkingen" %}
+                                        <option value="{{ limitation.id }}">{{ limitation.omschrijving }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </optgroup>
+                            <optgroup label="Cognitieve / neurologische beperking">
+                                {% for limitation in limitations %}
+                                    {% if limitation.soort == "Cognitieve / neurologische beperkingen" %}
+                                        <option value="{{ limitation.id }}">{{ limitation.omschrijving }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </optgroup>
+                        </select>
+                          
+                    </div>
+                  </div>
+
+
+      
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Hulpmiddelen</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.gebruikte_hulpmiddelen }}
+                        
+                    </div>
+                  </div>
+
+      
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Bijzonderheden</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.bijzonderheden }}
+                        
+                    </div>
+                  </div>
+
+      
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <h6 class="mb-0">Bijzonderheden beschikbaarheid</h6>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.bijzonderheden_beschikbaarheid }}
+                        
+                    </div>
+                  </div>
+    
+                  <hr class="mx-n3">
+      
+                  <div class="px-5 py-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Verzoek indienen</button>
+                  </div>
+      
                 </div>
-            {% endif %}
-        <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input class="btn btn-primary" type="submit" value="Registreren">
-        </form>
+              </div>
+            </form>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+        <br><br><br>
 {% endblock %}

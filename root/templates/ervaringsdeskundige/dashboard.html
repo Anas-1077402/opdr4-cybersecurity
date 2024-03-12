@@ -2,49 +2,152 @@
 {% load static %}
 {% block title %}Homepage{% endblock %}
 
+
+
+
 {% block content %}
-<div id="body_dashboard">
-    
-    <div id="dashboard_content">
-      
-        <div id="grey_background" class="d-flex flex-column flex-shrink-0 mr-3 p-3" style="width: 280px;">
-          
-            <ul class="nav nav-pills flex-column mb-auto">
-              <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark">
-                  Ingeschreven onderzoeken
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark">
-                  Afgeronde onderzoeken
-                </a>
-              </li>
-            </ul>
-            <hr>
-          </div>
-          <div style="margin-left: 15px;">
-            <h1 style="margin-left: 15px;">ervaringsdeskundigen Dashboard</h1>
-            <div id="stat_cards">
-                <div class="card_stat">
-                    <h3>Aantal onderzoeken voltooid</h3>
-                    <p class="number">11</p>
+<div class="container-fluid" style="height: 94vh;">
+    <div class="row">
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+          <a href="#">
+            <img style="margin: 20px; margin-left: 5px;" src="{% static 'images/logo_accessibility.png' %}" width="200px" alt="test">
+          </a>
+            <div class="position-sticky">
+              <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                  <a href="#" class="nav-link active" aria-current="page">
+                    Dashboard
+                  </a>
+                </li>
+                <li>
+                  <a href="/ervaringsdeskundige/onderzoeken" class="nav-link menu_text">
+                    Onderzoeken
+                  </a>
+                </li>
+                <li>
+                  <a  href="registered_investigations" class="nav-link menu_text">
+                    Ingeschreven onderzoeken
+                  </a>
+                </li>
+                <li>
+                  <a  href="#" class="nav-link menu_text">
+                    Afgeronde onderzoeken
+                  </a>
+                </li>
+              </ul>
+              <hr>
+            </div>
+        </nav>
+
+
+        <div style="height: 94vh;" id="dashboard_main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div id="dashboard_overflow">
+        <main >
+          <div class="text-center" style="padding-top: 20px;">
+            <div>
+                  <div id="search" style="height: 20px;">
+                    <a  style="margin-right: 20px;" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i>      Switch thema </a>
+                    <div class="dropdown">
+                      <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user" style="padding-right: 15px;" width="32" height="32" class="rounded-circle me-2"></i>
+                        <strong>{{ user.first_name}} {{ user.last_name}}</strong>
+                      </a>
+                      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+                        <li><a class="dropdown-item" href="/ervaringsdeskundige/dashboard">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="#">Instellingen</a></li>
+                        <li><a class="dropdown-item" href="/ervaringsdeskundige/edit_profile">Profiel</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/ervaringsdeskundige/logout">Log uit</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <h1 style="margin: 10px; margin-left: 40px;" class="text-start extra-bold-header">Welkom {{ user.first_name }}👋!</h1>
+
+                  <div id="approved_alert" style="display: none;" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p id="notification-container" class="mb-0 ml-auto"></p>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="card_stat">
-                    <h3>Aantal ingeschreven onderzoeken</h3>
-                    <p class="number">24</p>
+                
+                
+
+            </div>
+              <div id="stat_cards" class="row">
+                <div class="col-md-4 card_stat">
+                    <p class="number number_1">Loading...</p>
+                    <h6 class="card-stat-heading">Aantal onderzoeken voltooid</h6>
                 </div>
-                <div class="card_stat">
-                    <h3>Lopende onderzoeken</h3>
-                    <p class="number">2</p>
+                <div class="col-md-4 card_stat">
+                    <p class="number number_2">Loading...</p>
+                    <h6 class="card-stat-heading">Aantal ingeschreven onderzoeken</h6>
+                </div>
+                <div class="col-md-4 card_stat">
+                    <p class="number number_3">Loading...</p>
+                    <h6 class="card-stat-heading">Lopende onderzoeken</h6>
+
                 </div>
             </div>
-            
-<div class="hatsieflatsie"> <br><br><br></div>
-{% endblock %}
+            </div>
+      </main>
+    </div>
+    </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    setInterval(function() {
+        $.ajax({
+            url: 'live_dashboard_data',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+              $('.number_1').text(data.count_status_1).css('font-size', '120px');
+              $('.number_2').text(data.count_status_2).css('font-size', '120px');
+              $('.number_3').text(data.count_status_3).css('font-size', '120px');
+              
+                for (const onderzoekId in data.registered_investigations) {
+                    const onderzoek = data.registered_investigations[onderzoekId].onderzoek;
+                    const onderzoekStatus = data.registered_investigations[onderzoekId].status;
 
+                    const meldingKey = `melding_displayed_${onderzoekId}`;
+
+                    if (onderzoekStatus === 3 && !localStorage.getItem(meldingKey)) {
+                        const notificationText = `We hebben goed nieuws voor je! Je bent <strong> goedgekeurd </strong> voor het "${onderzoek.titel}" onderzoek!`;
+                        showNotification(notificationText);
+
+                        $('#approved_alert').css('display', 'block');
+
+                        playSound(mp3FilePath);
+
+                        localStorage.setItem(meldingKey, '1');
+                    }
+                }
+            },
+            error: function(error) {
+                console.log('Error:', error);
+            }
+        });
+    }, 500);
+});
+
+function showNotification(text) {
+    var notificationContainer = $('#notification-container');
+    notificationContainer.html('<p>' + text + '</p>');
+}
+
+function playSound(filePath) {
+    const audio = new Audio(filePath);
+    try {
+        audio.play();
+    } catch (error) {
+        console.error('Afspelen van het geluid mislukt:', error);
+    }
+}
+
+const mp3FilePath = '75584bb7-2266-4c41-87f1-97cd5d53b5c4/notification.mp3';
+
+</script>
+{% endblock %}

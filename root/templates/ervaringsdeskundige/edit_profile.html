@@ -2,36 +2,101 @@
 {% load static %}
 {% block title %}Homepage{% endblock %}
 
+
+
+
 {% block content %}
-<div class="container">
-<h1 class="display-1">Profiel</h1>
-<hr class="hr" /><br>
-<form method="POST">
-    {% csrf_token %}
-    <strong>Voornaam:</strong>
-    {{ form.first_name }}
-    <br>
+<div class="container-fluid" style="height: 94vh;">
+    <div class="row">
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+          <a href="#">
+            <img style="margin: 20px; margin-left: 5px;" src="{% static 'images/logo_accessibility.png' %}" width="200px" alt="test">
+          </a>
+            <div class="position-sticky">
+              <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                  <a href="dashboard" class="nav-link active" aria-current="page">
+                    Dashboard
+                  </a>
+                </li>
+                <li>
+                  <a href="/ervaringsdeskundige/onderzoeken" class="nav-link menu_text">
+                    Onderzoeken
+                  </a>
+                </li>
+                <li>
+                  <a href="registered_investigations" class="nav-link menu_text">
+                    Ingeschreven onderzoeken
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link menu_text">
+                    Afgeronde onderzoeken
+                  </a>
+                </li>
+              </ul>
+              <hr>
+            </div>
+        </nav>
 
-    <strong>Achternaam:</strong>
-    {{ form.last_name }}
-    <br>
-    
-    <strong>Gebruikersnaam:</strong>
-    {{ form.username }}
-    <br>
+        <div style="height: 94vh;" id="dashboard_main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div id="dashboard_overflow">
+        <main >
+          <div style="padding-top: 20px;">
+            <div class="container">
+                <h1 class="extra-bold-header">Profiel</h1>
+                <hr class="hr" /><br>
+                <form method="POST">
+                  {% csrf_token %}
+                  <div class="mb-3 text-left">
+                      <label for="{{ form.first_name.id_for_label }}" class="form-label">Voornaam:</label>
+                      {{ form.first_name }}
+                  </div>
 
-    <strong>E-mail adress:</strong>
-    {{ form.email }}
-    <br>
+                  <div class="mb-3 text-left">
+                      <label for="{{ form.last_name.id_for_label }}" class="form-label">Achternaam:</label>
+                      {{ form.last_name }}
+                  </div>
 
-    <!-- <strong>Wachtwoord:</strong>
-    {{ form.password1 }}
-    <br>
+                  <div class="mb-3 text-left">
+                      <label for="{{ form.username.id_for_label }}" class="form-label">Gebruikersnaam:</label>
+                      {{ form.username }}
+                  </div>
 
-    <strong>Wachtwoord herhalen om te bevestigen:</strong>
-    {{ form.password2 }}
-    <br> -->
-
-    <button class="btn btn-primary" type="submit">Update</button>
-</form></div>
+                  <div class="mb-3 text-left">
+                      <label for="{{ form.email.id_for_label }}" class="form-label">E-mail adres:</label>
+                      {{ form.email }}
+                  </div>
+                  <div style="display: flex; justify-content: space-between; width: 100%;">
+                      <button class="btn btn-primary" type="submit"><i class="fa-solid fa-arrows-rotate"></i>   Update</button>
+                      <button class="btn btn-danger" onclick="deleteMessage()"><i class="fa-solid fa-trash"></i>   Verwijder account</button>
+                  </div>
+              </form></div>
+                
+                
+                <script>
+                function deleteMessage() {
+                    var inputValue = prompt("Weet u zeker dat u uw account wilt verwijderen? Zo ja, geef dan een reden waarom u uw account wilt verwijderen:");
+                
+                    if (inputValue === null) {
+                        alert("Annulering: Geen reden opgegeven.");
+                    } else if (inputValue === "") {
+                        alert("Gelieve tekst in te voeren.");
+                        var secondInputValue = prompt("Weet u zeker dat u uw account wilt verwijderen? Zo ja, geef dan een reden waarom u uw account wilt verwijderen:");
+                        if (secondInputValue === null || secondInputValue === "") {
+                            alert("Annulering: Geen reden opgegeven.");
+                        } else {
+                            window.location.href = "/ervaringsdeskundige/delete_account?comment=" + encodeURIComponent(secondInputValue);
+                        }
+                    } else {
+                        window.location.href = "/ervaringsdeskundige/delete_account?comment=" + encodeURIComponent(inputValue);
+                    }
+                }
+                </script>
+            </div>
+      </main>
+    </div>
+    </div>
+    </div>
+</div>
 {% endblock %}

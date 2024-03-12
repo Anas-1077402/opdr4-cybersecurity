@@ -1,0 +1,58 @@
+{% extends "ervaringsdeskundige/base.html" %}
+{% load static %}
+{% block title %}Homepage{% endblock %}
+{% block content %}
+<div class="container-fluid" style="height: 94vh;">
+    <div class="row">
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+          <a href="#">
+            <img style="margin: 20px; margin-left: 5px;" src="{% static 'images/logo_accessibility.png' %}" width="200px" alt="test">
+          </a>
+            <div class="position-sticky">
+              <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                  <a href="/ervaringsdeskundige/dashboard"  class="nav-link menu_text">
+                    Dashboard
+                  </a>
+                </li>
+                <li>
+                  <a href="/ervaringsdeskundige/onderzoeken" class="nav-link active" aria-current="page">
+                    Onderzoeken
+                  </a>
+                </li>
+                <li>
+                  <a href="/ervaringsdeskundige/registered_investigations" class="nav-link menu_text">
+                    Ingeschreven onderzoeken
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="nav-link menu_text">
+                    Afgeronde onderzoeken
+                  </a>
+                </li>
+              </ul>
+              <hr>
+            </div>
+        </nav>
+
+        <div style="height: 94vh;" id="dashboard_main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div id="dashboard_overflow">
+        <main >
+          <div class="text-center" style="padding-top: 20px;">
+          </div>
+          <div class="d-flex align-items-center justify-content-center m-4 p-1">
+              <div class="d-flex flex-column align-items-center justify-content-center">
+                <h1>U bent succesvol <strong>uitgeschreven</strong> voor dit onderzoek✅</h1><br>
+                <h5><em>U kunt deze pagina weer verlaten.</em></h5><br><br>
+                <iframe src="https://giphy.com/embed/9Y5BbDSkSTiY8" alt="Zielig gezicht GIF'je" width="480" height="336" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+          </div>
+          </div>
+            </div>
+      </main>
+      </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+

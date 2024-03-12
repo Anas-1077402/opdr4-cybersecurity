@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Organisaties, Onderzoeken, ErvaringsdeskundigeErvaringsdeskundige
+from .models import Organisaties, Onderzoeken
+from ervaringsdeskundige.models import User
 
 
 class OrganisatieSerializer(serializers.Serializer):
@@ -59,11 +60,18 @@ class OnderzoekenSerializer(serializers.ModelSerializer):
             'contact_opgenomen',
             'opmerkingen_beheerder',
         ]
+        read_only_fields = ['status', 'contact_opgenomen']
+
+    def create(self, validated_data):
+        validated_data['status'] = 1
+        validated_data['contact_opgenomen'] = 0
+
+        return super(OnderzoekenSerializer, self).create(validated_data)
 
 
 class ExperienceExpertSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ErvaringsdeskundigeErvaringsdeskundige
+        model = User
         fields = [
                 'username',
                 'first_name',
@@ -76,7 +84,6 @@ class ExperienceExpertSerializer(serializers.ModelSerializer):
                 'voorkeur_benadering',
                 'geboortedatum',
                 'telefoonnummer',
-                'toezichthouder',
                 'bijzonderheden_beschikbaarheid',
                 'status',
         ]
