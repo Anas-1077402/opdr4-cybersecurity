@@ -5,6 +5,7 @@ from .forms import RegistratieFormulier
 from django.http import JsonResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from main.models import Onderzoeken
+from beheerder.models import Beheerders
 from ervaringsdeskundige.models import User
 
 
@@ -71,6 +72,12 @@ def onderzoeken(request):
     return render(request, 'beheerder/onderzoeken.html', {'onderzoeken': onderzoeken})
 
 
+@staff_member_required
+def users(request):
+
+    return render(request, 'beheerder/users.html')
+
+
 def update_status(request, onderzoeks_id, nieuwe_status):
     print(f"Update status voor onderzoek {onderzoeks_id} naar {nieuwe_status}")
     onderzoek = Onderzoeken.objects.get(onderzoeks_id=onderzoeks_id)
@@ -102,3 +109,12 @@ def verwijder_onderzoek(request, onderzoeks_id):
         return redirect('onderzoeken')
 
     return render(request, 'beheerder/verwijder_onderzoek.html', {'onderzoek': onderzoek})
+
+
+def user_list(request):
+    beheerders = Beheerders.objects.all()
+    ervaringsdeskundigen = User.objects.values('first_name', 'last_name', 'is_superuser', 'is_staff', 'date_joined')
+
+    all_users = list(beheerders) + list(ervaringsdeskundigen)
+
+    return render(request, 'beheerder/users.html', {'all_users': all_users})
