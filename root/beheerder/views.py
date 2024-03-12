@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import RegistratieFormulier
 from django.http import JsonResponse, HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
-from main.models import Organisaties, Onderzoeken, ErvaringsdeskundigeErvaringsdeskundige, Deelnames
+from main.models import Organisaties, Onderzoeken, User, Deelnames
 from rest_framework.decorators import api_view
 from django.template.loader import render_to_string
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer, ExperienceExpertSerializer
