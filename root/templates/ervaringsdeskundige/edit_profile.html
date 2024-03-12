@@ -47,31 +47,31 @@
                 <h1 class="extra-bold-header">Profiel</h1>
                 <hr class="hr" /><br>
                 <form method="POST">
-                    {% csrf_token %}
-                    <div class="mb-3 text-left">
-                        <label for="{{ form.first_name.id_for_label }}" class="form-label">Voornaam:</label>
-                        {{ form.first_name }}
-                    </div>
+                  {% csrf_token %}
+                  <div class="mb-3 text-left">
+                      <label for="{{ form.first_name.id_for_label }}" class="form-label">Voornaam:</label>
+                      {{ form.first_name }}
+                  </div>
 
-                    <div class="mb-3 text-left">
-                        <label for="{{ form.last_name.id_for_label }}" class="form-label">Achternaam:</label>
-                        {{ form.last_name }}
-                    </div>
+                  <div class="mb-3 text-left">
+                      <label for="{{ form.last_name.id_for_label }}" class="form-label">Achternaam:</label>
+                      {{ form.last_name }}
+                  </div>
 
-                    <div class="mb-3 text-left">
-                        <label for="{{ form.username.id_for_label }}" class="form-label">Gebruikersnaam:</label>
-                        {{ form.username }}
-                    </div>
+                  <div class="mb-3 text-left">
+                      <label for="{{ form.username.id_for_label }}" class="form-label">Gebruikersnaam:</label>
+                      {{ form.username }}
+                  </div>
 
-                    <div class="mb-3 text-left">
-                        <label for="{{ form.email.id_for_label }}" class="form-label">E-mail adres:</label>
-                        {{ form.email }}
-                    </div>
-                    <div style="display: flex; justify-content: space-between; width: 100%;">
-                        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-arrows-rotate"></i>   Update</button>
-                        <button class="btn btn-danger" onclick="deleteMessage()"><i class="fa-solid fa-trash"></i>   Verwijder account</button>
-                    </div>
-                </form></div>
+                  <div class="mb-3 text-left">
+                      <label for="{{ form.email.id_for_label }}" class="form-label">E-mail adres:</label>
+                      {{ form.email }}
+                  </div>
+                  <div style="display: flex; justify-content: space-between; width: 100%;">
+                      <button class="btn btn-primary" type="submit"><i class="fa-solid fa-arrows-rotate"></i>   Update</button>
+                      <button class="btn btn-danger" onclick="deleteMessage()"><i class="fa-solid fa-trash"></i>   Verwijder account</button>
+                  </div>
+              </form></div>
                 
                 
                 <script>

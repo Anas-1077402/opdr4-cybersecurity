@@ -4,18 +4,19 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from ervaringsdeskundige.models import User
-from .forms import RegisterForm, ToezichthoudersForm
+from .forms import RegisterForm, ToezichthoudersForm, UserEditForm
 from main.models import (
     Onderzoeken,
     Deelnames,
     Beperkingen,
     BeperkingenErvaringsdeskundigen,
     Organisaties,
-    TypeOnderzoek
+    TypeOnderzoek,
 )
 from .models import BeperkingenOnderzoeken
 from django.http import JsonResponse, FileResponse
 from django.contrib.staticfiles import finders
+from django.db.models import Count
 
 
 def register(request):
@@ -63,15 +64,18 @@ def dashboard_ervaringsdeskundige(request):
 @login_required
 def edit_profile(request):
     current_user = request.user
+
     if request.method == "POST":
-        form = RegisterForm(request.POST, instance=current_user)
+        form = UserEditForm(request.POST, instance=current_user)
         if form.is_valid():
             form.save()
             return redirect("/ervaringsdeskundige/dashboard")
+        print(form.errors)
     else:
-        form = RegisterForm(instance=current_user)
+        form = UserEditForm(instance=current_user)
 
     return render(request, "ervaringsdeskundige/edit_profile.html", {"form": form})
+
 
 
 @login_required()
@@ -164,7 +168,7 @@ def register_investigation(request, investigation_id):
 
     if not existing:
         new_register_investigation = Deelnames(
-            ervaringsdeskundige_id=user_id, onderzoeks_id=investigation_id, status=2
+            ervaringsdeskundige_id=user_id, onderzoeks_id=investigation_id, status=1
         )
         new_register_investigation.save()
 
@@ -203,6 +207,10 @@ def live_dashboard_data(request):
     investigations = Onderzoeken.objects.filter(onderzoeks_id__in=investigation_ids)
     registered_investigations_list = {}
 
+    count_status_1 = Deelnames.objects.filter(onderzoeks_id__in=investigation_ids, status=4).count()
+    count_status_2 = Deelnames.objects.filter(onderzoeks_id__in=investigation_ids, status=1).count()
+    count_status_3 = Deelnames.objects.filter(onderzoeks_id__in=investigation_ids, status=2).count()
+
     for investigation in investigations:
         deelname = Deelnames.objects.get(ervaringsdeskundige_id=user_id, onderzoeks_id=investigation.onderzoeks_id)
         status = deelname.status
@@ -215,8 +223,16 @@ def live_dashboard_data(request):
             'status': status,
         }
 
-    data = {'status': request.user.status, 'registered_investigations': registered_investigations_list}
+    data = {
+        'status': request.user.status,
+        'registered_investigations': registered_investigations_list,
+        'count_status_1': count_status_1,
+        'count_status_2': count_status_2,
+        'count_status_3': count_status_3,
+    }
+
     return JsonResponse(data)
+
 
 
 @login_required

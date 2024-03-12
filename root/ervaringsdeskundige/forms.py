@@ -1,7 +1,7 @@
 from typing import Any
 from django import forms
 from django.forms import DateInput
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import User
 from main.models import Beperkingen, Toezichthouders
 
@@ -60,3 +60,22 @@ class ToezichthoudersForm(forms.ModelForm):
         self.fields['achternaam_2'].widget.attrs.update({'class': 'form-control'})
         self.fields['telefoonnummer_2'].widget.attrs.update({'class': 'form-control'})
         self.fields['ervaringsdeskundige'].widget.attrs.update({'class': 'form-control'})
+
+
+
+class UserChangeForm(UserChangeForm):
+    class Meta:
+        model = User()
+        fields = ['first_name', 'last_name', 'username', 'email']
+
+
+class UserEditForm(UserChangeForm):
+    class Meta(UserChangeForm.Meta):
+        fields = ['first_name', 'last_name', 'username', 'email']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['username'].widget.attrs.update({'class': 'form-control'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control'})

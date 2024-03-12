@@ -45,7 +45,7 @@
         <main >
           <div class="text-center" style="padding-top: 20px;">
             <div>
-                  <div id="search">
+                  <div id="search" style="height: 20px;">
                     <a  style="margin-right: 20px;" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i>      Switch thema </a>
                     <div class="dropdown">
                       <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -76,23 +76,20 @@
 
             </div>
               <div id="stat_cards" class="row">
-                  <div class="col-md-4 card_stat">
-                      <p class="number">11</p>
-                      <div id="notification-bar" style="display: none;">
-                        <p id="notification-text"></p>
-                    </div>
-                      <h6 class="card-stat-heading">Aantal onderzoeken voltooid</h6>
-                  </div>
-                  <div class="col-md-4 card_stat">
-                      <p class="number">24</p>
-                      <h6 class="card-stat-heading">Aantal ingeschreven onderzoeken</h6>
-                  </div>
-                  <div class="col-md-4 card_stat">
-                      <p class="number">2</p>
-                      <h6 class="card-stat-heading">Lopende onderzoeken</h6>
+                <div class="col-md-4 card_stat">
+                    <p class="number number_1">Loading...</p>
+                    <h6 class="card-stat-heading">Aantal onderzoeken voltooid</h6>
+                </div>
+                <div class="col-md-4 card_stat">
+                    <p class="number number_2">Loading...</p>
+                    <h6 class="card-stat-heading">Aantal ingeschreven onderzoeken</h6>
+                </div>
+                <div class="col-md-4 card_stat">
+                    <p class="number number_3">Loading...</p>
+                    <h6 class="card-stat-heading">Lopende onderzoeken</h6>
 
-                  </div>
-              </div>
+                </div>
+            </div>
             </div>
       </main>
     </div>
@@ -107,6 +104,10 @@ $(document).ready(function() {
             type: 'GET',
             dataType: 'json',
             success: function(data) {
+              $('.number_1').text(data.count_status_1).css('font-size', '120px');
+              $('.number_2').text(data.count_status_2).css('font-size', '120px');
+              $('.number_3').text(data.count_status_3).css('font-size', '120px');
+              
                 for (const onderzoekId in data.registered_investigations) {
                     const onderzoek = data.registered_investigations[onderzoekId].onderzoek;
                     const onderzoekStatus = data.registered_investigations[onderzoekId].status;
@@ -129,7 +130,7 @@ $(document).ready(function() {
                 console.log('Error:', error);
             }
         });
-    }, 1000);
+    }, 500);
 });
 
 function showNotification(text) {

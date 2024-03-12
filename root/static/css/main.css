@@ -179,9 +179,6 @@ p {
     }
 }
 
-.number {
-    font-size: 120px;
-}
 
 #dashboard_content {
     display: flex;
@@ -253,6 +250,11 @@ body:not(.dark) {
 body.dark {
     background-color: var(--background-dark);
     color: var(--text-dark);
+} 
+
+body.white {
+    background-color: white;
+    color: var(--text-light);
 } 
 
 #content:not(.dark) {
