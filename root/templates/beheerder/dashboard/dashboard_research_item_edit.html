@@ -1,0 +1,179 @@
+{% extends "beheerder/base.html" %}
+{% load static %}
+{% load tz %}
+{% block title %}{{ data.titel }}{% endblock %}
+
+{% block content %}
+<form method="POST" action="/beheerder/dashboard/research/{{ data.onderzoeks_id }}/edit/save">
+    {% csrf_token %}
+<div class="container rounded-top border border-bottom-0 bg-primary-subtle text-center">
+    <div class="col text-center position-relative">
+        <div class="d-flex pt-2 mb-1 justify-content-center">
+            <span class="input-group-text rounded-end-0 border-end-0">Titel</span>
+            <input id="research_titel" type="text" name="titel" class="form-control rounded-start-0" value="{{ data.titel }}" placeholder="{{ data.titel }}" style="width: 20%;"> <H1 class="m-0 pb-1"> - Id: {{ data.onderzoeks_id}}</H1>
+        </div>
+        <div class="position-absolute buttons" style="top: 15px;">
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='../{{ data.onderzoeks_id }}';">Annuleer</button>
+        </div>
+        <H6 class="mb-1">Verzocht door: {{ data.organisatie.voornaam }}</H6>
+        <input type="hidden" id="organization_research" name="organisatie" value="{{ data.organisatie.organisatie_id }}">
+        <div class="d-flex pt-2 mb-0 justify-content-center">
+            <div class="form-floating mb-2">
+                <select aria-label="Kuering" id="status_select" name="status" class="form-select">
+                    {% if data.status == 1 %}
+                        <option value=1>In afwachting</option>
+                        <option value=2>Goedgekeurd</option>
+                        <option value=3>Afgekeurd</option>
+                        <option value=4>Gesloten</option>
+                    {% elif data.status == 2 %}
+                        <option value=2>Goedgekeurd</option>
+                        <option value=1>In afwachting</option>
+                        <option value=3>Afgekeurd</option>
+                        <option value=4>Gesloten</option>
+                    {% elif data.status == 3 %}
+                        <option value=3>Afgekeurd</option>
+                        <option value=1>In afwachting</option>
+                        <option value=2>Goedgekeurd</option>
+                        <option value=4>Gesloten</option>
+                    {% elif data.status == 4 %}
+                        <option value=4>Gesloten</option>
+                        <option value=1>In afwachting</option>
+                        <option value=2>Goedgekeurd</option>
+                        <option value=3>Afgekeurd</option>
+                    {% endif %}
+                </select>
+                <label for="status_select">Status</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container border rounded-bottom bg-body">
+    <div class="row m-1 border-bottom">
+        <div class="col-md-auto">
+            <H3>Omschrijving</H3>
+            <div class="container-fluid mb-2" tabindex="0">
+                <textarea id="research_description" type="text" name="omschrijving" class="form-control" placeholder="{{ data.omschrijving }}">{{ data.omschrijving }}</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row m-1 border-bottom">
+        <H3>Informatie doelgroep</H3>
+        <div class="col-md-auto border-end">
+            <h5>Leeftijd:</h5>
+            <div class="container-fluid mb-1" tabindex="0">
+                <span class="input-group-number">Van</span>
+                <input type="number" min="0" class="form-control" value="{{ data.doelgroep_leeftijd_van }}" name="doelgroep_leeftijd_van" aria-label="doelgroep leeftijd van">
+                <span class="input-group-number">Tot</span>
+                <input type="number" min="0" class="form-control" value="{{ data.doelgroep_leeftijd_tot }}" name="doelgroep_leeftijd_tot" aria-label="doelgroep leeftijd tot">
+                <span class="input-group-number">Jaar oud</span>
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <h5>Beperkingen:</h5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {% if data.Beperkingen.omschrijving %}
+                    {{ data.Beperkingen.omschrijving }}
+                    {% else %}
+                    Geen
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row m-1 border-bottom">
+        <H3>Factuele informatie</H3>
+        <div class="col-md-auto border-end">
+            <H5>Soort onderzoek:</H5>
+            <div class="container-fluid mb-2" tabindex="0">
+                <select aria-label="Soort onderzoek" id="research_type_select" name="soort_onderzoek" class="form-select">
+                    {% if data.soort_onderzoek == 1 %}
+                        <option value=1>Telefonisch</option>
+                        <option value=2>Via internet</option>
+                        <option value=3>Op locatie</option>
+                    {% elif data.soort_onderzoek == 2 %}
+                        <option value=2>Via internet</option>
+                        <option value=1>Telefonisch</option>
+                        <option value=3>Op locatie</option>
+                    {% elif data.soort_onderzoek == 3 %}
+                        <option value=3>Op locatie</option>
+                        <option value=1>Telefonisch</option>
+                        <option value=2>Via internet</option>
+                    {% endif %}
+                </select>   
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <H5>Locatie:</H5>
+            <div class="container-fluid mb-2" tabindex="0">
+                <input id="research_location" name="locatie" type="text" aria-label="Locatie" class="form-control" value="{{ data.locatie }}" placeholder="{{ data.locatie }}">
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <H5>Beloning:</H5>
+            <div class="container-fluid mb-2" tabindex="0">
+                <script>
+                    function selectReward() {
+                        if (document.getElementById("research_reward")) {
+                            document.getElementById("research_with_reward").innerHTML = ""
+                        } else {
+                            document.getElementById("research_with_reward").innerHTML = ('<input id="research_reward" type="text" aria-label="Beloning" class="form-control" value="{{ data.beloning }}" placeholder="{{ data.beloning }}"></input>')
+                        }
+                    }
+                </script>
+                <select aria-label="Onderzoek beloning" id="reward_select" name="met_beloning" class="form-select mb-1" onchange="selectReward()">
+                    {% if data.met_beloning == 0 %}
+                        <option value=0>Nee</option>
+                        <option value=1>Ja</option>
+                    {% elif data.met_beloning == 1 %}
+                        <option value=1 >Ja</option>
+                        <option value=0>Nee</option>
+                    {% endif %}
+                </select>
+                {% if data.met_beloning == 0 %}
+                <div id="research_with_reward">
+                </div>
+                {% elif data.met_beloning == 1 %}
+                <div id="research_with_reward">
+                    <input id="research_reward" name="beloning" type="text" aria-label="Beloning" class="form-control" value="{{ data.beloning }}" placeholder="{{ data.beloning }}"></input>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <H5>Datum:</H5>
+            <div class="container-fluid mb-2" tabindex="0">
+                <label>Van</label>
+                <input name="datum_vanaf" class="form-control" type="datetime-local" aria-label="Datum onderzoek vanaf" value="{{ data.datum_vanaf }}">
+                <label>Tot</label>
+                <input name="datum_tot" class="form-control" type="datetime-local" aria-label="Datum onderzoek tot" value="{{ data.datum_tot }}">
+            </div>
+        </div>
+    </div>
+    <div class="row m-1">
+        <H3>Toevoegende informatie</H3>
+        <div class="col-md-auto border-end">
+            <H5>Contact opgenomen:</H5>
+            <div class="container-fluid mb-2" tabindex="0">
+                <select aria-label="Contact opgenomen" id="reached_out_select" name="contact_opgenomen" class="form-select mb-1">
+                    {% if data.contact_opgenomen == 0 %}
+                        <option value=0>Nee</option>
+                        <option value=1>Ja</option>
+                    {% elif data.contact_opgenomen == 1 %}
+                        <option value=1 >Ja</option>
+                        <option value=0>Nee</option>
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <H5>Beheerder opmerkingen:</H5>
+            <div class="container-fluid mb-2" tabindex="0">
+                <textarea id="admin_comments" name="opmerkingen_beheerder" type="text" aria-label="Beheerder opmerkingen" class="form-control" placeholder="{{ data.opmerking_beheerder }}">{{ data.opmerking_beheerder }}</textarea>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+{% endblock %}

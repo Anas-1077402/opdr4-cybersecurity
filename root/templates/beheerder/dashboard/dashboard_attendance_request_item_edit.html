@@ -1,0 +1,105 @@
+{% extends "beheerder/base.html" %}
+{% load static %}
+{% block title %}Deelname id: {{ data.id }}{% endblock %}
+
+{% block content %}
+<form method="POST" action="/beheerder/dashboard/attendance_request/{{ data.id }}/edit/save">
+    {% csrf_token %}
+<div class="container rounded-top border border-bottom-0 bg-primary-subtle text-center">
+    <div class="col text-center position-relative">
+        <H1 class="pt-2">
+            {{ data.ervaringsdeskundige.first_name }} {{ data.ervaringsdeskundige.last_name }} deelname aan {{ data.onderzoeks.titel }} 
+        </H1>
+        <div class="position-absolute buttons" style="bottom: 10px;">
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='../{{ data.id }}';">Annuleer</button>
+        </div>
+        <H6 class="mb-1">Deelnaame Id: {{ data.id }}</H6>
+        <div class="d-flex pt-2 mb-0 justify-content-center">
+            <div class="form-floating mb-2">
+                <select aria-label="Kuering" id="status_select" name="status" class="form-select">
+                    {% if data.status == 1 %}
+                        <option value=1>In afwachting</option>
+                        <option value=2>Goedgekeurd</option>
+                        <option value=3>Afgekeurd</option>
+                        <option value=4>Gesloten</option>
+                    {% elif data.status == 2 %}
+                        <option value=2>Goedgekeurd</option>
+                        <option value=1>In afwachting</option>
+                        <option value=3>Afgekeurd</option>
+                        <option value=4>Gesloten</option>
+                    {% elif data.status == 3 %}
+                        <option value=3>Afgekeurd</option>
+                        <option value=1>In afwachting</option>
+                        <option value=2>Goedgekeurd</option>
+                        <option value=4>Gesloten</option>
+                    {% elif data.status == 4 %}
+                        <option value=4>Gesloten</option>
+                        <option value=1>In afwachting</option>
+                        <option value=2>Goedgekeurd</option>
+                        <option value=3>Afgekeurd</option>
+                    {% endif %}
+                </select>
+                <label for="status_select">Status</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container border rounded-bottom bg-body" style="min-height: 25rem;">
+    <div class="row m-1 border-bottom">
+        <div class="col-md-auto">
+            <H3>Omschrijving onderzoek</H3>
+            <div class="container-fluid" tabindex="0">
+                <p class="text-start p-0">{{ data.onderzoeks.omschrijving }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row m-1 border-bottom">
+        <H3>Onderzoek doelgroep</H3>
+        <div class="col-md-auto border-end">
+            <h5>Leeftijd:</h5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {{ data.onderzoeks.doelgroep_leeftijd_van }} - {{ data.onderzoeks.doelgroep_leeftijd_tot }} jaar oud
+                </p>
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <h5>Beperkingen:</h5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {% if data.onderzoeks.Beperkingen.omschrijving %}
+                    {{ data.onderzoeks.Beperkingen.omschrijving }}
+                    {% else %}
+                    Geen
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row m-1 border-bottom">
+        <H3>Ervaringsdeskundige informatie</H3>
+        <div class="col-md-auto border-end">
+            <H5>Geboortedatum:</H5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {{ data.ervaringsdeskundige.geboortedatum }} 
+                </p>
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <H5>Beperkingen:</H5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {% if data.ervaringsdeskundige.Beperkingen.omschrijving %}
+                    {{ data.ervaringsdeskundige.Beperkingen.omschrijving }}
+                    {% else %}
+                    Geen
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>    
+</div>
+</form>
+{% endblock %}

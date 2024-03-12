@@ -1,12 +1,132 @@
 {% extends "beheerder/base.html" %}
 {% load static %}
-{% block title %}Homepage{% endblock %}
+{% block title %}{{ data.titel }}{% endblock %}
 
 {% block content %}
-<div class="container border rounded bg-body">
-    <H1>{{ data.onderzoeks_id }} {{ data.titel }} {{ data.organisatie.voornaam }}</H1>
-    <div class="row">
-
+<div class="container rounded-top border border-bottom-0 bg-primary-subtle text-center">
+    <div class="col text-center position-relative">
+        <H1 class="pt-2">
+            {{ data.titel }} - Id: {{ data.onderzoeks_id}} 
+        </H1>
+        <div class="position-absolute buttons">
+            <button type="button" class="btn btn-primary" onclick="location.href='{{ data.onderzoeks_id }}/edit';">Bewerk</button>
+            <button type="button" class="btn btn-primary">Verwijder</button>
+        </div>
+        <H6 class="mb-1">Verzocht door: {{ data.organisatie.voornaam }}</H6>
+        <p class="m-0">
+            {% if data.status == 1 %}
+            Status: In afwachting
+            {% elif data.status == 2 %}
+            Status: Goedgekeurd
+            {% elif data.status == 3 %}
+            Status: Afgekeurd
+            {% elif data.status == 4 %}
+            Status: Gesloten
+            {% elif data.status == 5 %}
+            Status: Verwijderd
+            {% endif %}
+        </p>
+    </div>
+</div>
+<div class="container border rounded-bottom bg-body" style="height: 50rem;">
+    <div class="row m-1 border-bottom">
+        <div class="col-md-auto">
+            <H3>Omschrijving</H3>
+            <div class="container-fluid" tabindex="0">
+                <p class="text-start p-0">{{ data.omschrijving }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row m-1 border-bottom">
+        <H3>Informatie doelgroep</H3>
+        <div class="col-md-auto border-end">
+            <h5>Leeftijd:</h5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {{ data.doelgroep_leeftijd_van }} - {{ data.doelgroep_leeftijd_tot }} jaar oud
+                </p>
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <h5>Beperkingen:</h5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {% if data.Beperkingen.omschrijving %}
+                    {{ data.Beperkingen.omschrijving }}
+                    {% else %}
+                    Geen
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row m-1 border-bottom">
+        <H3>Factuele informatie</H3>
+        <div class="col-md-auto border-end">
+            <H5>Soort onderzoek:</H5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {% if data.soort_onderzoek == 1 %}
+                    Telefonisch
+                    {% elif data.soort_onderzoek == 2 %}
+                    Via internet
+                    {% elif data.soort_onderzoek == 3 %}
+                    Op locatie
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <H5>Locatie:</H5>
+            <div class="container-fluid" tabindex="0">
+                <p>{{ data.locatie }}</p>
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <H5>Beloning:</H5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {% if data.met_beloning == 0 %}
+                    Nee
+                    {% elif data.met_beloning == 1 %}
+                    Ja - {{ data.beloning }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <H5>Datum:</H5>
+            <div class="container-fluid" tabindex="0">
+                <p>{{ data.datum_vanaf }} - {{ data.datum_tot }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row m-1 border-bottom">
+        <H3>Toevoegende informatie</H3>
+        <div class="col-md-auto border-end">
+            <H5>Contact opgenomen:</H5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {% if data.contact_opgenomen == 0 %}
+                    Nee
+                    {% elif data.contact_opgenomen == 1 %}
+                    Ja
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <H5>Beheerder opmerkingen:</H5>
+            <div class="container-fluid" tabindex="0">
+                <p>
+                    {% if data.opmerking_beheerder != NULL %}
+                    {{ data.opmerking_beheerder }}
+                    {% else %}
+                    Leeg
+                    {% endif %}
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
