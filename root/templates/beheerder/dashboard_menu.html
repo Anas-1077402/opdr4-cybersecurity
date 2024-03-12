@@ -1,0 +1,30 @@
+<div id="grey_background" class="d-flex flex-column flex-shrink-0 mr-3 p-3" style="width: 280px;">
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a href="{% url 'dashboard' %}" class="nav-link {% if request.path == '/beheerder/dashboard/' %}active{% endif %}">
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link {% if request.path == '/ervaringsdeskundigen/' %}active{% endif %}">
+                Ervaringsdeskundigen
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'onderzoeken' %}" class="nav-link {% if request.path == 'beheerder/onderzoeken' %}active{% endif %}">
+                Onderzoeken
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link {% if request.path == '/beheerder/' %}active{% endif %}">
+                Beheerders
+            </a>
+        </li>
+            <li>
+            <a href="{% url 'user_list' %}" class="nav-link {% if request.path == '/beheerder/users/' %}active{% endif %}">
+                Gebruikers
+            </a>
+        </li>
+    </ul>
+    <hr>
+</div>

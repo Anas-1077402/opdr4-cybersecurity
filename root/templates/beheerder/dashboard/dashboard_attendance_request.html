@@ -1,0 +1,17 @@
+<h2 class="text-center border-bottom pb-1 text-break">Deelname verzoeken: {{ count_attendance_request }}</h2>
+{% for item in attendance_request %}
+<div id="{{ item.id }}" class="card mb-3 md-2" style="cursor: pointer;" tabindex="0" onclick="location.href='dashboard/attendance_request/{{ item.id }}';">
+    <div class="card-body">
+        <h5 class="card-title text-center">{{ item.ervaringsdeskundige.first_name }} {{ item.ervaringsdeskundige.last_name }}</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary text-center">{{ item.onderzoeks.titel }}</h6>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Onderzoek omschrijving: {{ item.onderzoeks.omschrijving }}</li>
+            <li class="list-group-item text-center">
+                <a href="/#" class="btn btn-primary">Keur goed</a>
+                <a href="/#" class="btn btn-primary">Keur af</a>
+                <a href="/#" class="btn btn-danger">verwijder</a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endfor %}

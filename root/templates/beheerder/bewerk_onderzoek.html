@@ -1,0 +1,21 @@
+{% extends "beheerder/base.html" %}
+{% block content %}
+    <h2>Bewerk onderzoek: {{ onderzoek.titel }}</h2>
+
+  <form method="post" action="{% url 'bewerk_onderzoek' onderzoek.onderzoeks_id %}">
+    {% csrf_token %}
+    <label for="titel">Titel:</label><br>
+    <input type="text" id="titel" name="titel" value="{{ onderzoek.titel }}" required>
+<br><br>
+    <label for="omschrijving">Omschrijving:</label><br>
+    <textarea id="omschrijving" name="omschrijving" required>{{ onderzoek.omschrijving }}</textarea><br>
+
+      <label for="opmerkingen_beheerder">Opmerking Beheerder:</label><br>
+    <textarea id="opmerkingen_beheerder" name="opmerkingen_beheerder" required>{{ onderzoek.opmerkingen_beheerder }}</textarea><br>
+
+      <label for="status">Status:</label><br>
+    <input type="text" id="status" name="status" value="{{ onderzoek.status }}" required>
+    <button class="btn btn-primary" type="submit">Opslaan</button>
+    <a href="{% url 'onderzoeken' %}" class="btn btn-warning">Annuleren</a>
+  </form>
+{% endblock %}

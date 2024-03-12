@@ -1,0 +1,90 @@
+{% extends "beheerder/base.html" %}
+{% load static %}
+{% block title %}Homepage{% endblock %}
+{% block content %}
+<script>
+    function applyFilter(){
+        var filterType = document.getElementById('filterType').value;
+
+        var rows = document.querySelectorAll('tbody tr');
+        rows.forEach(function (row) {
+            var isStaff = row.cells[3].innerText.toLowerCase() === 'true';
+            var isSuperuser = row.cells[2].innerText.toLowerCase() === 'true';
+
+            if (filterType === 'is_staff' && !isStaff) {
+             row.style.display = 'none';
+            } else if (filterType === 'is_superuser' && !isSuperuser){
+                row.style.display = 'none';
+            } else {
+                row.style.display = '';
+            }
+        }
+    );
+    }
+
+</script>
+    {% include "beheerder/dashboard_menu.html" %}
+    <div class="d-flex justify-content-center align-items-center">
+              <div id="card" class="container m-3 p-1">
+                  <form id="filterForm" class="mb-3">
+                    <label for="filterType">Filter op:</label>
+                    <select id="filterType" class="form-select">
+                        <option value="all">Alle Gebruikers</option>
+                        <option value="is_staff">Is Medewerker</option>
+                        <option value="is_superuser">Is Beheerder</option>
+                    </select>
+                    <button type="button" class="btn btn-primary" onclick="applyFilter()">
+                         Filteren
+                    </button>
+                  <table class="table">
+                    <h2 class="p-3">Alle Gebruikers</h2>
+                      <thead>
+                      <tr>
+                          <th scope="col">Voornaam</th>
+                          <th scope="col">Achternaam</th>
+                          <th scope="col">Is beheerder</th>
+                          <th scope="col">Is medewerker</th>
+                          <th scope="col">Datum Deelname</th>
+                          <th scope="col">Actie</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        {% for user in all_users %}
+                            <tr>
+                                <td>{{ user.first_name }}</td>
+                                <td>{{ user.last_name }}</td>
+                                <td>{{ user.is_superuser }}</td>
+                                <td>{{ user.is_staff }}</td>
+                                <td>{{ user.date_joined }}</td>
+                                <td>
+                                    <a href="" class="btn btn-primary">Bewerken</a>
+                                    <a href="" class="btn btn-danger">Verwijderen</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                          {% for admin in pending_admins %}
+                      <tr>
+                          <td><a href="/beheerder/checkout_admin/{{ admin.id }}">{{ admin.first_name }} {{ admin.last_name}}</a></td>
+                          <td>{{ admin.email }}</td>
+                          <td>{{ admin.functie }}</td>
+                          <td>{% if admin.status == 1 %}In afwachting... {% endif %}</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+                          {% for admin in pending_admins %}
+                      <tr>
+                          <td><a href="/beheerder/checkout_admin/{{ admin.id }}">{{ admin.first_name }} {{ admin.last_name}}</a></td>
+                          <td>{{ admin.email }}</td>
+                          <td>{{ admin.functie }}</td>
+                          <td>{% if admin.status == 1 %}In afwachting... {% endif %}</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+<div class="hatsieflatsie"> <br><br><br></div>
+{% endblock %}

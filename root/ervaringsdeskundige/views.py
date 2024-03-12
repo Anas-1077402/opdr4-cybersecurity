@@ -111,7 +111,7 @@ def onderzoeken(request):
         limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=investigation.onderzoeks_id).values_list('beperking_id', flat=True)
 
         limitations = Beperkingen.objects.filter(id__in=limitation_ids)
-        existing = Deelnames.objects.filter(ervaringsdeskundige_id=user, onderzoeks_id=investigation.onderzoeks_id)
+        existing = Deelnames.objects.filter(ervaringsdeskundige_id=user.id, onderzoeks_id=investigation.onderzoeks_id)
 
         status = 0
 

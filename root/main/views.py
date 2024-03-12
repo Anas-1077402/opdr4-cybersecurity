@@ -1,3 +1,4 @@
+from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
@@ -7,6 +8,7 @@ from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
 from rest_framework.response import Response
+
 
 
 def index(request):

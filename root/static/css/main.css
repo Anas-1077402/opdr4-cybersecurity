@@ -381,3 +381,15 @@ h1.dark {
 .alert-dismissible .close {
     padding-right: 0; 
 }
+
+.status-awaiting {
+    background-color: yellow;
+}
+
+.status-approved {
+    background-color: green;
+}
+
+.status-rejected {
+    background-color: red;
+}

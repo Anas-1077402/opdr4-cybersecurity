@@ -1,0 +1,43 @@
+{% extends "beheerder/base.html" %}
+{% block title %}Admin dashboard{% endblock %}
+
+{% block content %}
+    {% include "beheerder/dashboard_menu.html" %}
+<div class="container-fluid" style="border:1px solid #cecece;background-color: aliceblue;">
+    <div class="row row-cols-4">
+        <div id="research" class="col border-end">
+            <h2 class="text-center border-bottom pb-1 text-break">Onderzoeken: 0</h2>
+            <div class="card mb-3 flex-fill">
+                <div class="card-body">
+                    <h5 class="card-title text-center">placeholder</h5>
+                </div>
+            </div>
+        </div>
+        <div id="experience_expert" class="col border-end">
+            <h2 class="text-center border-bottom pb-1 text-break">Ervaringsdeskundiges: 0</h2>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title text-center text-break">placeholder</h5>
+                </div>
+            </div>
+        </div>
+        <div id="organization" class="col border-end">
+            <h2 class="text-center border-bottom pb-1 text-break">Organisaties: 0</h2>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title text-center">placeholder</h5>
+                </div>
+            </div>
+        </div>
+        <div id="attendance_request" class="col">
+            <h2 class="text-center border-bottom pb-1">Deelname verzoeken: 0</h2>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title text-center">placeholder</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

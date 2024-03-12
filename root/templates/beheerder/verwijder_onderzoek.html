@@ -1,0 +1,17 @@
+{% extends "beheerder/base.html" %}
+{% block content %}
+
+  <h2>Weet je zeker dat je het onderzoek wilt verwijderen?</h2>
+
+  <p>
+    <strong>Titel:</strong> {{ onderzoek.titel }}<br>
+    <strong>Omschrijving:</strong> {{ onderzoek.omschrijving }}<br>
+  </p>
+
+  <form method="post" action="{% url 'verwijder_onderzoek' onderzoek.onderzoeks_id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Verwijderen</button>
+    <a href="{% url 'onderzoeken' %}" class="btn btn-warning">Annuleren</a>
+  </form>
+
+{% endblock %}

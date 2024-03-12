@@ -1,0 +1,28 @@
+<h2 class="text-center border-bottom pb-1 text-break">Ervaringsdeskundiges: {{ count_experience_expert }}</h2>
+{% for item in experience_expert %}
+<div id="{{ item.id }}" class="card mb-3 md-2" style="cursor: pointer;" tabindex="0" onclick="location.href='dashboard/experience_expert/{{ item.id }}';">
+    <div class="card-body">
+        <h5 class="card-title text-center">{{ item.first_name }} {{ item.last_name }}</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary text-center">Gebruikernaam: {{ item.username }}</h6>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">E-mail: {{ item.email }}</li>
+            {% if item.geslacht == "M" %}
+            <li class="list-group-item">Geslacht: Man</li>
+            {% elif item.geslacht == "V" %}
+            <li class="list-group-item">Geslacht: Vrouw</li>
+            {% else %}
+            <li class="list-group-item">Geslacht: Anders</li>
+            {% endif %}
+            <li class="list-group-item">Gebruikte hulpmiddelen: {{ item.gebruikte_hulpmiddelen }}</li>
+            <li class="list-group-item">Bijzonderingen: {{ item.bijzonderheden }}</li>
+            <li class="list-group-item">Geboortedatum: {{ item.geboortedatum }}</li>
+            <li class="list-group-item">Toezichthouder: {{ item.Toezichthouders.voornaam_1 }}</li>
+            <li class="list-group-item text-center">
+                <a href="/#" class="btn btn-primary">Keur goed</a>
+                <a href="/#" class="btn btn-primary">Keur af</a>
+                <a href="/#" class="btn btn-danger">verwijder</a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endfor %}
