@@ -260,7 +260,7 @@ class ErvaringsdeskundigeErvaringsdeskundige(models.Model):
     geslacht = models.CharField(max_length=10)
     gebruikte_hulpmiddelen = models.TextField()
     bijzonderheden = models.TextField()
-    voorkeur_benadering = models.CharField(max_length=20)
+    voorkeur_benadering = models.CharField(max_length=20, blank=True)
     geboortedatum = models.DateField()
     telefoonnummer = models.CharField(max_length=100)
     toezichthouder = models.ForeignKey(Toezichthouders, models.DO_NOTHING, blank=True, null=True)

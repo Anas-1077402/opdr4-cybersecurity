@@ -159,7 +159,7 @@ def research_item_edit_save(request, pk):
         if serializer.is_valid():
             serializer.save()
             return redirect(f"/beheerder/dashboard/research/{pk}")
-        return HttpResponse(status=400)
+        return HttpResponse(serializer.errors, status=400)
     return redirect(f"/beheerder/dashboard/research/{pk}")
 
 
@@ -188,7 +188,7 @@ def experience_expert_item_edit_save(request, pk):
         if serializer.is_valid():
             serializer.save()
             return redirect(f"/beheerder/dashboard/experience_expert/{pk}")
-        return HttpResponse(status=400)
+        return HttpResponse(serializer.errors, status=400)
     return redirect(f"/beheerder/dashboard/experience_expert/{pk}")
 
 
@@ -216,8 +216,7 @@ def organization_item_edit_save(request, pk):
         if serializer.is_valid():
             serializer.save()
             return redirect(f"/beheerder/dashboard/organization/{pk}")
-        print(serializer.errors)
-        return HttpResponse(status=400)
+        return HttpResponse(serializer.errors, status=400)
     return redirect(f"/beheerder/dashboard/organization/{pk}")
 
 
@@ -247,7 +246,7 @@ def attendance_request_item_edit_save(request, pk):
             instance.status = data['status']
             instance.save()
             return redirect(f"/beheerder/dashboard/attendance_request/{pk}")
-        return HttpResponse(status=400)
+        return HttpResponse("No status", status=400)
     return redirect(f"/beheerder/dashboard/attendance_request/{pk}")
 
 
