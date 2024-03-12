@@ -1,6 +1,10 @@
+
+
 {% extends "ervaringsdeskundige/base.html" %}
 {% load static %}
 {% block title %}Homepage{% endblock %}
+
+
 
 
 {% block content %}
@@ -13,22 +17,22 @@
             <div class="position-sticky">
               <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                  <a href="/ervaringsdeskundige/dashboard"  class="nav-link menu_text">
+                  <a href="/ervaringsdeskundige/dashboard" class="nav-link menu_text" >
                     Dashboard
                   </a>
                 </li>
                 <li>
-                  <a href="/ervaringsdeskundige/onderzoeken" class="nav-link active" aria-current="page">
+                  <a href="/ervaringsdeskundige/onderzoeken" class="nav-link menu_text">
                     Onderzoeken
                   </a>
                 </li>
                 <li>
-                  <a href="registered_investigations" class="nav-link menu_text">
+                  <a href="/ervaringsdeskundige/registered_investigations" class="nav-link menu_text" aria-current="page">
                     Ingeschreven onderzoeken
                   </a>
                 </li>
                 <li>
-                  <a href="/ervaringsdeskundige/completed_investigations" class="nav-link menu_text">
+                  <a href="#"  class="nav-link active">
                     Afgeronde onderzoeken
                   </a>
                 </li>
@@ -40,24 +44,23 @@
         <div style="height: 94vh;" id="dashboard_main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div id="dashboard_overflow">
         <main >
-          <div style="padding-top: 20px;">
-            <div id="custom_cont"  class="m-4 p-4">
-              <table class="table custom_table p-3">
-                <h2 class="p-2 text-center">Onderzoeken</h2>
-                <p class="text-center" style="margin-left: 10px;"><em>Deze onderzoeken zijn afgestemt op jou beschikbaarheid, ervaring en leeftijd</em></p>
-                  <thead>
+          <div class="text-center" style="padding-top: 20px;">
+            <div id="custom_cont"  class="m-4 p-1">
+              <table class="custom_table table p-3">
+                <h2 class="p-2">Afgeronde onderzoeken</h2>
+                <p style="margin-left: 10px;"><em>In deze lijst kan u zien op welke onderzoeken u heeft afgerond</em></p>
+                <thead>
                   <tr>
-                      <th class="float-left" scope="col">Titel</th>
-                      <th class="float-left" scope="col">Omschrijving</th>
-                      <th class="float-left" scope="col">Beloning</th>
-                      <th class="float-left" scope="col">Beperking</th>
-                      <th class="text-center" scope="col">Aanmelden</th>
+                      <th scope="col">Titel</th>
+                      <th scope="col">Omschrijving</th>
+                      <th scope="col">Beloning</th>
+                      <th scope="col">Beperking</th>
                   </tr>
                   </thead>
                   <tbody>
                     {% for investigation_id, data in investigations.items %}
-                        <tr>
-                    <td><a href="inspect_investigation/{{ data.onderzoek.onderzoeks_id }}">{{ data.onderzoek.titel }}</a></td>
+                    <tr>
+                    <td>{{ data.onderzoek.titel }}</td>
                     <td>{{ data.onderzoek.omschrijving }}</td>
                     <td>{% if data.onderzoek.met_beloning == 1 %}
                             {{ data.onderzoek.beloning }}
@@ -65,27 +68,13 @@
                             Geen beloning beschikbaar
                         {% endif %}</td>
                     <td>
-                      <div style="width: 200px;" class="text-wrap">
                           {% for limitation in data.beperkingen %}
                               {{ limitation.omschrijving }}{% if not forloop.last %},{% endif %}
                           {% endfor %}
-                        </div>
                     </td>
-                    <td class="text-center">
-                        <form method="post" action="investigation/{{ data.onderzoek.onderzoeks_id }}">
-                          {% csrf_token %}
-                          {% if data.status == 0 %}
-                          <button type="submit" class="btn btn-primary">Meld aan</button>
-                          {% endif %}
-                        </form>
-                          {% if data.status == 1 %}
-                          <button class="btn btn-success">Ingeschreven</button>
-                          {% endif %}
-                    </td>
-                  </tr>
+            
                     {% endfor %}
                   </tbody>
-                  
               </table>
           </div>
             </div>
@@ -95,5 +84,3 @@
     </div>
 </div>
 {% endblock %}
-
-
