@@ -255,7 +255,7 @@ def get_dashboard(request):
     data = dict()
     list_research = Onderzoeken.objects.filter(status=1).select_related("organisatie")
     count_research = list_research.count()
-    list_experience_expert = User.objects.filter(status=2)
+    list_experience_expert = User.objects.filter(status=1)
     count_experience_expert = list_experience_expert.count()
     list_organization = Organisaties.objects.filter(status=1)
     count_organization = list_organization.count()
