@@ -46,7 +46,8 @@ def register(request):
             return redirect("/")
     else:
         form = RegisterForm()
-        supervisors = ToezichthoudersForm()
+    
+    supervisors = ToezichthoudersForm()
 
     return render(
         request,
