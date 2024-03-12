@@ -4,7 +4,9 @@ from django.contrib import messages
 from .forms import RegistratieFormulier
 from django.http import JsonResponse
 from django.contrib.admin.views.decorators import staff_member_required
-from main.models import Onderzoeken
+from main.models import Organisaties, Onderzoeken, ErvaringsdeskundigeErvaringsdeskundige, Deelnames
+from rest_framework.decorators import api_view
+from django.template.loader import render_to_string
 from beheerder.models import Beheerders
 from ervaringsdeskundige.models import User
 
@@ -118,3 +120,33 @@ def user_list(request):
     all_users = list(beheerders) + list(ervaringsdeskundigen)
 
     return render(request, 'beheerder/users.html', {'all_users': all_users})
+
+@api_view(['GET'])
+def get_dashboard(request):
+    data = dict()
+    list_research = Onderzoeken.objects.filter(status=1).select_related("organisatie")
+    count_research = list_research.count()
+    list_experience_expert = ErvaringsdeskundigeErvaringsdeskundige.objects.select_related("toezichthouder").filter(status=2)
+    count_experience_expert = list_experience_expert.count()
+    list_organization = Organisaties.objects.filter(status=1)
+    count_organization = list_organization.count()
+    list_attendance_request = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').filter(status=1)
+    print(list_attendance_request.get(pk=1).ervaringsdeskundige)
+    count_attendance_request = list_attendance_request.count()
+
+    context = {
+        'research': list_research,
+        'count_research': count_research,
+        'experience_expert': list_experience_expert,
+        'count_experience_expert': count_experience_expert,
+        'organization': list_organization,
+        'count_organization': count_organization,
+        'attendance_request': list_attendance_request,
+        'count_attendance_request': count_attendance_request,
+    }
+
+    data['research'] = render_to_string("beheerder/dashboard/dashboard_research.html", context, request)
+    data['experience_expert'] = render_to_string("beheerder/dashboard/dashboard_experience_expert.html", context, request)
+    data['organization'] = render_to_string("beheerder/dashboard/dashboard_organization.html", context, request)
+    data['attendance_request'] = render_to_string("beheerder/dashboard/dashboard_attendance_request.html", context, request)
+    return JsonResponse(data)
