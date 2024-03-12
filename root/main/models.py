@@ -47,16 +47,6 @@ class Organisaties(models.Model):
         db_table = 'Organisaties'
 
 
-class Deelnames(models.Model):
-    onderzoeks = models.ForeignKey('Onderzoeken', models.DO_NOTHING)
-    ervaringsdeskundige = models.ForeignKey(User, models.DO_NOTHING)
-    status = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'Deelnames'
-
-
 class Onderzoeken(models.Model):
     onderzoeks_id = models.AutoField(primary_key=True)
     organisatie = models.ForeignKey('Organisaties', models.DO_NOTHING)

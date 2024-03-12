@@ -207,9 +207,10 @@ def live_dashboard_data(request):
     investigations = Onderzoeken.objects.filter(onderzoeks_id__in=investigation_ids)
     registered_investigations_list = {}
 
-    count_status_1 = Deelnames.objects.filter(onderzoeks_id__in=investigation_ids, status=4).count()
-    count_status_2 = Deelnames.objects.filter(onderzoeks_id__in=investigation_ids, status=1).count()
-    count_status_3 = Deelnames.objects.filter(onderzoeks_id__in=investigation_ids, status=2).count()
+    count_status_1 = Deelnames.objects.filter(ervaringsdeskundige_id=user_id, status=4).count()
+    count_status_2 = Deelnames.objects.filter(ervaringsdeskundige_id=user_id, status=1).count()
+    count_status_3 = Deelnames.objects.filter(ervaringsdeskundige_id=user_id, status=2).count()
+
 
     for investigation in investigations:
         deelname = Deelnames.objects.get(ervaringsdeskundige_id=user_id, onderzoeks_id=investigation.onderzoeks_id)
