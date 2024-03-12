@@ -15,6 +15,16 @@
     --link-dark: #ff7f50;
 }
 
+#content,
+.table,
+#dashboard_main,
+.rectangle,
+.card_stat,
+#custom_cont {
+    transition: background-color 0.5s ease, color 0.3s ease, border-radius 0.5s ease;
+}
+
+
 .container {
     margin-right: auto;
     margin-left: auto;
