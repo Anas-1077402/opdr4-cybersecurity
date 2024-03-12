@@ -1,6 +1,6 @@
-{% extends "beheerder/base.html" %}
+{% extends "ervaringsdeskundige/base.html" %}
 {% load static %}
-{% block title %}Homepage{% endblock %}
+{% block title %}Onderzoeken{% endblock %}
 {% block content %}
 <script>
     function goedkeuren(onderzoeksId) {
@@ -21,10 +21,74 @@ function updateStatus(onderzoeksId, nieuweStatus) {
         .catch(error => console.error('Error:', error));
 }
 </script>
-    {% include "beheerder/dashboard_menu.html" %}
-    <div class="d-flex justify-content-center align-items-center">
-              <div id="card" class="container m-3 p-1">
-                  <table class="table">
+<div class="container-fluid" style="height: 94vh;">
+    <div class="row">
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+          <a href="#">
+            <img style="margin: 20px; margin-left: 5px;" src="{% static 'images/logo_accessibility.png' %}" width="200px" alt="test">
+          </a>
+            <div class="position-sticky">
+              <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                  <a href="/beheerder/dashboard" class="nav-link menu_text">
+                    Dashboard
+                  </a>
+                </li>
+                <li>
+                  <a href="/beheerder/onderzoeken" class="nav-link active" aria-current="page">
+                    Onderzoeken
+                  </a>
+                </li>
+                <li>
+                  <a  href="#" class="nav-link menu_text">
+                    Gebruikers
+                  </a>
+                </li>
+              </ul>
+              <hr>
+            </div>
+        </nav>
+
+
+        <div style="height: 94vh;" id="dashboard_main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div id="dashboard_overflow">
+        <main >
+          <div class="text-center" style="padding-top: 20px;">
+            <div>
+                  <div id="search" style="height: 20px;">
+                    <a  style="margin-right: 20px;" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i>      Switch thema </a>
+                    <div class="dropdown">
+                      <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user" style="padding-right: 15px;" width="32" height="32" class="rounded-circle me-2"></i>
+                        <strong>{{ user.first_name}} {{ user.last_name}}</strong>
+                      </a>
+                      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+                        <li><a class="dropdown-item" href="/beheerder/dashboard">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="#">Instellingen</a></li>
+                        <li><a class="dropdown-item" href="/ervaringsdeskundige/edit_profile">Profiel</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/ervaringsdeskundige/logout">Log uit</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <h1 style="margin: 10px; margin-left: 40px;" class="text-start extra-bold-header">Welkom {{ user.first_name }}👋!</h1>
+
+                  <div id="approved_alert" style="display: none;" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p id="notification-container" class="mb-0 ml-auto"></p>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <br>
+            <div class="container rounded-top border border-bottom-0 bg-primary-subtle text-center">
+                <div class="col text-center position-relative">
+                <table class="table">
                     <h2 class="p-3">Onderzoeken</h2>
                       <thead>
                       <tr>
@@ -49,7 +113,7 @@ function updateStatus(onderzoeksId, nieuweStatus) {
                                 <td>{{ onderzoek.opmerkingen_beheerder }}</td>
                                 <td>{{ onderzoek.status }}</td>
                                 <td>
-                                    <a href="{% url 'bewerk_onderzoek' onderzoek.onderzoeks_id %}" class="btn btn-primary">Bewerken</a>
+                                    <button type="button" class="btn btn-primary" onclick="window.location.href='/beheerder/dashboard/research/{{ onderzoek.onderzoeks_id }}/edit';">Bewerk</button>
                                     <a href="{% url 'verwijder_onderzoek' onderzoek.onderzoeks_id %}" class="btn btn-danger">Verwijderen</a>
                                 </td>
                             </tr>
@@ -77,6 +141,15 @@ function updateStatus(onderzoeksId, nieuweStatus) {
                       </tbody>
                   </table>
               </div>
+      </main>
+    </div>
+    </div>
+    </div>
+</div>
+
+    <div class="d-flex justify-content-center align-items-center">
+              <div id="card" class="container m-3 p-1">
+
           </div>
 <div class="hatsieflatsie"> <br><br><br></div>
 {% endblock %}

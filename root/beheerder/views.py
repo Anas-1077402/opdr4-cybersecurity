@@ -89,19 +89,19 @@ def update_status(request, onderzoeks_id, nieuwe_status):
     return JsonResponse({'message': 'Status bijgewerkt'}, status=200)
 
 
-def bewerk_onderzoek(request, onderzoeks_id):
-    onderzoek = get_object_or_404(Onderzoeken, onderzoeks_id=onderzoeks_id)
+#def bewerk_onderzoek(request, onderzoeks_id):
+#    onderzoek = get_object_or_404(Onderzoeken, onderzoeks_id=onderzoeks_id)
 
-    if request.method == 'POST':
-        onderzoek.titel = request.POST['titel']
-        onderzoek.omschrijving = request.POST['omschrijving']
-        onderzoek.opmerkingen_beheerder = request.POST['opmerkingen_beheerder']
-        onderzoek.status = request.POST['status']
-        onderzoek.save()
+#    if request.method == 'POST':
+#       onderzoek.titel = request.POST['titel']
+#       onderzoek.omschrijving = request.POST['omschrijving']
+#       onderzoek.opmerkingen_beheerder = request.POST['opmerkingen_beheerder']
+#      onderzoek.status = request.POST['status']
+#      onderzoek.save()
 
-        return redirect('/beheerder/onderzoeken')
+#       return redirect('/beheerder/onderzoeken')
 
-    return render(request, 'beheerder/bewerk_onderzoek.html', {'onderzoek': onderzoek})
+#   return render(request, 'beheerder/bewerk_onderzoek.html', {'onderzoek': onderzoek})
 
 
 def verwijder_onderzoek(request, onderzoeks_id):
