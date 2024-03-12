@@ -86,7 +86,8 @@ class Onderzoeken(models.Model):
 
 class Organisaties(models.Model):
     organisatie_id = models.AutoField(primary_key=True, blank=True)
-    naam = models.TextField(blank=True, null=True)
+    voornaam = models.TextField(blank=True, null=True)
+    achternaam = models.TextField(blank=True, null=True)
     kvk = models.IntegerField(db_column='KVK', blank=True, null=True)  # Field name made lowercase.
     website = models.TextField(blank=True, null=True)
     beschrijving = models.TextField(blank=True, null=True)
