@@ -46,7 +46,8 @@ def register(request):
             return redirect("/")
     else:
         form = RegisterForm()
-        supervisors = ToezichthoudersForm()
+    
+    supervisors = ToezichthoudersForm()
 
     return render(
         request,
@@ -135,7 +136,7 @@ def onderzoeken(request):
 def registered_investigations(request):
     user_id = request.user.id
 
-    current_investigations = Deelnames.objects.filter(ervaringsdeskundige_id=user_id)
+    current_investigations = Deelnames.objects.filter(ervaringsdeskundige_id=user_id).filter(status=1)
 
     investigation_ids = current_investigations.values_list('onderzoeks_id', flat=True)
 
@@ -158,6 +159,36 @@ def registered_investigations(request):
         "ervaringsdeskundige/registered_investigations.html",
         {"investigations": investigations_with_limitations},
     )
+
+@login_required
+def completed_investigations(request):
+    user_id = request.user.id
+
+    current_investigations = Deelnames.objects.filter(ervaringsdeskundige_id=user_id).filter(status=4)
+
+    investigation_ids = current_investigations.values_list('onderzoeks_id', flat=True)
+
+    investigations = Onderzoeken.objects.filter(onderzoeks_id__in=investigation_ids)
+
+    investigations_with_limitations = {}
+
+    for investigation in investigations:
+        limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=investigation.onderzoeks_id).values_list('beperking_id', flat=True)
+
+        limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+
+        investigations_with_limitations[investigation.onderzoeks_id] = {
+            'onderzoek': investigation,
+            'beperkingen': limitations,
+        }
+
+
+    return render(
+        request,
+        "ervaringsdeskundige/completed_investigations.html",
+        {"investigations": investigations_with_limitations},
+    )
+
 
 
 @login_required

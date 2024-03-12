@@ -28,6 +28,7 @@ function ageChecker() {
         document.getElementById('output').innerHTML = "Voer een geldige geboortedatum in.";
       }
     }
+    
   </script>
   
 
@@ -38,22 +39,22 @@ function ageChecker() {
             <div class="col-xl-9">
       
               <h1 class="text-white mb-5">Registreer als Ervaringsdeskundige</h1>
-      
+              <form method="post">
               <div class="card" style="border-radius: 15px;">
                 <div class="card-body">
-                    {% if form.errors %}
-                    <div class="alert alert-danger">
-                        <strong>Oeps! Er zijn enkele fouten opgetreden:</strong>
-                        <ul>
-                            {% for field, errors in form.errors.items %}
-                                {% for error in errors %}
-                                    <li>{{ field|title }}: {{ error }}</li>
-                                {% endfor %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-                <form method="post">
+                  {% if form.errors %}
+                  <div class="alert alert-danger">
+                      <strong>Oeps! Er zijn enkele fouten opgetreden:</strong>
+                      <ul>
+                          {% for field, errors in form.errors.items %}
+                              {% for error in errors %}
+                                  <li>{{ field|title }}: {{ error }}</li>
+                              {% endfor %}
+                          {% endfor %}
+                      </ul>
+                  </div>
+              {% endif %}              
+
                     {% csrf_token %}
                     <h3>Persoonsgegevens</h3>
                   <div class="row align-items-center pt-4 pb-3">

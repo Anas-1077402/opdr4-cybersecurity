@@ -164,7 +164,7 @@ def research_item_edit_save(request, pk):
 
 
 def experience_expert_item(request, pk):
-    experience_expert_item_data = ErvaringsdeskundigeErvaringsdeskundige.objects.filter(pk=pk).select_related("toezichthouder").get(pk=pk)
+    experience_expert_item_data = User.objects.filter(pk=pk)
     context = {
         "data": experience_expert_item_data
     }
@@ -172,7 +172,7 @@ def experience_expert_item(request, pk):
 
 
 def experience_expert_item_edit(request, pk):
-    experience_expert_item_data = ErvaringsdeskundigeErvaringsdeskundige.objects.filter(pk=pk).select_related("toezichthouder").get(pk=pk)
+    experience_expert_item_data = User.objects.filter(pk=pk)
     experience_expert_item_data.geboortedatum = str(experience_expert_item_data.geboortedatum)
     context = {
         "data": experience_expert_item_data
@@ -182,7 +182,7 @@ def experience_expert_item_edit(request, pk):
 
 def experience_expert_item_edit_save(request, pk):
     if request.method == 'POST':
-        instance = ErvaringsdeskundigeErvaringsdeskundige.objects.select_related("toezichthouder").get(pk=pk)
+        instance = User.objects.get(pk=pk)
         data = request.POST
         serializer = ExperienceExpertSerializer(instance, data)
         if serializer.is_valid():
@@ -256,7 +256,7 @@ def get_dashboard(request):
     data = dict()
     list_research = Onderzoeken.objects.filter(status=1).select_related("organisatie")
     count_research = list_research.count()
-    list_experience_expert = ErvaringsdeskundigeErvaringsdeskundige.objects.select_related("toezichthouder").filter(status=2)
+    list_experience_expert = User.objects.filter(status=1)
     count_experience_expert = list_experience_expert.count()
     list_organization = Organisaties.objects.filter(status=1)
     count_organization = list_organization.count()

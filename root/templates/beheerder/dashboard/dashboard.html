@@ -1,6 +1,6 @@
 {% extends "ervaringsdeskundige/base.html" %}
 {% load static %}
-{% block title %}Homepage{% endblock %}
+{% block title %}Beheerder dashboard{% endblock %}
 
 
 {% block content %}
@@ -18,18 +18,13 @@
                   </a>
                 </li>
                 <li>
-                  <a href="/ervaringsdeskundige/onderzoeken" class="nav-link menu_text">
+                  <a href="/beheerder/onderzoeken" class="nav-link menu_text">
                     Onderzoeken
                   </a>
                 </li>
                 <li>
-                  <a  href="registered_investigations" class="nav-link menu_text">
-                    Ingeschreven onderzoeken
-                  </a>
-                </li>
-                <li>
                   <a  href="#" class="nav-link menu_text">
-                    Afgeronde onderzoeken
+                    Gebruikers
                   </a>
                 </li>
               </ul>
@@ -44,13 +39,14 @@
           <div class="text-center" style="padding-top: 20px;">
             <div>
                   <div id="search" style="height: 20px;">
+                    <a  style="margin-right: 20px;" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i>      Switch thema </a>
                     <div class="dropdown">
                       <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user" style="padding-right: 15px;" width="32" height="32" class="rounded-circle me-2"></i>
                         <strong>{{ user.first_name}} {{ user.last_name}}</strong>
                       </a>
                       <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
-                        <li><a class="dropdown-item" href="/ervaringsdeskundige/dashboard">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="/beheerder/dashboard">Dashboard</a></li>
                         <li><a class="dropdown-item" href="#">Instellingen</a></li>
                         <li><a class="dropdown-item" href="/ervaringsdeskundige/edit_profile">Profiel</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -73,7 +69,7 @@
 
             </div>
             <br>
-            <div class="container-fluid" style="border:1px solid #cecece;background-color: aliceblue; border-radius: 20px; padding: 30px">
+            <div class="container-fluid" style="border-radius: 20px; padding: 30px">
                 <div class="row row-cols-4">
                     <div id="research" class="col border-end">
                         <h2 class="text-center border-bottom pb-1 text-break">Onderzoeken: 0</h2>
