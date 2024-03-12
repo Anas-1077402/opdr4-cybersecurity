@@ -31,8 +31,7 @@ class Deelnames(models.Model):
 
 class Organisaties(models.Model):
     organisatie_id = models.AutoField(primary_key=True, blank=True)
-    voornaam = models.TextField(blank=True, null=True)
-    achternaam = models.TextField(blank=True, null=True)
+    naam = models.TextField(blank=True, null=True)
     kvk = models.TextField(db_column='KVK', blank=True, null=True)  # Field name made lowercase.
     website = models.TextField(blank=True, null=True)
     beschrijving = models.TextField(blank=True, null=True)
@@ -89,6 +88,7 @@ class TypeOnderzoek(models.Model):
     telefonisch = models.BooleanField(blank=True, null=True)
     internet = models.BooleanField(blank=True, null=True)
     locatie = models.BooleanField(blank=True, null=True)
+    onderzoeks = models.ForeignKey(Onderzoeken, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False

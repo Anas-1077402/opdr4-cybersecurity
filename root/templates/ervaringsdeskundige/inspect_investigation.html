@@ -13,7 +13,7 @@
             <div class="position-sticky">
               <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                  <a href="/ervaringsdeskundige/dashboard"  class="nav-link link-dark">
+                  <a href="/ervaringsdeskundige/dashboard"  class="nav-link menu_text">
                     Dashboard
                   </a>
                 </li>
@@ -23,12 +23,12 @@
                   </a>
                 </li>
                 <li>
-                  <a href="registered_investigations" class="nav-link link-dark">
+                  <a href="registered_investigations" class="nav-link menu_text">
                     Ingeschreven onderzoeken
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="nav-link link-dark">
+                  <a href="#" class="nav-link menu_text">
                     Afgeronde onderzoeken
                   </a>
                 </li>
@@ -46,8 +46,8 @@
                 <div class="d-flex square">
                     <div class="p-4">
                         <blockquote class="blockquote">
-                            <h1 class="mb-0 mb-3 white_text">{{ data.onderzoek.titel }}</h1>
-                            <footer class="blockquote-footer white_text">Organisatie: <cite title="de groene aarbei">de groene aarbei</cite></footer>
+                            <h1 style="color: white;" class="mb-0 mb-3 white_text">{{ data.onderzoek.titel }}</h1>
+                            <footer class="blockquote-footer white_text">Organisatie: <cite title="de groene aarbei"><strong>{{ data.organisatie.naam }}</strong></cite></footer>
                           </blockquote>
                     </div>
                   <div class="rectangle p-5">
@@ -70,7 +70,19 @@
                       <strong>Beloning: </strong>{{ data.onderzoek.beloning }} <br>
                       {% endif %}
                       <strong>Soort onderzoek: </strong>{{ data.onderzoek.soort_onderzoek }} <br>
-                      <strong>Type onderzoek: </strong>{{ data.onderzoek.type_onderzoek }} <br>
+                      <strong>Type onderzoek: </strong>
+                      <ul>
+                          {% if data.type_onderzoek.telefonisch %}
+                              <li>Telefonisch</li>
+                          {% endif %}
+                          {% if data.type_onderzoek.internet %}
+                              <li>Internet</li>
+                          {% endif %}
+                          {% if data.type_onderzoek.locatie %}
+                              <li>Op locatie</li>
+                          {% endif %}
+                      </ul>
+                      <br>
                     </p>
                     
                     <p></p>

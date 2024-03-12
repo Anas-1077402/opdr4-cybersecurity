@@ -1,3 +1,20 @@
+:root {
+    --background-light: #f5f5f5;
+    --background-dark: #1f1f1f;
+    --text-light: #4b4b4b;
+    --text-dark: #ffffff;
+    --accent-light: #9faecb;
+    --accent-dark: #848484;
+    --card-background-light: #ffffff;
+    --card-background-dark: #393a69;
+    --card-shadow-light: #bbbbbb;
+    --card-shadow-dark: #7a7a7a;
+    --border-light: #dddddd;
+    --border-dark: #333333;
+    --link-light: #007bff;
+    --link-dark: #ff7f50;
+}
+
 .container {
     margin-right: auto;
     margin-left: auto;
@@ -31,7 +48,6 @@
 }
 
 
-
 .card-columns .card {
     margin-bottom: 0.75rem;
 }
@@ -46,6 +62,7 @@
         width: 100%;
     }
 }
+
 .text-muted {
     color: #9faecb !important;
 }
@@ -54,6 +71,7 @@ p {
     margin-top: 0;
     margin-bottom: 1rem;
 }
+
 .mb-3 {
     margin-bottom: 1rem !important;
 }
@@ -111,7 +129,7 @@ p {
     margin: 50px;
 }
 
-.card_stat {
+.card_stat:not(.dark) {
     flex: 1 0 300px; 
     display: flex;
     flex-direction: column;
@@ -123,6 +141,30 @@ p {
     color: #848484;
     box-shadow: 0 0 50px rgb(187, 187, 187);
     margin: 10px;
+}
+
+.card_stat.dark {
+    flex: 1 0 300px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #525252;
+    color: #dfdfdf;
+    box-shadow: 0 0 50px rgb(165, 165, 165, .3);
+    margin: 10px;
+}
+
+.content:not(.dark) {
+    background-color: var(--border-light);
+    color: var(--tekst-light);
+    border-radius: 10px;
+}
+
+.content.dark {
+    background-color: var(--background-dark);
+    border-radius: 10px;
 }
 
 .card-stat-heading {
@@ -138,7 +180,6 @@ p {
 }
 
 .number {
-    color: rgb(90, 90, 90);
     font-size: 120px;
 }
 
@@ -171,6 +212,16 @@ p {
 }
 
 
+#custom_cont:not(.dark) {
+    background-color: white;
+    border-radius: 10px;
+}
+
+#custom_cont.dark {
+    background-color: #212529;
+    border-radius: 10px;
+}
+
 #card {
     background-color: white;
     border-radius: 10px;
@@ -179,7 +230,7 @@ p {
 .card_grey {
     background-color: rgb(57, 74, 105);
     border-radius: 10px;
-    box-shadow: 0 0 35px rgb(122, 122, 122);
+    box-shadow: 0 0 35px rgb(75, 75, 75, .5);
     color: white;
     
 }
@@ -191,12 +242,27 @@ p {
 }
 
 .table {
-
     padding: 10px;
 }
 
-body {
-    background-color: rgb(245, 245, 245);
+body:not(.dark) {
+    background-color: var(--text-light);
+    color: var(--text-light);
+}
+
+body.dark {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+} 
+
+#content:not(.dark) {
+    background-color: var(--text-dark);
+    border-radius: 20px;
+}
+
+#content.dark {
+    background-color: #3d3d3d;
+    border-radius: 20px;
 }
 
 .hidden {
@@ -205,7 +271,7 @@ body {
 }
 
 .dashboard-container {
-    background-color: #ffffff;
+    background-color: #838383;
     margin: 20px;
     border-radius: 20px;
     height: 100%;
@@ -215,9 +281,23 @@ body {
     border-radius: 20px;
 }
 
-#dashboard_main {
+#dashboard_main:not(.dark) {
     border-radius: 20px;
     background-color: #eeeaea;
+}
+
+#dashboard_main.dark {
+    border-radius: 20px;
+    background-color:  #313131;
+}
+
+h1:not(.dark) {
+    color: var(--tekst-light);
+    
+}
+
+h1.dark {
+    color: var(--text-dark);
 }
 
 #dashboard_overflow {
@@ -232,23 +312,70 @@ body {
     color: #4b4b4b;
 }
 
+
 .square {
     position: relative;
     background-color: rgb(57, 74, 105);
     border-radius: 21px;
-    height: 83vh;
-    
-  }
+    min-height: calc(70vh + 280px);
+}
 
-  .rectangle {
+
+.rectangle:not(.dark) {
     width: 100%;
-    height: 64vh;
+    min-height: 80%;
     background-color: rgb(218, 218, 218);
+    border-radius: 20px;
     position: absolute;
     bottom: 0;
+}
+
+.rectangle.dark {
+    width: 100%;
+    min-height: 80%;
+    background-color: #212529;
     border-radius: 20px;
-  }
+    position: absolute;
+    bottom: 0;
+}
+
+.rectangle {
+    width: 100%;
+    min-height: 80%;
+    background-color: rgb(218, 218, 218);
+    border-radius: 20px;
+    position: absolute;
+    bottom: 0;
+}
+
+.custom_table:not(.dark) {
+    background-color: #ffffff;
+    color: var(--text-light);
+}
+
+.custom_table.dark {
+    background-color: #313131;
+    color: #eeeaea;
+}
+
+
 
 .white_text {
     color: white;
+}
+
+.menu_text:not(.dark) {
+    color: var(--text-light);
+}
+
+.menu_text.dark {
+    color: var(--text-dark);
+}
+
+#approved_alert {
+    padding-right: 0;
+}
+
+.alert-dismissible .close {
+    padding-right: 0; 
 }

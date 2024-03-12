@@ -20,17 +20,17 @@
                   </a>
                 </li>
                 <li>
-                  <a href="/ervaringsdeskundige/onderzoeken" class="nav-link link-dark">
+                  <a href="/ervaringsdeskundige/onderzoeken" class="nav-link menu_text">
                     Onderzoeken
                   </a>
                 </li>
                 <li>
-                  <a href="registered_investigations" class="nav-link link-dark">
+                  <a  href="registered_investigations" class="nav-link menu_text">
                     Ingeschreven onderzoeken
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="nav-link link-dark">
+                  <a  href="#" class="nav-link menu_text">
                     Afgeronde onderzoeken
                   </a>
                 </li>
@@ -46,8 +46,9 @@
           <div class="text-center" style="padding-top: 20px;">
             <div>
                   <div id="search">
+                    <a  style="margin-right: 20px;" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i>      Switch thema </a>
                     <div class="dropdown">
-                      <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user" style="padding-right: 15px;" width="32" height="32" class="rounded-circle me-2"></i>
                         <strong>{{ user.first_name}} {{ user.last_name}}</strong>
                       </a>
@@ -63,11 +64,15 @@
                   <h1 style="margin: 10px; margin-left: 40px;" class="text-start extra-bold-header">Welkom {{ user.first_name }}👋!</h1>
 
                   <div id="approved_alert" style="display: none;" class="alert alert-warning alert-dismissible fade show" role="alert">
-                    We hebben goed nieuws voor je! <div id="notification-container"></div>
-                    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>                  
-                  </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p id="notification-container" class="mb-0 ml-auto"></p>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                
+                
 
             </div>
               <div id="stat_cards" class="row">
@@ -109,7 +114,7 @@ $(document).ready(function() {
                     const meldingKey = `melding_displayed_${onderzoekId}`;
 
                     if (onderzoekStatus === 3 && !localStorage.getItem(meldingKey)) {
-                        const notificationText = `Je bent <strong> goedgekeurd </strong> voor het "${onderzoek.titel}" onderzoek!`;
+                        const notificationText = `We hebben goed nieuws voor je! Je bent <strong> goedgekeurd </strong> voor het "${onderzoek.titel}" onderzoek!`;
                         showNotification(notificationText);
 
                         $('#approved_alert').css('display', 'block');

@@ -10,6 +10,8 @@ from main.models import (
     Deelnames,
     Beperkingen,
     BeperkingenErvaringsdeskundigen,
+    Organisaties,
+    TypeOnderzoek
 )
 from .models import BeperkingenOnderzoeken
 from django.http import JsonResponse, FileResponse
@@ -237,10 +239,18 @@ def inspect_investigation(request, investigation_id):
 
         limitations = Beperkingen.objects.filter(id__in=limitation_ids)
 
+        organisation_id = investigation.organisatie_id
+        organisation = Organisaties.objects.filter(organisatie_id=organisation_id).first()
 
+        limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+
+        type_investigation = TypeOnderzoek.objects.filter(onderzoeks_id=investigation_id).first()
+        print(type_investigation.internet)
         investigations_with_limitations[investigation.onderzoeks_id] = {
             'onderzoek': investigation,
             'beperkingen': limitations,
+            'organisatie': organisation,
+            'type_onderzoek': type_investigation,
         }
 
     return render(
