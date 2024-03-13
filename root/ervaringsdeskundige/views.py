@@ -59,7 +59,47 @@ def register(request):
 @login_required()
 def dashboard_ervaringsdeskundige(request):
     current_user = request.user
-    return render(request, "ervaringsdeskundige/dashboard.html", {"user": current_user})
+
+    user_id = request.user.id
+
+    current_investigations = Deelnames.objects.filter(ervaringsdeskundige_id=user_id).filter(status=2)
+
+    investigation_ids = current_investigations.values_list('onderzoeks_id', flat=True)
+
+    investigations = Onderzoeken.objects.filter(onderzoeks_id__in=investigation_ids)
+
+    investigations_with_limitations = {}
+
+    for investigation in investigations:
+        limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=investigation.onderzoeks_id).values_list('beperking_id', flat=True)
+
+        limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+
+        investigations_with_limitations[investigation.onderzoeks_id] = {
+            'onderzoek': investigation,
+            'beperkingen': limitations,
+        }
+
+    current_investigations_2 = Deelnames.objects.filter(ervaringsdeskundige_id=user_id).filter(status=4)
+
+    investigation_ids_2 = current_investigations_2.values_list('onderzoeks_id', flat=True)
+
+    investigations_2 = Onderzoeken.objects.filter(onderzoeks_id__in=investigation_ids_2)
+
+    investigations_with_limitations_2 = {}
+
+    for investigation in investigations_2:
+        limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=investigation.onderzoeks_id).values_list('beperking_id', flat=True)
+
+        limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+
+        investigations_with_limitations_2[investigation.onderzoeks_id] = {
+            'onderzoek': investigation,
+            'beperkingen': limitations,
+        }
+
+
+    return render(request, "ervaringsdeskundige/dashboard.html", {"user": current_user, "ongoing_investigations": investigations_with_limitations, "finished_investigations": investigations_with_limitations_2})
 
 
 @login_required

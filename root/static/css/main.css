@@ -314,6 +314,7 @@ h1.dark {
 
 #dashboard_overflow {
     overflow-y: auto;
+    overflow-x: hidden;
     max-height: 94vh;
     height: 100%;
 }

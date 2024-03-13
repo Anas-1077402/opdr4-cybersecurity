@@ -54,7 +54,6 @@
                       </a>
                       <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
                         <li><a class="dropdown-item" href="/ervaringsdeskundige/dashboard">Dashboard</a></li>
-                        <li><a class="dropdown-item" href="#">Instellingen</a></li>
                         <li><a class="dropdown-item" href="/ervaringsdeskundige/edit_profile">Profiel</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/ervaringsdeskundige/logout">Log uit</a></li>
@@ -91,6 +90,89 @@
                 </div>
             </div>
             </div>
+            <div class="row">
+              <div style="border-radius: 20px;" class="col-md-6">
+                  <!-- Eerste tabel -->
+                  <table class="custom_table table p-3" >
+                    <h2 class="p-2">Lopende onderzoeken</h2>
+                    <thead>
+                        <tr>
+                            <th scope="col">Titel</th>
+                            <th scope="col">Omschrijving</th>
+                            <th scope="col">Beloning</th>
+                            <th scope="col">Beperking</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if ongoing_investigations %}
+                            {% for investigation_id, data in ongoing_investigations.items %}
+                                <tr>
+                                    <td>{{ data.onderzoek.titel }}</td>
+                                    <td>{{ data.onderzoek.omschrijving }}</td>
+                                    <td>{% if data.onderzoek.met_beloning == 1 %}
+                                        {{ data.onderzoek.beloning }}
+                                    {% else %}
+                                        Geen beloning beschikbaar
+                                    {% endif %}</td>
+                                    <td>
+                                        <form method="post" action="unsubscribe_investigation/{{ data.onderzoek.onderzoeks_id }}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">Schrijf uit</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4">Geen lopende onderzoeken beschikbaar.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+              </div>
+              <div class="col-md-6">
+                  <!-- Tweede tabel -->
+                  <table class="custom_table table p-3">
+                    <h2 class="p-2">Afgeronde onderzoeken</h2>
+                    <thead>
+                        <tr>
+                            <th scope="col">Titel</th>
+                            <th scope="col">Omschrijving</th>
+                            <th scope="col">Beloning</th>
+                            <th scope="col">Beperking</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if finished_investigations %}
+                            {% for investigation_id, data in finished_investigations.items %}
+                                <tr>
+                                    <td>{{ data.onderzoek.titel }}</td>
+                                    <td>{{ data.onderzoek.omschrijving }}</td>
+                                    <td>{% if data.onderzoek.met_beloning == 1 %}
+                                        {{ data.onderzoek.beloning }}
+                                    {% else %}
+                                        Geen beloning beschikbaar
+                                    {% endif %}</td>
+                                    <td>
+                                        {% if data.beperkingen %}
+                                            {% for limitation in data.beperkingen %}
+                                                {{ limitation.omschrijving }}{% if not forloop.last %},{% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            Geen beperkingen beschikbaar
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4">Geen afgeronde onderzoeken beschikbaar.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+              </div>
+          </div>
       </main>
     </div>
     </div>

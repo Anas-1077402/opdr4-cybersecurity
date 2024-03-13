@@ -40,6 +40,35 @@
         <div style="height: 94vh;" id="dashboard_main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div id="dashboard_overflow">
         <main >
+          <div class="text-center" style="padding-top: 20px;">
+            <div>
+                  <div id="search" style="height: 20px;">
+                    <a  style="margin-right: 20px;" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i>      Switch thema </a>
+                    <div class="dropdown">
+                      <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user" style="padding-right: 15px;" width="32" height="32" class="rounded-circle me-2"></i>
+                        <strong>{{ user.first_name}} {{ user.last_name}}</strong>
+                      </a>
+                      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+                        <li><a class="dropdown-item" href="/ervaringsdeskundige/dashboard">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="/ervaringsdeskundige/edit_profile">Profiel</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/ervaringsdeskundige/logout">Log uit</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <h1 style="margin: 10px; margin-left: 40px;" class="text-start extra-bold-header">Welkom {{ user.first_name }}👋!</h1>
+
+                  <div id="approved_alert" style="display: none;" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p id="notification-container" class="mb-0 ml-auto"></p>
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+          </div>
+          </div>
           <div style="padding-top: 20px;">
             <div id="custom_cont"  class="m-4 p-4">
               <table class="table custom_table p-3">
