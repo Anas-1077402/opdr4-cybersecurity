@@ -81,15 +81,9 @@ function updateStatus(onderzoeksId, nieuweStatus) {
                         </button>
                     </div>
                 </div>
-
-
-
-            </div>
             <br>
-            <div class="container rounded-top border border-bottom-0 bg-primary-subtle text-center">
-                <div class="col text-center position-relative">
+            <div class="container rounded-top border border-bottom-0 text-center">
                 <table class="table">
-                    <h2 class="p-3">Onderzoeken</h2>
                       <thead>
                       <tr>
                           <th scope="col">Titel</th>
@@ -130,17 +124,6 @@ function updateStatus(onderzoeksId, nieuweStatus) {
                   </table>
               </div>
           </div>
-                          {% for admin in pending_admins %}
-                      <tr>
-                          <td><a href="/beheerder/checkout_admin/{{ admin.id }}">{{ admin.first_name }} {{ admin.last_name}}</a></td>
-                          <td>{{ admin.email }}</td>
-                          <td>{{ admin.functie }}</td>
-                          <td>{% if admin.status == 1 %}In afwachting... {% endif %}</td>
-                      </tr>
-                      {% endfor %}
-                      </tbody>
-                  </table>
-              </div>
       </main>
     </div>
     </div>
