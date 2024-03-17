@@ -8,7 +8,7 @@
     <div class="row">
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
           <a href="#">
-            <img style="margin: 20px; margin-left: 5px;" src="{% static 'images/logo_accessibility.png' %}" width="200px" alt="test">
+            <img style="margin: 20px; margin-left: 5px;" src="{% static 'images/logo_accessibility.png' %}" width="200px" alt="Logo van Accessibility">
           </a>
             <div class="position-sticky">
               <ul class="nav nav-pills flex-column mb-auto">
@@ -43,13 +43,13 @@
           <div class="text-center" style="padding-top: 20px;">
             <div>
                   <div id="search" style="height: 20px;">
-                    <a  style="margin-right: 20px;" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i>      Switch thema </a>
+                    <a  style="margin-right: 20px;" onclick="toggleTheme()" tabindex="0"><i class="fa-solid fa-circle-half-stroke"></i>      Switch thema </a>
                     <div class="dropdown">
-                      <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" aria-label="dropdown menu met dashboard, profiel en loguit opties">
                         <i class="fa-solid fa-user" style="padding-right: 15px;" width="32" height="32" class="rounded-circle me-2"></i>
                         <strong>{{ user.first_name}} {{ user.last_name}}</strong>
                       </a>
-                      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+                      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                         <li><a class="dropdown-item" href="/ervaringsdeskundige/dashboard">Dashboard</a></li>
                         <li><a class="dropdown-item" href="/ervaringsdeskundige/edit_profile">Profiel</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -76,21 +76,21 @@
                 <div class="d-flex square">
                     <div class="p-4">
                         <blockquote class="blockquote">
-                            <h1 style="color: white;" class="mb-0 mb-3 white_text">{{ data.onderzoek.titel }}</h1>
+                            <h2 style="color: white;" class="mb-0 mb-3 white_text h1">{{ data.onderzoek.titel }}</h1>
                             <footer class="blockquote-footer white_text">Organisatie: <cite title="de groene aarbei"><strong>{{ data.organisatie.naam }}</strong></cite></footer>
                           </blockquote>
                     </div>
                   <div class="rectangle p-5">
 
-                    <h2><strong>Omschrijving:</strong></h2>
+                    <h3 class="h2"><strong>Omschrijving:</strong></h3>
                     <hr>
                     <p>{{ data.onderzoek.omschrijving }}</p>
                     <br>
                     <div class="row">
                         <div style="padding-right: 60px;" class="col-md-8">
-                    <h2><strong>Overige details:</strong></h2>
+                    <h3 class="h2"><strong>Overige details:</strong></h3>
                     <hr>
-                    <p>
+                    <p class="mb-0">
                       <strong>Datum vanaf:</strong> {{ data.onderzoek.datum_vanaf }} <br>
                       <strong> Datum tot:</strong> {{ data.onderzoek.datum_tot }} <br>
                       <strong> Locatie: </strong>{{ data.onderzoek.locatie }} <br>
@@ -100,7 +100,7 @@
                       <strong>Beloning: </strong>{{ data.onderzoek.beloning }} <br>
                       {% endif %}
                       <strong>Soort onderzoek: </strong>{{ data.onderzoek.soort_onderzoek }} <br>
-                      <strong>Type onderzoek: </strong>
+                      <h4 class="h6 mt-1"><strong>Type onderzoek: </strong></h4>
                       <ul>
                           {% if data.type_onderzoek.telefonisch %}
                               <li>Telefonisch</li>

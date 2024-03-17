@@ -10,7 +10,7 @@
     <div class="row">
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
           <a href="#">
-            <img style="margin: 20px; margin-left: 5px;" src="{% static 'images/logo_accessibility.png' %}" width="200px" alt="test">
+            <img style="margin: 20px; margin-left: 5px;" src="{% static 'images/logo_accessibility.png' %}" width="200px" alt="Logo van Accessibility">
           </a>
             <div class="position-sticky">
               <ul class="nav nav-pills flex-column mb-auto">
@@ -46,13 +46,13 @@
           <div class="text-center" style="padding-top: 20px;">
             <div>
                   <div id="search" style="height: 20px;">
-                    <a  style="margin-right: 20px;" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i>      Switch thema </a>
+                    <a  style="margin-right: 20px;" onclick="toggleTheme()" tabindex="0"><i class="fa-solid fa-circle-half-stroke"></i>      Switch thema </a>
                     <div class="dropdown">
-                      <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" aria-label="dropdown menu met dashboard, profiel en loguit opties">
                         <i class="fa-solid fa-user" style="padding-right: 15px;" width="32" height="32" class="rounded-circle me-2"></i>
                         <strong>{{ user.first_name}} {{ user.last_name}}</strong>
                       </a>
-                      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+                      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                         <li><a class="dropdown-item" href="/ervaringsdeskundige/dashboard">Dashboard</a></li>
                         <li><a class="dropdown-item" href="/ervaringsdeskundige/edit_profile">Profiel</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -76,16 +76,16 @@
             </div>
               <div id="stat_cards" class="row">
                 <div class="col-md-4 card_stat">
-                    <p class="number number_1">Loading...</p>
-                    <h6 class="card-stat-heading">Aantal onderzoeken voltooid</h6>
+                    <p aria-labelledby="amount_research_completed"  class="number number_1">Loading...</p>
+                    <label class="card-stat-heading h6" id="amount_research_completed">Aantal onderzoeken voltooid</label>
                 </div>
                 <div class="col-md-4 card_stat">
-                    <p class="number number_2">Loading...</p>
-                    <h6 class="card-stat-heading">Aantal ingeschreven onderzoeken</h6>
+                    <p aria-labelledby="amount_signed_up_research" class="number number_2">Loading...</p>
+                    <label class="card-stat-heading h6" id="amount_signed_up_research">Aantal ingeschreven onderzoeken</label>
                 </div>
                 <div class="col-md-4 card_stat">
-                    <p class="number number_3">Loading...</p>
-                    <h6 class="card-stat-heading">Lopende onderzoeken</h6>
+                    <p aria-labelledby="running_research" class="number number_3">Loading...</p>
+                    <label class="card-stat-heading h6" id="running_research">Lopende onderzoeken</label>
 
                 </div>
             </div>
