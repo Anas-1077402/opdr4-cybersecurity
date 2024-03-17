@@ -14,21 +14,21 @@ class RegisterForm(UserCreationForm):
         fields = ('first_name', 'last_name', 'postcode', 'geslacht','email', 'telefoonnummer', 'geboortedatum', 'gebruikte_hulpmiddelen',
                   'bijzonderheden', 'bijzonderheden_beschikbaarheid', 'username',)
 
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['first_name'].widget.attrs.update({'class': 'form-control'})
-        self.fields['last_name'].widget.attrs.update({'class': 'form-control'})
-        self.fields['username'].widget.attrs.update({'class': 'form-control'})
-        self.fields['email'].widget.attrs.update({'class': 'form-control'})
-        self.fields['password1'].widget.attrs.update({'class': 'form-control'})
-        self.fields['password2'].widget.attrs.update({'class': 'form-control'})
-        self.fields['postcode'].widget.attrs.update({'class': 'form-control'})
-        self.fields['geslacht'].widget.attrs.update({'class': 'form-control'})
-        self.fields['telefoonnummer'].widget.attrs.update({'class': 'form-control'})
-        self.fields['geboortedatum'].widget.attrs.update({'class': 'form-control', 'type': "date", 'id': "geboortedatum", 'onchange': "ageChecker()"})
-        self.fields['gebruikte_hulpmiddelen'].widget.attrs.update({'class': 'form-control', 'style': "height: 100px; resize: none;"})
-        self.fields['bijzonderheden'].widget.attrs.update({'class': 'form-control', 'style': "height: 100px; resize: none;"})
-        self.fields['bijzonderheden_beschikbaarheid'].widget.attrs.update({'class': 'form-control', 'style': "height: 100px; resize: none;"})
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Voornaam'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Achternaam'})
+        self.fields['username'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Gebruikersnaam'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control', 'aria-label': 'E-mailadres'})
+        self.fields['password1'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Wachtwoord'})
+        self.fields['password2'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Wachtwoord herhalen'})
+        self.fields['postcode'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Postcode'})
+        self.fields['geslacht'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Geslacht'})
+        self.fields['telefoonnummer'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Telefoonnummer'})
+        self.fields['gebruikte_hulpmiddelen'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Gebruikte hulpmiddelen', 'style': "height: 100px; resize: none;"})
+        self.fields['geboortedatum'].widget.attrs.update({'class': 'form-control','aria-label': 'Geboortedatum', 'type': "date", 'id': "geboortedatum", 'onchange': "ageChecker()"})
+        self.fields['bijzonderheden'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Bijzonderheden', 'style': "height: 100px; resize: none;"})
+        self.fields['bijzonderheden_beschikbaarheid'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Bijzonderheden beschikbaarheid', 'style': "height: 100px; resize: none;"})
 
 
 class BeperkingForm(forms.Form):

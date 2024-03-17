@@ -217,7 +217,7 @@ class BeperkingenErvaringsdeskundigen(models.Model):
 
 # class ErvaringsdeskundigeErvaringsdeskundigeGroups(models.Model):
 #     ervaringsdeskundige = models.ForeignKey(ErvaringsdeskundigeErvaringsdeskundige, models.DO_NOTHING)
-#     group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+#    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
 
 #     class Meta:
 #         managed = False
