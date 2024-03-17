@@ -18,8 +18,8 @@
             <li class="list-group-item">Geboortedatum: {{ item.geboortedatum }}</li>
             <li class="list-group-item">Toezichthouder: {{ item.Toezichthouders.voornaam_1 }}</li>
             <li class="list-group-item text-center">
-                <button onclick="goedkeurenErvaringsdeskundige({{ item.id }});" class="btn btn-success">Keur goed</button>
-                <button onclick="afkeurenErvaringsdeskundige({{ item.id }});" class="btn btn-danger">Keur af</button>
+                <button onclick="goedkeurenErvaringsdeskundige('{{ item.id }}');" class="btn btn-success">Keur goed</button>
+                <button onclick="afkeurenErvaringsdeskundige('{{ item.id }}');" class="btn btn-danger">Keur af</button>
             </li>
         </ul>
     </div>
