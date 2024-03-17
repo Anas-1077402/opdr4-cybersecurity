@@ -2,8 +2,8 @@
 {% for item in organization %}
 <div id="{{ item.organisatie_id }}" class="card mb-3 md-2" style="cursor: pointer;" tabindex="0" onclick="location.href='dashboard/organization/{{ item.organisatie_id }}';">
     <div class="card-body">
-        <h5 class="card-title text-center">{{ item.voornaam }} {{ item.achternaam }}</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary text-center">KVK: {{ item.kvk }}</h6>
+        <h3 class="card-title text-center h5">{{ item.voornaam }} {{ item.achternaam }}</h3>
+        <h3 class="card-subtitle mb-2 text-body-secondary text-center h6">KVK: {{ item.kvk }}</h3>
         <ul class="list-group list-group-flush">
             {% if item.type == '1' %}
             <li class="list-group-item">Type: Commerciëel</li>
@@ -15,8 +15,8 @@
             <li class="list-group-item">Telefoonnummer: {{ item.telefoonnummer }}</li>
             <li class="list-group-item">Website: {{ item.website }}</li>
             <li class="list-group-item text-center">
-                <button onclick="goedkeurenOrganisatie({{ item.organisatie_id }});" class="btn btn-success">Keur goed</button>
-                <button onclick="afkeurenOrganisatie({{ item.organisatie_id }});" class="btn btn-danger">Keur af</button>
+                <button onclick="goedkeurenOrganisatie('{{ item.organisatie_id }}');" class="btn btn-success">Keur goed</button>
+                <button onclick="afkeurenOrganisatie('{{ item.organisatie_id }}');" class="btn btn-danger">Keur af</button>
             </li>
         </ul>
     </div>
