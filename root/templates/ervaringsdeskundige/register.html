@@ -5,7 +5,12 @@
 {% block title %}Registreren{% endblock %}
 
 {% block content %}
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script>
+  window.onload = function() {
+    document.getElementById("id_first_name").focus();
+  };
+</script>
 <script>
 function ageChecker() {
     const outputElement = document.getElementById('output');
@@ -30,6 +35,25 @@ function ageChecker() {
     }
     
   </script>
+  <script>
+    window.onload = function() {
+      // Wacht tot het DOM volledig is geladen
+      document.addEventListener('DOMContentLoaded', function() {
+        // Selecteer het selectie-element met de class "selectpicker"
+        var selectElement = document.querySelector('.selectpicker');
+        // Initialiseer de Bootstrap Select-plugin op het selectie-element
+        $(selectElement).selectpicker();
+  
+        // Voeg event listener toe voor het openen van de dropdown met Enter-toets
+        selectElement.addEventListener('keypress', function(event) {
+          if (event.key === 'Enter') {
+            $(selectElement).selectpicker('toggle');
+          }
+        });
+      });
+    };
+  </script>
+  
   
 
     <section class="vh-50" style="background-color: #2779e2;">
@@ -60,7 +84,7 @@ function ageChecker() {
                   <div class="row align-items-center pt-4 pb-3">
                     <div class="col-md-3 ps-5">
       
-                      <h6 class="mb-0">Naam</h6>
+                      <strong class="mb-0">Naam</strong>
       
                     </div>
                     <div class="col-md-4 pe-5">
@@ -81,7 +105,7 @@ function ageChecker() {
                   <div class="row align-items-center py-3">
                     <div class="col-md-3 ps-5">
       
-                      <h6 class="mb-0">Gebruikersnaam</h6>
+                      <strong class="mb-0">Gebruikersnaam</strong>
       
                     </div>
                     <div class="col-md-9 pe-5">
@@ -96,7 +120,7 @@ function ageChecker() {
                   <div class="row align-items-center py-3">
                     <div class="col-md-3 ps-5">
       
-                      <h6 class="mb-6">Wachtwoord</h6>
+                      <strong class="mb-6">Wachtwoord</strong>
       
                     </div>
                     <div class="col-md-9 pe-5">
@@ -119,7 +143,7 @@ function ageChecker() {
                   <div class="row align-items-center py-3">
                     <div class="col-md-3 ps-5">
       
-                      <h6 class="mb-0">Wachtwoord herhalen</h6>
+                      <strong class="mb-0">Wachtwoord herhalen</strong>
       
                     </div>
                     <div class="col-md-9 pe-5">
@@ -134,7 +158,7 @@ function ageChecker() {
                   <div class="row align-items-center py-3">
                     <div class="col-md-3 ps-5">
       
-                      <h6 class="mb-0">Email adres</h6>
+                      <strong class="mb-0">Email adres</strong>
       
                     </div>
                     <div class="col-md-9 pe-5">
@@ -148,7 +172,7 @@ function ageChecker() {
                   <div class="row align-items-center py-3">
                     <div class="col-md-3 ps-5">
       
-                      <h6 class="mb-0">Telefoonnummer</h6>
+                      <strong class="mb-0">Telefoonnummer</strong>
       
                     </div>
                     <div class="col-md-9 pe-5">
@@ -163,7 +187,7 @@ function ageChecker() {
                   <div class="row align-items-center py-3">
                     <div class="col-md-3 ps-5">
       
-                      <h6 class="mb-0">Postcode</h6>
+                      <strong class="mb-0">Postcode</strong>
       
                     </div>
                     <div class="col-md-9 pe-5">
@@ -178,7 +202,7 @@ function ageChecker() {
                   <div class="row align-items-center py-3">
                     <div class="col-md-3 ps-5">
       
-                      <h6 class="mb-0">Geslacht</h6>
+                      <strong class="mb-0">Geslacht</strong>
       
                     </div>
                     <div class="col-md-9 pe-5">
@@ -192,7 +216,7 @@ function ageChecker() {
                   <div class="row align-items-center py-3">
                     <div class="col-md-3 ps-5">
       
-                      <h6 class="mb-0">Geboortedatum</h6>
+                      <strong class="mb-0">Geboortedatum</strong>
       
                     </div>
                     <div class="col-md-9 pe-5">
@@ -212,7 +236,7 @@ function ageChecker() {
 
                         <div class="col-md-3 ps-5">
           
-                          <h6 class="mb-0">Naam toezichthouder 1</h6>
+                          <strong class="mb-0">Naam toezichthouder 1</strong>
           
                         </div>
                         <div class="col-md-4 pe-5">
@@ -231,7 +255,7 @@ function ageChecker() {
                       <div class="row align-items-center py-3">
                         <div class="col-md-3 ps-5">
           
-                          <h6 class="mb-0">Telefoonnummer toezichthouder 1</h6>
+                          <strong class="mb-0">Telefoonnummer toezichthouder 1</strong>
           
                         </div>
                         <div class="col-md-9 pe-5">
@@ -249,7 +273,7 @@ function ageChecker() {
 
                         <div class="col-md-3 ps-5">
           
-                          <h6 class="mb-0">Naam toezichthouder 1</h6>
+                          <strong class="mb-0">Naam toezichthouder 1</strong>
           
                         </div>
                         <div class="col-md-4 pe-5">
@@ -268,7 +292,7 @@ function ageChecker() {
                       <div class="row align-items-center py-3">
                         <div class="col-md-3 ps-5">
           
-                          <h6 class="mb-0">Telefoonnummer toezichthouder 2</h6>
+                          <strong class="mb-0">Telefoonnummer toezichthouder 2</strong>
           
                         </div>
                         <div class="col-md-9 pe-5">
@@ -284,53 +308,73 @@ function ageChecker() {
 
                   <hr class="mx-n3">
                   <h3>Ervaring</h3>
+                  <div style="background-color: rgb(232, 238, 245); border-radius: 20px; padding: 20px; margin: 30px">
                   <div class="row align-items-center py-3">
-                    <div class="col-md-3 ps-5">
-      
-                      <h6 class="mb-0">Beperkingen</h6>
-      
-                    </div>
-                    <div class="col-md-9 pe-5">
-                        <select class="selectpicker" data-width="100%" data-live-search="true" name="selected_limitations" multiple title="Selecteer uw beperking(en)">
-                            <optgroup label="Auditieve beperking">
-                                {% for limitation in limitations %}
-                                    {% if limitation.soort == "Auditieve beperking" %}
-                                        <option value="{{ limitation.id }}">{{ limitation.omschrijving }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </optgroup>
-                            <optgroup label="Visuele beperking">
-                                {% for limitation in limitations %}
-                                    {% if limitation.soort == "Visuele beperking" %}
-                                        <option value="{{ limitation.id }}">{{ limitation.omschrijving }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </optgroup>
-                            <optgroup label="Motorische / lichamelijke beperking">
-                                {% for limitation in limitations %}
-                                    {% if limitation.soort == "Motorische / lichamelijke beperkingen" %}
-                                        <option value="{{ limitation.id }}">{{ limitation.omschrijving }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </optgroup>
-                            <optgroup label="Cognitieve / neurologische beperking">
-                                {% for limitation in limitations %}
-                                    {% if limitation.soort == "Cognitieve / neurologische beperkingen" %}
-                                        <option value="{{ limitation.id }}">{{ limitation.omschrijving }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </optgroup>
-                        </select>
-                          
-                    </div>
+                    <div class="row" style="padding-left: 20px;">
+                          <h4 class="mb-0" style="display: block;"><em>Uw beperking(en) </em>
+                            <hr width="20%">
+                          </h4>
+
                   </div>
-
-
+                    <div class="col-md-9 pe-5">
+                      <br>
+                        <div class="form-check">
+                            <h5 label="Auditieve beperking" aria-label="Auditieve beperking">Auditieve beperking</h5>
+                            {% for limitation in limitations %}
+                                {% if limitation.soort == "Auditieve beperking" %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="auditieve-{{ limitation.id }}" value="{{ limitation.id }}" aria-label="{{ limitation.omschrijving }}">
+                                        <label class="form-check-label" for="auditieve-{{ limitation.id }}">{{ limitation.omschrijving }}</label>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                          <br>
+                        <div class="form-check">
+                            <h5 label="Visuele beperking" aria-label="Visuele beperking">Visuele beperking</h5>
+                            {% for limitation in limitations %}
+                                {% if limitation.soort == "Visuele beperking" %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="visuele-{{ limitation.id }}" value="{{ limitation.id }}" aria-label="{{ limitation.omschrijving }}">
+                                        <label class="form-check-label" for="visuele-{{ limitation.id }}">{{ limitation.omschrijving }}</label>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                          <br>
+                        <div class="form-check">
+                            <h5 label="Motorische / lichamelijke beperking" aria-label="Motorische / lichamelijke beperking">Motorische / lichamelijke beperking</h5>
+                            {% for limitation in limitations %}
+                                {% if limitation.soort == "Motorische / lichamelijke beperkingen" %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="motorische-{{ limitation.id }}" value="{{ limitation.id }}" aria-label="{{ limitation.omschrijving }}">
+                                        <label class="form-check-label" for="motorische-{{ limitation.id }}">{{ limitation.omschrijving }}</label>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                          <br>
+                        <div class="form-check">
+                            <h5 label="Cognitieve / neurologische beperking" aria-label="Cognitieve / neurologische beperking">Cognitieve / neurologische beperking</h5>
+                            {% for limitation in limitations %}
+                                {% if limitation.soort == "Cognitieve / neurologische beperkingen" %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="cognitieve-{{ limitation.id }}" value="{{ limitation.id }}" aria-label="{{ limitation.omschrijving }}">
+                                        <label class="form-check-label" for="cognitieve-{{ limitation.id }}">{{ limitation.omschrijving }}</label>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+              </div>
+                  
+                
       
                   <div class="row align-items-center py-3">
                     <div class="col-md-3 ps-5">
       
-                      <h6 class="mb-0">Hulpmiddelen</h6>
+                      <strong class="mb-0">Hulpmiddelen</strong>
       
                     </div>
                     <div class="col-md-9 pe-5">
@@ -344,7 +388,7 @@ function ageChecker() {
                   <div class="row align-items-center py-3">
                     <div class="col-md-3 ps-5">
       
-                      <h6 class="mb-0">Bijzonderheden</h6>
+                      <strong class="mb-0">Bijzonderheden</strong>
       
                     </div>
                     <div class="col-md-9 pe-5">
@@ -358,7 +402,7 @@ function ageChecker() {
                   <div class="row align-items-center py-3">
                     <div class="col-md-3 ps-5">
       
-                      <h6 class="mb-0">Bijzonderheden beschikbaarheid</h6>
+                      <strong class="mb-0">Bijzonderheden beschikbaarheid</strong>
       
                     </div>
                     <div class="col-md-9 pe-5">

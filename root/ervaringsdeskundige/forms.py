@@ -16,8 +16,8 @@ class RegisterForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['first_name'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Voornaam'})
-        self.fields['last_name'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Achternaam'})
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control', 'aria-label': 'voornaam',  'autofocus': 'true'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Achternaam', })
         self.fields['username'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Gebruikersnaam'})
         self.fields['email'].widget.attrs.update({'class': 'form-control', 'aria-label': 'E-mailadres'})
         self.fields['password1'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Wachtwoord'})
@@ -25,7 +25,7 @@ class RegisterForm(UserCreationForm):
         self.fields['postcode'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Postcode'})
         self.fields['geslacht'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Geslacht'})
         self.fields['telefoonnummer'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Telefoonnummer'})
-        self.fields['gebruikte_hulpmiddelen'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Gebruikte hulpmiddelen', 'style': "height: 100px; resize: none;"})
+        self.fields['gebruikte_hulpmiddelen'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Gebruikte hulpmiddelen', 'style': "height: 100px; resize: none;",})
         self.fields['geboortedatum'].widget.attrs.update({'class': 'form-control','aria-label': 'Geboortedatum', 'type': "date", 'id': "geboortedatum", 'onchange': "ageChecker()"})
         self.fields['bijzonderheden'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Bijzonderheden', 'style': "height: 100px; resize: none;"})
         self.fields['bijzonderheden_beschikbaarheid'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Bijzonderheden beschikbaarheid', 'style': "height: 100px; resize: none;"})
@@ -53,12 +53,12 @@ class ToezichthoudersForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['voornaam_1'].widget.attrs.update({'class': 'form-control'})
-        self.fields['achternaam_1'].widget.attrs.update({'class': 'form-control'})
-        self.fields['telefoonnummer_1'].widget.attrs.update({'class': 'form-control'})
-        self.fields['voornaam_2'].widget.attrs.update({'class': 'form-control'})
-        self.fields['achternaam_2'].widget.attrs.update({'class': 'form-control'})
-        self.fields['telefoonnummer_2'].widget.attrs.update({'class': 'form-control'})
+        self.fields['voornaam_1'].widget.attrs.update({'class': 'form-control','aria-label': 'voornaam toezichthouder 1, vereist'})
+        self.fields['achternaam_1'].widget.attrs.update({'class': 'form-control', 'aria-label': 'achternaam toezichthouder 1, vereist'})
+        self.fields['telefoonnummer_1'].widget.attrs.update({'class': 'form-control', 'aria-label': 'telefoonnummer toezichthouder 1, vereist'})
+        self.fields['voornaam_2'].widget.attrs.update({'class': 'form-control',  'aria-label': 'voornaam toezichthouder 2, niet vereist'})
+        self.fields['achternaam_2'].widget.attrs.update({'class': 'form-control',  'aria-label': 'achternaam toezichthouder 2, niet vereist'})
+        self.fields['telefoonnummer_2'].widget.attrs.update({'class': 'form-control',  'aria-label': 'telefoonnummer toezichthouder 2, niet vereist'})
         self.fields['ervaringsdeskundige'].widget.attrs.update({'class': 'form-control'})
 
 
@@ -75,7 +75,7 @@ class UserEditForm(UserChangeForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['first_name'].widget.attrs.update({'class': 'form-control'})
-        self.fields['last_name'].widget.attrs.update({'class': 'form-control'})
-        self.fields['username'].widget.attrs.update({'class': 'form-control'})
-        self.fields['email'].widget.attrs.update({'class': 'form-control'})
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control', 'aria-label': 'voornaam'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control', 'aria-label': 'achternaam'})
+        self.fields['username'].widget.attrs.update({'class': 'form-control', 'aria-label': 'gebruikersnaam'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control', 'aria-label': 'e-mail'})
