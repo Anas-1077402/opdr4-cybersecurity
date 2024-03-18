@@ -1,7 +1,5 @@
-{% extends "ervaringsdeskundige/base.html" %}
-{% load static %}
-{% block content %}
 {% extends "beheerder/inner_base.html" %}
+{% load static %}
 {% block inner_content %}
             <br>
             <br>
@@ -17,5 +15,4 @@
     <button type="submit" class="btn btn-danger">Verwijderen</button>
     <a href="{% url 'onderzoeken' %}" class="btn btn-warning">Annuleren</a>
   </form>
-{% endblock %}
 {% endblock %}

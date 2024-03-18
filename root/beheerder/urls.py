@@ -30,5 +30,8 @@ urlpatterns = [
 #    path('bewerk_onderzoek/<int:onderzoeks_id>/', views.bewerk_onderzoek, name='bewerk_onderzoek'),
     path('verwijder_onderzoek/<int:onderzoeks_id>/', views.verwijder_onderzoek, name='verwijder_onderzoek'),
     path('user_delete/<int:id>/', views.user_delete, name='user_delete'),
+    path('user_edit/<int:id>/', views.user_edit, name='user_edit'),
+    path('search_users/', views.search_users, name='search_users'),
+
 
 ]
