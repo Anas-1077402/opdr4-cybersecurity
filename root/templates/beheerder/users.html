@@ -62,7 +62,7 @@ $(document).ready(function () {
 function updateUsersTable(users) {
     var tableBody = $('#users-table tbody');
     tableBody.empty();
-    console.log(users)
+    console.log(users[0]);
     users.forEach(function (user) {
         var row = '<tr>' +
             '<td>' + user.first_name + '</td>' +
@@ -70,6 +70,10 @@ function updateUsersTable(users) {
             '<td>' + user.is_superuser + '</td>' +
             '<td>' + user.is_staff + '</td>' +
             '<td>' + user.date_joined + '</td>' +
+            '<td>' +
+            '<a href="/beheerder/user_edit/' + user.id + '" class="btn btn-primary">Bewerken</a>' +
+            '<a href="user_delete/' + user.id + '" class="btn btn-danger">Verwijderen</a>' +
+            '</td>' +
             '</tr>';
         tableBody.append(row);
     });
@@ -91,8 +95,6 @@ function updateUsersTable(users) {
                     <button type="button" class="btn btn-primary" onclick="applyFilter()">
                          Filteren
                     </button>
-                    <div id="success-message" role="alert"></div>
-                <input type="text" id="search-input" placeholder="Zoeken...">
                   <table id="users-table" class="table">
                     <h2 class="p-3">Alle Gebruikers</h2>
                       <thead>
@@ -103,6 +105,8 @@ function updateUsersTable(users) {
                           <th scope="col">Is medewerker</th>
                           <th scope="col">Datum Deelname</th>
                           <th scope="col">Actie</th>
+                          <label>Zoek op keywords:</label><br>
+                          <input type="text" id="search-input" placeholder="Zoeken...">
                       </tr>
                       </thead>
                       <tbody>

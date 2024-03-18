@@ -152,17 +152,18 @@ def user_list(request):
 
 def search_users(request):
     query = request.GET.get('query', '')
-    beheerders = User.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)).all()
+    beheerders = Beheerders.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)).all()
     ervaringsdeskundigen = TestUser.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)).all()
 
     user_list = []
     for user in list(beheerders) + list(ervaringsdeskundigen):
         user_data = {
-            'Voornaam': user.first_name,
-            'Achternaam': user.last_name,
-            'Is beheerder': user.is_superuser,
-            'Is medewerker': user.is_staff,
-            'Datum Deelname': user.date_joined.strftime("%Y-%m-%d %H:%M:%S")  # Format the date as needed
+            'id': user.id,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'is_superuser': user.is_superuser,
+            'is_staff': user.is_staff,
+            'date_joined': user.date_joined.strftime("%Y-%m-%d %H:%M:%S"),
         }
         user_list.append(user_data)
     return JsonResponse({'users': user_list})
@@ -185,6 +186,7 @@ def user_delete(request, id):
 
 
 def user_edit(request, id):
+    # hier moet ik ook beheerders obj toevoegen!!
     user = get_object_or_404(User, id=id)
     if request.method == 'POST':
         form = UserEditForm(request.POST, instance=user)
