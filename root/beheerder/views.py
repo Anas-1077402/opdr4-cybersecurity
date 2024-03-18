@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer, ExperienceExpertSerializer
 from beheerder.models import Beheerders
 from ervaringsdeskundige.models import User
-from django.db import transaction
+from django.db import transaction, connection
 
 
 
@@ -142,11 +142,26 @@ def verwijder_onderzoek(request, onderzoeks_id):
 
 def user_list(request):
     beheerders = Beheerders.objects.all()
-    ervaringsdeskundigen = User.objects.values('first_name', 'last_name', 'is_superuser', 'is_staff', 'date_joined')
+    ervaringsdeskundigen = User.objects.values('id','first_name', 'last_name', 'is_superuser', 'is_staff', 'date_joined')
 
     all_users = list(beheerders) + list(ervaringsdeskundigen)
 
     return render(request, 'beheerder/users.html', {'all_users': all_users})
+
+
+def user_delete(request, id):
+    sql_query = "DELETE FROM ervaringsdeskundige_user WHERE id = %s"
+    beheerder_sql_query = "DELETE FROM beheerder_beheerders WHERE id = %s"
+
+    try:
+      with transaction.atomic():
+        with connection.cursor() as cursor:
+            cursor.execute(sql_query, [id])
+            cursor.execute(beheerder_sql_query, [id])
+        return redirect("user_list")
+
+    except Exception as e:
+        return HttpResponse(f"Fout bij het verwijderen van gebruiker: {e}")
 
 
 def dashboard(request):
