@@ -35,26 +35,7 @@ function ageChecker() {
     }
     
   </script>
-  <script>
-    window.onload = function() {
-      // Wacht tot het DOM volledig is geladen
-      document.addEventListener('DOMContentLoaded', function() {
-        // Selecteer het selectie-element met de class "selectpicker"
-        var selectElement = document.querySelector('.selectpicker');
-        // Initialiseer de Bootstrap Select-plugin op het selectie-element
-        $(selectElement).selectpicker();
-  
-        // Voeg event listener toe voor het openen van de dropdown met Enter-toets
-        selectElement.addEventListener('keypress', function(event) {
-          if (event.key === 'Enter') {
-            $(selectElement).selectpicker('toggle');
-          }
-        });
-      });
-    };
-  </script>
-  
-  
+
 
     <section class="vh-50" style="background-color: #2779e2;">
         <br><br><br>
@@ -323,7 +304,7 @@ function ageChecker() {
                             {% for limitation in limitations %}
                                 {% if limitation.soort == "Auditieve beperking" %}
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="auditieve-{{ limitation.id }}" value="{{ limitation.id }}" aria-label="{{ limitation.omschrijving }}">
+                                        <input class="form-check-input" type="checkbox" name="selected_limitations[]" id="auditieve-{{ limitation.id }}" value="{{ limitation.id }}" aria-label="{{ limitation.omschrijving }}">
                                         <label class="form-check-label" for="auditieve-{{ limitation.id }}">{{ limitation.omschrijving }}</label>
                                     </div>
                                 {% endif %}
@@ -335,7 +316,7 @@ function ageChecker() {
                             {% for limitation in limitations %}
                                 {% if limitation.soort == "Visuele beperking" %}
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="visuele-{{ limitation.id }}" value="{{ limitation.id }}" aria-label="{{ limitation.omschrijving }}">
+                                        <input class="form-check-input" type="checkbox" name="selected_limitations[]" id="visuele-{{ limitation.id }}" value="{{ limitation.id }}" aria-label="{{ limitation.omschrijving }}">
                                         <label class="form-check-label" for="visuele-{{ limitation.id }}">{{ limitation.omschrijving }}</label>
                                     </div>
                                 {% endif %}
@@ -347,7 +328,7 @@ function ageChecker() {
                             {% for limitation in limitations %}
                                 {% if limitation.soort == "Motorische / lichamelijke beperkingen" %}
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="motorische-{{ limitation.id }}" value="{{ limitation.id }}" aria-label="{{ limitation.omschrijving }}">
+                                        <input class="form-check-input" type="checkbox" name="selected_limitations[]" id="motorische-{{ limitation.id }}" value="{{ limitation.id }}" aria-label="{{ limitation.omschrijving }}">
                                         <label class="form-check-label" for="motorische-{{ limitation.id }}">{{ limitation.omschrijving }}</label>
                                     </div>
                                 {% endif %}
@@ -359,7 +340,7 @@ function ageChecker() {
                             {% for limitation in limitations %}
                                 {% if limitation.soort == "Cognitieve / neurologische beperkingen" %}
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="cognitieve-{{ limitation.id }}" value="{{ limitation.id }}" aria-label="{{ limitation.omschrijving }}">
+                                        <input class="form-check-input" type="checkbox" name="selected_limitations[]" id="cognitieve-{{ limitation.id }}" value="{{ limitation.id }}" aria-label="{{ limitation.omschrijving }}">
                                         <label class="form-check-label" for="cognitieve-{{ limitation.id }}">{{ limitation.omschrijving }}</label>
                                     </div>
                                 {% endif %}
@@ -368,6 +349,7 @@ function ageChecker() {
                     </div>
                 </div>
               </div>
+
                   
                 
       
@@ -381,6 +363,32 @@ function ageChecker() {
       
                         {{ form.gebruikte_hulpmiddelen }}
                         
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <strong class="mb-0">Gewenste type onderzoeken</strong>
+      
+                    </div>
+                            <div class="col-md-9 pe-5">
+              
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type_investigation[]" id="Telefonisch_type" value="Telefonisch" aria-label="Type onderzoek: telefonisch">
+                                <label class="form-check-label" for="Telefonisch_type">Telefonisch</label>
+                            </div>
+    
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="type_investigation[]" id="Internet_type" value="Internet" aria-label="Type onderzoek: internet">
+                              <label class="form-check-label" for="Internet_type">Internet</label>
+                          </div>
+    
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="type_investigation[]" id="Locatie_type" value="Locatie" aria-label="Type onderzoek: op locatie">
+                            <label class="form-check-label" for="Locatie_type">Op locatie</label>
+                        </div>
+                                
                     </div>
                   </div>
 
@@ -398,6 +406,31 @@ function ageChecker() {
                     </div>
                   </div>
 
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <strong class="mb-0">Beschikbaar vanaf</strong>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.beschikbaar_vanaf }}
+                        
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+      
+                      <strong class="mb-0">Beschikbaar tot</strong>
+      
+                    </div>
+                    <div class="col-md-9 pe-5">
+      
+                        {{ form.beschikbaar_tot }}
+                        
+                    </div>
+                  </div>
       
                   <div class="row align-items-center py-3">
                     <div class="col-md-3 ps-5">
@@ -411,6 +444,22 @@ function ageChecker() {
                         
                     </div>
                   </div>
+
+                  <div class="row align-items-center py-3">
+                    <div class="col-md-3 ps-5">
+                        <strong class="mb-0">Voorkeur benadering</strong>
+                    </div>
+                    <div class="col-md-9 pe-5">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="voorkeur_benadering" id="telefonisch" value="telefonisch" {% if form.voorkeur_benadering.value == 'telefonisch' %}checked{% endif %} checked>
+                            <label class="form-check-label" for="telefonisch">Telefonisch</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="voorkeur_benadering" id="email" value="email" {% if form.voorkeur_benadering.value == 'email' %}checked{% endif %}>
+                            <label class="form-check-label" for="email">Email</label>
+                        </div>
+                    </div>
+                </div>       
     
                   <hr class="mx-n3">
       

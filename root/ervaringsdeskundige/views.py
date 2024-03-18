@@ -16,7 +16,7 @@ from main.models import (
 from .models import BeperkingenOnderzoeken
 from django.http import JsonResponse, FileResponse
 from django.contrib.staticfiles import finders
-from django.db.models import Count
+from main.models import User
 
 
 def register(request):
@@ -28,25 +28,46 @@ def register(request):
         if form.is_valid():
             user = form.save()
 
-            selected_limitations = request.POST.getlist("selected_limitations")
-            user_id = user.id
-
+            selected_limitations = request.POST.getlist("selected_limitations[]")
             for selected_limitation in selected_limitations:
                 ervaringsdeskundige_beperking = BeperkingenErvaringsdeskundigen(
                     beperking_id=int(selected_limitation),
-                    ervaringsdeskundigen_id=user_id,
+                    ervaringsdeskundigen_id=user.id,
                 )
                 ervaringsdeskundige_beperking.save()
 
+
+            type_onderzoek = TypeOnderzoek()
+            type_onderzoek.ervaringsdeskundige_id = user.id
+
+            type_investigation = request.POST.getlist("type_investigation[]")
+            for investigation_type in type_investigation:
+                if "Telefonisch" in investigation_type:
+                    type_onderzoek.telefonisch = True
+                else:
+                    type_onderzoek.telefonisch = False
+
+                if "Internet" in investigation_type:
+                    type_onderzoek.internet = True
+                else:
+                    type_onderzoek.internet = False
+
+                if "Locatie" in investigation_type:
+                    type_onderzoek.locatie = True
+                else:
+                    type_onderzoek.locatie = False
+
+            type_onderzoek.save()
+
             if supervisors_post.is_valid():
                 toezichthouder = supervisors_post.save(commit=False)
-                toezichthouder.ervaringsdeskundige = user_id
+                toezichthouder.ervaringsdeskundige = user.id
                 toezichthouder.save()
 
             return redirect("/")
     else:
         form = RegisterForm()
-    
+
     supervisors = ToezichthoudersForm()
 
     return render(

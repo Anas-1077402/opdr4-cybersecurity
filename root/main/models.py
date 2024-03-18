@@ -90,6 +90,7 @@ class TypeOnderzoek(models.Model):
     internet = models.BooleanField(blank=True, null=True)
     locatie = models.BooleanField(blank=True, null=True)
     onderzoeks = models.ForeignKey(Onderzoeken, models.DO_NOTHING, blank=True, null=True)
+    ervaringsdeskundige = models.ForeignKey(User, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False

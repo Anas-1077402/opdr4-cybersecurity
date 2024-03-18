@@ -8,11 +8,13 @@ from main.models import Beperkingen, Toezichthouders
 
 class RegisterForm(UserCreationForm):
     geboortedatum = forms.DateField(widget=DateInput(attrs={'type': 'date'}))
+    beschikbaar_vanaf = forms.DateField(widget=DateInput(attrs={'type': 'date'}))
+    beschikbaar_tot = forms.DateField(widget=DateInput(attrs={'type': 'date'}))
 
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'postcode', 'geslacht','email', 'telefoonnummer', 'geboortedatum', 'gebruikte_hulpmiddelen',
-                  'bijzonderheden', 'bijzonderheden_beschikbaarheid', 'username',)
+                  'bijzonderheden', 'bijzonderheden_beschikbaarheid', 'username', 'voorkeur_benadering', 'beschikbaar_vanaf', 'beschikbaar_tot')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -27,8 +29,11 @@ class RegisterForm(UserCreationForm):
         self.fields['telefoonnummer'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Telefoonnummer'})
         self.fields['gebruikte_hulpmiddelen'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Gebruikte hulpmiddelen', 'style': "height: 100px; resize: none;",})
         self.fields['geboortedatum'].widget.attrs.update({'class': 'form-control','aria-label': 'Geboortedatum', 'type': "date", 'id': "geboortedatum", 'onchange': "ageChecker()"})
+        self.fields['beschikbaar_vanaf'].widget.attrs.update({'class': 'form-control','aria-label': 'beschikbaar_vanaf', 'type': "date", 'id': "beschikbaar_vanaf"})
+        self.fields['beschikbaar_tot'].widget.attrs.update({'class': 'form-control','aria-label': 'beschikbaar_tot', 'type': "date", 'id': "beschikbaar_tot"})
         self.fields['bijzonderheden'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Bijzonderheden', 'style': "height: 100px; resize: none;"})
         self.fields['bijzonderheden_beschikbaarheid'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Bijzonderheden beschikbaarheid', 'style': "height: 100px; resize: none;"})
+        self.fields['voorkeur_benadering'].widget.attrs.update({'class': 'form-control', 'aria-label': 'Voorkeur benadering', })
 
 
 class BeperkingForm(forms.Form):
