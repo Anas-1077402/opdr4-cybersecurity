@@ -17,6 +17,7 @@ from .models import BeperkingenOnderzoeken
 from django.http import JsonResponse, FileResponse
 from django.contrib.staticfiles import finders
 from main.models import User
+import datetime
 
 
 def register(request):
@@ -36,7 +37,6 @@ def register(request):
                 )
                 ervaringsdeskundige_beperking.save()
 
-
             type_onderzoek = TypeOnderzoek()
             type_onderzoek.ervaringsdeskundige_id = user.id
 
@@ -44,37 +44,31 @@ def register(request):
             for investigation_type in type_investigation:
                 if "Telefonisch" in investigation_type:
                     type_onderzoek.telefonisch = True
-                else:
-                    type_onderzoek.telefonisch = False
-
-                if "Internet" in investigation_type:
+                elif "Internet" in investigation_type:
                     type_onderzoek.internet = True
-                else:
-                    type_onderzoek.internet = False
-
-                if "Locatie" in investigation_type:
+                elif "Locatie" in investigation_type:
                     type_onderzoek.locatie = True
-                else:
-                    type_onderzoek.locatie = False
 
             type_onderzoek.save()
 
-            if supervisors_post.is_valid():
-                toezichthouder = supervisors_post.save(commit=False)
-                toezichthouder.ervaringsdeskundige = user.id
-                toezichthouder.save()
+            if user.geboortedatum and (datetime.date.today() - user.geboortedatum).days / 365 < 18:
+                if supervisors_post.is_valid():
+                    toezichthouder = supervisors_post.save(commit=False)
+                    toezichthouder.ervaringsdeskundige = user.id
+                    toezichthouder.save()
 
             return redirect("/")
     else:
         form = RegisterForm()
 
-    supervisors = ToezichthoudersForm()
+    supervisors_post = ToezichthoudersForm()
 
     return render(
         request,
         "ervaringsdeskundige/register.html",
-        {"form": form, "limitations": limitations, "supervisors": supervisors},
+        {"form": form, "limitations": limitations, "supervisors": supervisors_post},
     )
+
 
 
 @login_required()
