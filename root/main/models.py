@@ -50,7 +50,7 @@ class Organisaties(models.Model):
 class Onderzoeken(models.Model):
     onderzoeks_id = models.AutoField(primary_key=True)
     organisatie = models.ForeignKey('Organisaties', models.DO_NOTHING)
-    status = models.IntegerField()
+    status = models.IntegerField(default=1)
     titel = models.TextField()
     omschrijving = models.TextField()
     datum_vanaf = models.DateTimeField()
@@ -61,7 +61,7 @@ class Onderzoeken(models.Model):
     beloning = models.TextField(blank=True, null=True)
     doelgroep_leeftijd_van = models.IntegerField()
     doelgroep_leeftijd_tot = models.IntegerField()
-    contact_opgenomen = models.IntegerField()
+    contact_opgenomen = models.IntegerField(default=0)
     opmerkingen_beheerder = models.IntegerField(blank=True, null=True)
     type_onderzoek = models.ForeignKey('TypeOnderzoek', models.DO_NOTHING, db_column='type_onderzoek')
 
