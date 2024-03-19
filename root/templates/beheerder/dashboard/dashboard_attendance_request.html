@@ -2,13 +2,13 @@
 {% for item in attendance_request %}
 <div id="{{ item.id }}" class="card mb-3 md-2" style="cursor: pointer;" tabindex="0" onclick="location.href='dashboard/attendance_request/{{ item.id }}';">
     <div class="card-body">
-        <h5 class="card-title text-center">{{ item.ervaringsdeskundige.first_name }} {{ item.ervaringsdeskundige.last_name }}</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary text-center">{{ item.onderzoeks.titel }}</h6>
+        <h3 class="card-title text-center h5">{{ item.ervaringsdeskundige.first_name }} {{ item.ervaringsdeskundige.last_name }}</h3>
+        <h3 class="card-subtitle mb-2 text-body-secondary text-center h6">{{ item.onderzoeks.titel }}</h3>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Onderzoek omschrijving: {{ item.onderzoeks.omschrijving }}</li>
             <li class="list-group-item text-center">
-                <button onclick="goedkeurenDeelnames({{ item.id }});" class="btn btn-success">Keur goed</button>
-                <button onclick="afkeurenDeelnames({{ item.id }});" class="btn btn-danger">Keur af</button>
+                <button onclick="goedkeurenDeelnames('{{ item.id }}');" class="btn btn-success">Keur goed</button>
+                <button onclick="afkeurenDeelnames('{{ item.id }}');" class="btn btn-danger">Keur af</button>
             </li>
         </ul>
     </div>

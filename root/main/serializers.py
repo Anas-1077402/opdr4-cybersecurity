@@ -46,6 +46,7 @@ class OnderzoekenSerializer(serializers.ModelSerializer):
         fields = [
             'onderzoeks_id',
             'organisatie',
+            'status',
             'titel',
             'omschrijving',
             'datum_vanaf',
@@ -56,7 +57,8 @@ class OnderzoekenSerializer(serializers.ModelSerializer):
             'beloning',
             'doelgroep_leeftijd_van',
             'doelgroep_leeftijd_tot',
-            'type_onderzoek'
+            'contact_opgenomen',
+            'opmerkingen_beheerder',
         ]
         read_only_fields = ['status', 'contact_opgenomen']
 

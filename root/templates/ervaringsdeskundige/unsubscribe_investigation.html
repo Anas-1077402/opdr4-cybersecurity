@@ -1,12 +1,12 @@
 {% extends "ervaringsdeskundige/base.html" %}
 {% load static %}
-{% block title %}Homepage{% endblock %}
+{% block title %}Onderzoek uitschrijving succesvol{% endblock %}
 {% block content %}
 <div class="container-fluid" style="height: 94vh;">
     <div class="row">
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
           <a href="#">
-            <img style="margin: 20px; margin-left: 5px;" src="{% static 'images/logo_accessibility.png' %}" width="200px" alt="test">
+            <img style="margin: 20px; margin-left: 5px;" src="{% static 'images/logo_accessibility.png' %}" width="200px" alt="Logo van Accessibility">
           </a>
             <div class="position-sticky">
               <ul class="nav nav-pills flex-column mb-auto">
@@ -41,13 +41,13 @@
           <div class="text-center" style="padding-top: 20px;">
             <div>
                   <div id="search" style="height: 20px;">
-                    <a  style="margin-right: 20px;" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i>      Switch thema </a>
+                    <a  style="margin-right: 20px;" onclick="toggleTheme()" tabindex="0"><i class="fa-solid fa-circle-half-stroke"></i>      Switch thema </a>
                     <div class="dropdown">
-                      <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" aria-label="dropdown menu met dashboard, profiel en loguit opties">
                         <i class="fa-solid fa-user" style="padding-right: 15px;" width="32" height="32" class="rounded-circle me-2"></i>
                         <strong>{{ user.first_name}} {{ user.last_name}}</strong>
                       </a>
-                      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+                      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                         <li><a class="dropdown-item" href="/ervaringsdeskundige/dashboard">Dashboard</a></li>
                         <li><a class="dropdown-item" href="/ervaringsdeskundige/edit_profile">Profiel</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -71,8 +71,8 @@
           </div>
           <div class="d-flex align-items-center justify-content-center m-4 p-1">
               <div class="d-flex flex-column align-items-center justify-content-center">
-                <h1>U bent succesvol <strong>uitgeschreven</strong> voor dit onderzoek✅</h1><br>
-                <h5><em>U kunt deze pagina weer verlaten.</em></h5><br><br>
+                <h2 class="h1">U bent succesvol <strong>uitgeschreven</strong> voor dit onderzoek✅</h2><br>
+                <h3 class="h5"><em>U kunt deze pagina weer verlaten.</em></h3><br><br>
                 <iframe src="https://giphy.com/embed/9Y5BbDSkSTiY8" alt="Zielig gezicht GIF'je" width="480" height="336" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
           </div>
           </div>

@@ -2,8 +2,8 @@
 {% for item in research %}
 <div id="{{ item.onderzoeks_id }}" class="card mb-3" style="cursor: pointer;" tabindex="0" onclick="location.href='dashboard/research/{{ item.onderzoeks_id }}';">
     <div class="card-body">
-        <h5 class="card-title text-center">{{ item.titel }}</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary text-center">Van: {{ item.organisatie.voornaam }}</h6>
+        <h3 class="card-title text-center h5">{{ item.titel }}</h3>
+        <h3 class="card-subtitle mb-2 text-body-secondary text-center h6">Van: {{ item.organisatie.voornaam }}</h3>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 Omschrijving:
@@ -23,8 +23,8 @@
             <li class="list-group-item">Doelgroep leeftijd: {{ item.doelgroep_leeftijd_van }} - {{ item.doelgroep_leeftijd_tot }}</li>
             <li class="list-group-item">Datum: {{ item.datum_vanaf }} - {{ item.datum_tot }}</li>
             <li class="list-group-item text-center">
-                <button onclick="goedkeuren({{ item.onderzoeks_id }});" class="btn btn-success">Keur goed</button>
-                <button onclick="afkeuren({{ item.onderzoeks_id }});" class="btn btn-danger">Keur af</button>
+                <button onclick="goedkeuren('{{ item.onderzoeks_id }}');" class="btn btn-success">Keur goed</button>
+                <button onclick="afkeuren('{{ item.onderzoeks_id }}');" class="btn btn-danger">Keur af</button>
             </li>
         </ul>
     </div>

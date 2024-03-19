@@ -22,9 +22,10 @@ import datetime
 
 def register(request):
     limitations = Beperkingen.objects.all()
+    supervisors_post = ToezichthoudersForm()
+
     if request.method == "POST":
         form = RegisterForm(request.POST)
-        supervisors_post = ToezichthoudersForm(request.POST)
 
         if form.is_valid():
             user = form.save()
@@ -52,6 +53,7 @@ def register(request):
             type_onderzoek.save()
 
             if user.geboortedatum and (datetime.date.today() - user.geboortedatum).days / 365 < 18:
+                supervisors_post = ToezichthoudersForm(request.POST)
                 if supervisors_post.is_valid():
                     toezichthouder = supervisors_post.save(commit=False)
                     toezichthouder.ervaringsdeskundige = user.id
@@ -60,8 +62,6 @@ def register(request):
             return redirect("/")
     else:
         form = RegisterForm()
-
-    supervisors_post = ToezichthoudersForm()
 
     return render(
         request,

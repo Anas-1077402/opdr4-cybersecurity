@@ -190,7 +190,7 @@ def research_item_edit_save(request, pk):
 
 
 def experience_expert_item(request, pk):
-    experience_expert_item_data = User.objects.filter(pk=pk)
+    experience_expert_item_data = User.objects.get(pk=pk)
     context = {
         "data": experience_expert_item_data
     }
@@ -198,7 +198,7 @@ def experience_expert_item(request, pk):
 
 
 def experience_expert_item_edit(request, pk):
-    experience_expert_item_data = User.objects.filter(pk=pk)
+    experience_expert_item_data = User.objects.get(pk=pk)
     experience_expert_item_data.geboortedatum = str(experience_expert_item_data.geboortedatum)
     context = {
         "data": experience_expert_item_data
