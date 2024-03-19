@@ -2,6 +2,7 @@ from typing import Any
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from ervaringsdeskundige.models import User
+from .models import Beheerders
 
 class RegistratieFormulier(UserCreationForm):
     functie = forms.CharField(max_length=100,)
@@ -24,3 +25,8 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'username', 'password']
+
+class UserBeheerderForm(forms.ModelForm):
+    class Meta:
+        model = Beheerders
+        fields = [ 'password',  'username', 'first_name', 'last_name', 'email']

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .forms import RegistratieFormulier, UserEditForm
+from .forms import RegistratieFormulier, UserEditForm, UserBeheerderForm
 from django.http import JsonResponse, HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from main.models import Organisaties, Onderzoeken, User, Deelnames
@@ -186,16 +186,26 @@ def user_delete(request, id):
 
 
 def user_edit(request, id):
-    # hier moet ik ook beheerders obj toevoegen!!
-    user = get_object_or_404(User, id=id)
-    if request.method == 'POST':
-        form = UserEditForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('user_list')
-    else:
-        form = UserEditForm(instance=user)
-    return render(request, 'beheerder/user_edit.html', {'form': form})
+    # hier gaat checked hij eerst of het beheerder is -> zo niet dan ervaringsdeskundige formulier
+        if Beheerders.objects.filter(id=id).exists():
+            user = get_object_or_404(Beheerders, id=id)
+            if request.method == 'POST':
+                form = UserBeheerderForm(request.POST, instance=user)
+                if form.is_valid():
+                    form.save()
+                    return redirect('user_list')
+        else:
+            user = get_object_or_404(User, id=id)
+
+        if request.method == 'POST':
+            form = UserEditForm(request.POST, instance=user)
+            if form.is_valid():
+                form.save()
+                return redirect('user_list')
+        else:
+            form = UserEditForm(instance=user)
+        return render(request, 'beheerder/user_edit.html', {'form': form})
+
 
 def dashboard(request):
     return render(request, "beheerder/dashboard/dashboard.html")
