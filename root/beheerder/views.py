@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .forms import RegistratieFormulier
+from .forms import RegistratieFormulier, UserEditForm, UserBeheerderForm
 from django.http import JsonResponse, HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from main.models import Organisaties, Onderzoeken, User, Deelnames, Beperkingen
@@ -10,7 +10,9 @@ from rest_framework.decorators import api_view
 from django.template.loader import render_to_string
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer, ExperienceExpertSerializer
 from beheerder.models import Beheerders
-from django.db import transaction
+from ervaringsdeskundige.models import User as TestUser
+from django.db import transaction, connection
+from django.db.models import Q
 
 
 
@@ -142,11 +144,68 @@ def verwijder_onderzoek(request, onderzoeks_id):
 
 def user_list(request):
     beheerders = Beheerders.objects.all()
-    ervaringsdeskundigen = User.objects.values('first_name', 'last_name', 'is_superuser', 'is_staff', 'date_joined')
+    ervaringsdeskundigen = User.objects.values('id','first_name', 'last_name', 'is_superuser', 'is_staff', 'date_joined')
 
     all_users = list(beheerders) + list(ervaringsdeskundigen)
 
     return render(request, 'beheerder/users.html', {'all_users': all_users})
+
+
+def search_users(request):
+    query = request.GET.get('query', '')
+    beheerders = Beheerders.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)).all()
+    ervaringsdeskundigen = TestUser.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)).all()
+
+    user_list = []
+    for user in list(beheerders) + list(ervaringsdeskundigen):
+        user_data = {
+            'id': user.id,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'is_superuser': user.is_superuser,
+            'is_staff': user.is_staff,
+            'date_joined': user.date_joined.strftime("%Y-%m-%d %H:%M:%S"),
+        }
+        user_list.append(user_data)
+    return JsonResponse({'users': user_list})
+
+
+def user_delete(request, id):
+    sql_query = "DELETE FROM ervaringsdeskundige_user WHERE id = %s"
+    beheerder_sql_query = "DELETE FROM beheerder_beheerders WHERE id = %s"
+
+    try:
+      with transaction.atomic():
+        with connection.cursor() as cursor:
+            cursor.execute(sql_query, [id])
+            cursor.execute(beheerder_sql_query, [id])
+
+        return redirect('user_list')
+
+    except Exception as e:
+        return HttpResponse(f"Fout bij het verwijderen van gebruiker: {e}")
+
+
+def user_edit(request, id):
+    # hier gaat checked hij eerst of het beheerder is -> zo niet dan ervaringsdeskundige formulier
+        if Beheerders.objects.filter(id=id).exists():
+            user = get_object_or_404(Beheerders, id=id)
+            if request.method == 'POST':
+                form = UserBeheerderForm(request.POST, instance=user)
+                if form.is_valid():
+                    form.save()
+                    return redirect('user_list')
+        else:
+            user = get_object_or_404(User, id=id)
+
+        if request.method == 'POST':
+            form = UserEditForm(request.POST, instance=user)
+            if form.is_valid():
+                form.save()
+                return redirect('user_list')
+        else:
+            form = UserEditForm(instance=user)
+        return render(request, 'beheerder/user_edit.html', {'form': form})
 
 
 def dashboard(request):
