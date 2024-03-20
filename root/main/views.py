@@ -87,7 +87,6 @@ def update_onderzoek(request, onderzoeks_id):
         return HttpResponse(status=404)
 
     if request.method == 'PUT':
-        print(request.data)
         serializer = OnderzoekenSerializer(onderzoek, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
