@@ -1,25 +1,29 @@
-<h2 class="text-center border-bottom pb-1 text-break">Ervaringsdeskundiges: {{ count_experience_expert }}</h2>
-{% for item in experience_expert %}
-<div id="{{ item.id }}" class="card mb-3 md-2" style="cursor: pointer;" tabindex="0" onclick="location.href='dashboard/experience_expert/{{ item.id }}';">
+<h2 class="text-center border-bottom pb-1 text-break h3">Ervaringsdeskundigen: {{ count_experience_expert }}</h2>
+{% for id, item in experience_expert.items %}
+<div class="card mb-3 md-2" style="cursor: pointer;" tabindex="0" onclick="location.href='dashboard/experience_expert/{{ item.experience_expert.id }}';">
     <div class="card-body">
-        <h3 class="card-title text-center h5">{{ item.first_name }} {{ item.last_name }}</h3>
-        <h3 class="card-subtitle mb-2 text-body-secondary text-center h6">Gebruikernaam: {{ item.username }}</h3>
+        <h3 class="card-title text-center h5">{{ item.experience_expert.first_name }} {{ item.experience_expert.last_name }}</h3>
+        <h3 class="card-subtitle mb-2 text-body-secondary text-center h6"><strong>Gebruikernaam: </strong>{{ item.experience_expert.username }}</h3>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">E-mail: {{ item.email }}</li>
-            {% if item.geslacht == "M" %}
-            <li class="list-group-item">Geslacht: Man</li>
-            {% elif item.geslacht == "V" %}
-            <li class="list-group-item">Geslacht: Vrouw</li>
+            <li class="list-group-item"><strong>E-mail: </strong>{{ item.experience_expert.email }}</li>
+            {% if item.experience_expert.geslacht == "M" %}
+            <li class="list-group-item"><strong>Geslacht: </strong>Man</li>
+            {% elif item.experience_expert.geslacht == "V" %}
+            <li class="list-group-item"><strong>Geslacht: </strong>Vrouw</li>
             {% else %}
-            <li class="list-group-item">Geslacht: Anders</li>
+            <li class="list-group-item"><strong>Geslacht: </strong>Anders</li>
             {% endif %}
-            <li class="list-group-item">Gebruikte hulpmiddelen: {{ item.gebruikte_hulpmiddelen }}</li>
-            <li class="list-group-item">Bijzonderingen: {{ item.bijzonderheden }}</li>
-            <li class="list-group-item">Geboortedatum: {{ item.geboortedatum }}</li>
-            <li class="list-group-item">Toezichthouder: {{ item.Toezichthouders.voornaam_1 }}</li>
+            <li class="list-group-item"><strong>Beperking: </strong>
+            {% for limitation in item.limitations %}
+                {{ limitation.omschrijving }}{% if not forloop.last %},{% endif %}
+            {% empty %}
+            Geen
+            {% endfor %}
+            </li>
+            <li class="list-group-item"><strong>Geboortedatum: </strong>{{ item.experience_expert.geboortedatum }}</li>
             <li class="list-group-item text-center">
-                <button onclick="goedkeurenErvaringsdeskundige('{{ item.id }}');" class="btn btn-success">Keur goed</button>
-                <button onclick="afkeurenErvaringsdeskundige('{{ item.id }}');" class="btn btn-danger">Keur af</button>
+                <button onclick="goedkeurenErvaringsdeskundige('{{ item.experience_expert.id }}');" class="btn btn-success">Keur goed</button>
+                <button onclick="afkeurenErvaringsdeskundige('{{ item.experience_expert.id }}');" class="btn btn-danger">Keur af</button>
             </li>
         </ul>
     </div>

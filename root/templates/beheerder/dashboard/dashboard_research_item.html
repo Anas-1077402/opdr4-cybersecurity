@@ -69,11 +69,9 @@
             <H3 class="h5">Beperkingen:</H3>
             <div class="container-fluid">
                 <p>
-                    {% if data.Beperkingen.omschrijving %}
-                    {{ data.Beperkingen.omschrijving }}
-                    {% else %}
-                    Geen
-                    {% endif %}
+                {% for limitation in limitations %}
+                    {{ limitation.omschrijving }}{% if not forloop.last %},{% endif %}
+                {% endfor %}
                 </p>
             </div>
         </div>
