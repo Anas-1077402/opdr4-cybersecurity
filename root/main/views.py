@@ -87,12 +87,13 @@ def update_onderzoek(request, onderzoeks_id):
         return HttpResponse(status=404)
 
     if request.method == 'PUT':
-        serializer = OnderzoekenSerializer(onderzoek, data=request.data)
         print(request.data)
+        serializer = OnderzoekenSerializer(onderzoek, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
+
 
 @api_view(['GET', 'POST'])
 def lijst_onderzoeken(request):
