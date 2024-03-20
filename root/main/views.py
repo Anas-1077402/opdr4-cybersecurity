@@ -79,6 +79,20 @@ def organisatie_details(request, pk):
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
 
+@api_view(['PUT'])
+def update_onderzoek(request, onderzoeks_id):
+    try:
+        onderzoek = Onderzoeken.objects.get(pk=onderzoeks_id)
+    except Onderzoeken.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'PUT':
+        serializer = OnderzoekenSerializer(onderzoek, data=request.data)
+        print(request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
 
 @api_view(['GET', 'POST'])
 def lijst_onderzoeken(request):
