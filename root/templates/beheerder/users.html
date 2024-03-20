@@ -40,6 +40,47 @@
     );
     }
 
+$(document).ready(function () {
+    $('#search-input').on('input', function () {
+        var query = $(this).val();
+        $.ajax({
+            type: 'GET',
+            url: '/beheerder/search_users/',
+            data: {
+                'query': query
+            },
+            success: function (data) {
+                updateUsersTable(data.users);
+            },
+            error: function (xhr, errmsg, err) {
+                console.log('Error:', errmsg);
+            }
+        });
+    });
+});
+
+function updateUsersTable(users) {
+    var tableBody = $('#users-table tbody');
+    tableBody.empty();
+    console.log(users[0]);
+    users.forEach(function (user) {
+        var row = '<tr>' +
+            '<td>' + user.first_name + '</td>' +
+            '<td>' + user.last_name + '</td>' +
+            '<td>' + user.is_superuser + '</td>' +
+            '<td>' + user.is_staff + '</td>' +
+            '<td>' + user.date_joined + '</td>' +
+            '<td>' +
+            '<a href="/beheerder/user_edit/' + user.id + '" class="btn btn-primary">Bewerken</a>' +
+            '<a href="user_delete/' + user.id + '" class="btn btn-danger">Verwijderen</a>' +
+            '</td>' +
+            '</tr>';
+        tableBody.append(row);
+    });
+}
+
+
+
 </script>
           <br>
           <div class="d-flex justify-content-center align-items-center">
@@ -54,7 +95,7 @@
                     <button type="button" class="btn btn-primary" onclick="applyFilter()">
                          Filteren
                     </button>
-                  <table class="table">
+                  <table id="users-table" class="table">
                     <h2 class="p-3">Alle Gebruikers</h2>
                       <thead>
                       <tr>
@@ -64,6 +105,8 @@
                           <th scope="col">Is medewerker</th>
                           <th scope="col">Datum Deelname</th>
                           <th scope="col">Actie</th>
+                          <label>Zoek op keywords:</label><br>
+                          <input type="text" id="search-input" placeholder="Zoeken...">
                       </tr>
                       </thead>
                       <tbody>
@@ -75,8 +118,8 @@
                                 <td>{{ user.is_staff }}</td>
                                 <td>{{ user.date_joined }}</td>
                                 <td>
-                                    <a href="" class="btn btn-primary">Bewerken</a>
-                                    <a href="" class="btn btn-danger">Verwijderen</a>
+                                    <a href="{% url 'user_edit' user.id %}" class="btn btn-primary">Bewerken</a>
+                                    <a href="{% url 'user_delete' user.id %}" class="btn btn-danger">Verwijderen</a>
                                 </td>
                             </tr>
                         {% endfor %}
