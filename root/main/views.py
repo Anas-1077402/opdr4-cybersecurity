@@ -79,8 +79,10 @@ def organisatie_details(request, pk):
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
 
+
 @api_view(['PUT'])
 def update_onderzoek(request, onderzoeks_id):
+    API_key = request.GET.get('api')
     try:
         onderzoek = Onderzoeken.objects.get(pk=onderzoeks_id)
     except Onderzoeken.DoesNotExist:
