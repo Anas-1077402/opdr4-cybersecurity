@@ -431,6 +431,7 @@ def attendance_request_item_edit_save(request, pk):
         data = request.POST
         if data['status']:
             instance.status = data['status']
+            instance.contact = data['contact']
             instance.save()
             return redirect(f"/beheerder/dashboard/attendance_request/{pk}")
         return HttpResponse(status=400)
