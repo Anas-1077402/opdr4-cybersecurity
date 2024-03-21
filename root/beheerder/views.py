@@ -94,7 +94,7 @@ def update_status(request, onderzoeks_id, nieuwe_status):
 
 @staff_member_required
 def update_organisatie_status(request, organisatie_id, nieuwe_status):
-    print(f"Update status voor onderzoek {organisatie_id} naar {nieuwe_status}")
+    print(f"Update status voor organisatie {organisatie_id} naar {nieuwe_status}")
     organisatie = Organisaties.objects.get(organisatie_id=organisatie_id)
     organisatie.status = nieuwe_status
     organisatie.save()
@@ -141,6 +141,7 @@ def verwijder_onderzoek(request, onderzoeks_id):
 
     return render(request, 'beheerder/verwijder_onderzoek.html', {'onderzoek': onderzoek})
 
+
 @staff_member_required
 def user_list(request):
     beheerders = Beheerders.objects.all()
@@ -149,6 +150,7 @@ def user_list(request):
     all_users = list(beheerders) + list(ervaringsdeskundigen)
 
     return render(request, 'beheerder/users.html', {'all_users': all_users})
+
 
 @staff_member_required
 def search_users(request):
@@ -187,7 +189,7 @@ def user_delete(request, id):
 
 @staff_member_required
 def user_edit(request, id):
-    # hier gaat checked hij eerst of het beheerder is -> zo niet dan ervaringsdeskundige formulier
+    # hier checked hij eerst of het beheerder is -> zo niet dan ervaringsdeskundige formulier
         if Beheerders.objects.filter(id=id).exists():
             user = get_object_or_404(Beheerders, id=id)
             if request.method == 'POST':

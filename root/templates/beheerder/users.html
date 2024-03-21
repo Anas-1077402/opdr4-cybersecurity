@@ -87,6 +87,7 @@ function updateUsersTable(users) {
           <br>
           <div class="d-flex justify-content-center align-items-center">
               <div id="card" class="container m-3 p-1">
+              <!-- Filteren op beheerder -->
                   <form id="filterForm" class="mb-3">
                     <label for="filterType">Filter op:</label>
                     <select id="filterType" class="form-select">
@@ -97,6 +98,7 @@ function updateUsersTable(users) {
                          Filteren
                     </button>
                   </form>
+              <!-- Tabel met loop user uit db halen -->
                   <table id="users-table" class="table">
                     <h2 class="p-3">Alle Gebruikers</h2>
                       <thead>
