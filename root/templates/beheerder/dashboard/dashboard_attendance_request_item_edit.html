@@ -87,11 +87,11 @@
             <H3 class="h5">Beperkingen:</H3>
             <div class="container-fluid">
                 <p>
-                    {% if data.onderzoeks.Beperkingen.omschrijving %}
-                    {{ data.onderzoeks.Beperkingen.omschrijving }}
-                    {% else %}
-                    Geen
-                    {% endif %}
+                    {% for limitation in research_limitations %}
+                        {{ limitation.omschrijving }}{% if not forloop.last %},{% endif %}
+                    {% empty %}
+                        Geen
+                    {% endfor %}
                 </p>
             </div>
         </div>
@@ -110,11 +110,11 @@
             <H3 class="h5">Beperkingen:</H3>
             <div class="container-fluid">
                 <p>
-                    {% if data.ervaringsdeskundige.Beperkingen.omschrijving %}
-                    {{ data.ervaringsdeskundige.Beperkingen.omschrijving }}
-                    {% else %}
-                    Geen
-                    {% endif %}
+                    {% for limitation in experience_expert_limitations %}
+                        {{ limitation.omschrijving }}{% if not forloop.last %},{% endif %}
+                    {% empty %}
+                        Geen
+                    {% endfor %}
                 </p>
             </div>
         </div>

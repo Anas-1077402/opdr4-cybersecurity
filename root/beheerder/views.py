@@ -391,8 +391,16 @@ def organization_item_edit_save(request, pk):
 def attendance_request_item(request, pk):
     attendance_request_item_data = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').get(pk=pk)
 
+    experience_expert_limitation_ids = BeperkingenErvaringsdeskundigen.objects.filter(ervaringsdeskundigen_id=attendance_request_item_data.ervaringsdeskundige.pk).values_list('beperking_id', flat=True)
+    experience_expert_limitations = Beperkingen.objects.filter(id__in=experience_expert_limitation_ids)
+
+    research_limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=attendance_request_item_data.onderzoeks.pk).values_list('beperking_id', flat=True)
+    research_limitations = Beperkingen.objects.filter(id__in=research_limitation_ids)
+
     context = {
         "data": attendance_request_item_data,
+        "experience_expert_limitations": experience_expert_limitations,
+        "research_limitations": research_limitations,
     }
 
     return render(request, "beheerder/dashboard/dashboard_attendance_request_item.html", context)
@@ -401,7 +409,16 @@ def attendance_request_item(request, pk):
 @staff_member_required
 def attendance_request_item_edit(request, pk):
     attendance_request_item_data = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').get(pk=pk)
+
+    experience_expert_limitation_ids = BeperkingenErvaringsdeskundigen.objects.filter(ervaringsdeskundigen_id=attendance_request_item_data.ervaringsdeskundige.pk).values_list('beperking_id', flat=True)
+    experience_expert_limitations = Beperkingen.objects.filter(id__in=experience_expert_limitation_ids)
+
+    research_limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=attendance_request_item_data.onderzoeks.pk).values_list('beperking_id', flat=True)
+    research_limitations = Beperkingen.objects.filter(id__in=research_limitation_ids)
+
     context = {
+        "research_limitations": research_limitations,
+        "experience_expert_limitations": experience_expert_limitations,
         "data": attendance_request_item_data
     }
     return render(request, "beheerder/dashboard/dashboard_attendance_request_item_edit.html", context)
