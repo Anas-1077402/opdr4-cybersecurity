@@ -9,31 +9,35 @@ from django.db import models
 from ervaringsdeskundige.models import User
 
 
-
 class Beperkingen(models.Model):
     omschrijving = models.TextField()
     soort = models.TextField()
 
     class Meta:
         managed = False
-        db_table = 'Beperkingen'
+        db_table = "Beperkingen"
 
 
 class Deelnames(models.Model):
-    onderzoeks = models.ForeignKey('Onderzoeken', models.DO_NOTHING)
-    ervaringsdeskundige = models.ForeignKey(User, models.DO_NOTHING, )
+    onderzoeks = models.ForeignKey("Onderzoeken", models.DO_NOTHING)
+    ervaringsdeskundige = models.ForeignKey(
+        User,
+        models.DO_NOTHING,
+    )
     status = models.IntegerField()
     contact = models.IntegerField()
 
     class Meta:
         managed = False
-        db_table = 'Deelnames'
+        db_table = "Deelnames"
 
 
 class Organisaties(models.Model):
     organisatie_id = models.AutoField(primary_key=True, blank=True)
     naam = models.TextField(blank=True, null=True)
-    kvk = models.TextField(db_column='KVK', blank=True, null=True)  # Field name made lowercase.
+    kvk = models.TextField(
+        db_column="KVK", blank=True, null=True
+    )  # Field name made lowercase.
     website = models.TextField(blank=True, null=True)
     beschrijving = models.TextField(blank=True, null=True)
     contact_persoon = models.TextField(blank=True, null=True)
@@ -45,12 +49,12 @@ class Organisaties(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'Organisaties'
+        db_table = "Organisaties"
 
 
 class Onderzoeken(models.Model):
     onderzoeks_id = models.AutoField(primary_key=True)
-    organisatie = models.ForeignKey('Organisaties', models.DO_NOTHING)
+    organisatie = models.ForeignKey("Organisaties", models.DO_NOTHING)
     status = models.IntegerField(default=1)
     titel = models.TextField()
     omschrijving = models.TextField()
@@ -64,12 +68,13 @@ class Onderzoeken(models.Model):
     doelgroep_leeftijd_tot = models.IntegerField()
     contact_opgenomen = models.IntegerField(default=0)
     opmerkingen_beheerder = models.IntegerField(blank=True, null=True)
-    type_onderzoek = models.ForeignKey('TypeOnderzoek', models.DO_NOTHING, db_column='type_onderzoek')
+    type_onderzoek = models.ForeignKey(
+        "TypeOnderzoek", models.DO_NOTHING, db_column="type_onderzoek"
+    )
 
     class Meta:
         managed = False
-        db_table = 'Onderzoeken'
-
+        db_table = "Onderzoeken"
 
 
 class Toezichthouders(models.Model):
@@ -83,19 +88,23 @@ class Toezichthouders(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'Toezichthouders'
+        db_table = "Toezichthouders"
 
 
 class TypeOnderzoek(models.Model):
     telefonisch = models.BooleanField(blank=True, null=True)
     internet = models.BooleanField(blank=True, null=True)
     locatie = models.BooleanField(blank=True, null=True)
-    onderzoeks = models.ForeignKey(Onderzoeken, models.DO_NOTHING, blank=True, null=True)
-    ervaringsdeskundige = models.ForeignKey(User, models.DO_NOTHING, blank=True, null=True)
+    onderzoeks = models.ForeignKey(
+        Onderzoeken, models.DO_NOTHING, blank=True, null=True
+    )
+    ervaringsdeskundige = models.ForeignKey(
+        User, models.DO_NOTHING, blank=True, null=True
+    )
 
     class Meta:
         managed = False
-        db_table = 'Type_onderzoek'
+        db_table = "Type_onderzoek"
 
 
 class AuthGroup(models.Model):
@@ -103,28 +112,28 @@ class AuthGroup(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_group'
+        db_table = "auth_group"
 
 
 class AuthGroupPermissions(models.Model):
     group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
-    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
+    permission = models.ForeignKey("AuthPermission", models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'auth_group_permissions'
-        unique_together = (('group', 'permission'),)
+        db_table = "auth_group_permissions"
+        unique_together = (("group", "permission"),)
 
 
 class AuthPermission(models.Model):
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
+    content_type = models.ForeignKey("DjangoContentType", models.DO_NOTHING)
     codename = models.CharField(max_length=100)
     name = models.CharField(max_length=255)
 
     class Meta:
         managed = False
-        db_table = 'auth_permission'
-        unique_together = (('content_type', 'codename'),)
+        db_table = "auth_permission"
+        unique_together = (("content_type", "codename"),)
 
 
 class AuthUser(models.Model):
@@ -141,7 +150,7 @@ class AuthUser(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_user'
+        db_table = "auth_user"
 
 
 class AuthUserGroups(models.Model):
@@ -150,8 +159,8 @@ class AuthUserGroups(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_user_groups'
-        unique_together = (('user', 'group'),)
+        db_table = "auth_user_groups"
+        unique_together = (("user", "group"),)
 
 
 class AuthUserUserPermissions(models.Model):
@@ -160,9 +169,8 @@ class AuthUserUserPermissions(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'auth_user_user_permissions'
-        unique_together = (('user', 'permission'),)
-
+        db_table = "auth_user_user_permissions"
+        unique_together = (("user", "permission"),)
 
 
 class DjangoContentType(models.Model):
@@ -171,8 +179,8 @@ class DjangoContentType(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'django_content_type'
-        unique_together = (('app_label', 'model'),)
+        db_table = "django_content_type"
+        unique_together = (("app_label", "model"),)
 
 
 class BeperkingenErvaringsdeskundigen(models.Model):
@@ -181,8 +189,7 @@ class BeperkingenErvaringsdeskundigen(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'Beperkingen_ervaringsdeskundigen'
-
+        db_table = "Beperkingen_ervaringsdeskundigen"
 
 
 # class ErvaringsdeskundigeUser(models.Model):
@@ -214,7 +221,6 @@ class BeperkingenErvaringsdeskundigen(models.Model):
 #     class Meta:
 #         managed = False
 #         db_table = 'ervaringsdeskundige_user'
-
 
 
 # class ErvaringsdeskundigeErvaringsdeskundigeGroups(models.Model):
