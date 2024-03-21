@@ -4,7 +4,8 @@ from django.contrib import messages
 from .forms import RegistratieFormulier, UserEditForm, UserBeheerderForm
 from django.http import JsonResponse, HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
-from main.models import Organisaties, Onderzoeken, User, Deelnames
+from main.models import Organisaties, Onderzoeken, User, Deelnames, Beperkingen
+from ervaringsdeskundige.models import BeperkingenOnderzoeken, User, BeperkingenErvaringsdeskundigen
 from rest_framework.decorators import api_view
 from django.template.loader import render_to_string
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer, ExperienceExpertSerializer
@@ -214,16 +215,21 @@ def dashboard(request):
 
 @staff_member_required
 def research_item(request, pk):
-    research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie").get(pk=pk)
+    research_item_data = Onderzoeken.objects.select_related("organisatie").get(pk=pk)
+
+    limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=research_item_data.onderzoeks_id).values_list('beperking_id', flat=True)
+    limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+
     context = {
-        "data": research_item_data
+        "data": research_item_data,
+        'limitations': limitations,
     }
     return render(request, "beheerder/dashboard/dashboard_research_item.html", context)
 
 
 @staff_member_required
 def research_item_edit(request, pk):
-    research_item_data = Onderzoeken.objects.filter(pk=pk).select_related("organisatie").get(pk=pk)
+    research_item_data = Onderzoeken.objects.select_related("organisatie").get(pk=pk)
 
     # Converts datetime to value compatiable with html input=datetime-local element
     datetime_from = research_item_data.datum_vanaf
@@ -231,8 +237,18 @@ def research_item_edit(request, pk):
     research_item_data.datum_vanaf = (str(datetime_from.date()) + 'T' + str(datetime_from.time()))
     research_item_data.datum_tot = (str(datetime_till.date()) + 'T' + str(datetime_till.time()))
 
+    limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=research_item_data.onderzoeks_id).values_list('beperking_id', flat=True)
+    research_limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+    all_limitations = Beperkingen.objects.all()
+
+    research_limitations_id_list = []
+    for limitation in research_limitations:
+        research_limitations_id_list.append(limitation.id)
+
     context = {
-        "data": research_item_data
+        "data": research_item_data,
+        'research_limitations_id_list': research_limitations_id_list,
+        'all_limitations': all_limitations,
     }
     return render(request, "beheerder/dashboard/dashboard_research_item_edit.html", context)
 
@@ -245,6 +261,26 @@ def research_item_edit_save(request, pk):
         data = request.POST
         serializer = OnderzoekenSerializer(instance, data)
         if serializer.is_valid():
+            old_limitations = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=pk).values_list('beperking_id', flat=True)
+            selected_limitations = request.POST.getlist("selected_limitations[]")
+
+            selected_limitation_int = []
+            for selected_limitation in selected_limitations:
+                selected_limitation_int.append(int(selected_limitation))
+
+            for limit in old_limitations:
+                if limit not in selected_limitation_int:
+                    deletable = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=pk).filter(beperking_id=limit)
+                    deletable.delete()
+
+            for selected_limitation in selected_limitation_int:
+                if selected_limitation not in old_limitations:
+                    onderzoek_beperking = BeperkingenOnderzoeken(
+                        beperking_id=int(selected_limitation),
+                        onderzoeks_id=pk,
+                    )
+                    onderzoek_beperking.save()
+
             serializer.save()
             return redirect(f"/beheerder/dashboard/research/{pk}")
         return HttpResponse(status=400)
@@ -254,8 +290,13 @@ def research_item_edit_save(request, pk):
 @staff_member_required
 def experience_expert_item(request, pk):
     experience_expert_item_data = User.objects.get(pk=pk)
+
+    limitation_ids = BeperkingenErvaringsdeskundigen.objects.filter(ervaringsdeskundigen_id=experience_expert_item_data.id).values_list('beperking_id', flat=True)
+    limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+
     context = {
-        "data": experience_expert_item_data
+        "data": experience_expert_item_data,
+        'limitations': limitations,
     }
     return render(request, "beheerder/dashboard/dashboard_experience_expert_item.html", context)
 
@@ -264,8 +305,19 @@ def experience_expert_item(request, pk):
 def experience_expert_item_edit(request, pk):
     experience_expert_item_data = User.objects.get(pk=pk)
     experience_expert_item_data.geboortedatum = str(experience_expert_item_data.geboortedatum)
+
+    limitation_ids = BeperkingenErvaringsdeskundigen.objects.filter(ervaringsdeskundigen_id=experience_expert_item_data.id).values_list('beperking_id', flat=True)
+    experience_expert_limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+    all_limitations = Beperkingen.objects.all()
+
+    experience_expert_limitations_id_list = []
+    for limitation in experience_expert_limitations:
+        experience_expert_limitations_id_list.append(limitation.id)
+
     context = {
-        "data": experience_expert_item_data
+        "data": experience_expert_item_data,
+        'experience_expert_limitations_id_list': experience_expert_limitations_id_list,
+        'all_limitations': all_limitations,
     }
     return render(request, "beheerder/dashboard/dashboard_experience_expert_item_edit.html", context)
 
@@ -277,6 +329,26 @@ def experience_expert_item_edit_save(request, pk):
         data = request.POST
         serializer = ExperienceExpertSerializer(instance, data)
         if serializer.is_valid():
+            old_limitations = BeperkingenErvaringsdeskundigen.objects.filter(ervaringsdeskundigen_id=pk).values_list('beperking_id', flat=True)
+            selected_limitations = request.POST.getlist("selected_limitations[]")
+
+            selected_limitation_int = []
+            for selected_limitation in selected_limitations:
+                selected_limitation_int.append(int(selected_limitation))
+
+            for limit in old_limitations:
+                if limit not in selected_limitation_int:
+                    deletable = BeperkingenErvaringsdeskundigen.objects.filter(ervaringsdeskundigen_id=pk).filter(beperking_id=limit)
+                    deletable.delete()
+
+            for selected_limitation in selected_limitation_int:
+                if selected_limitation not in old_limitations:
+                    onderzoek_beperking = BeperkingenErvaringsdeskundigen(
+                        beperking_id=int(selected_limitation),
+                        ervaringsdeskundigen_id=pk,
+                    )
+                    onderzoek_beperking.save()
+
             serializer.save()
             return redirect(f"/beheerder/dashboard/experience_expert/{pk}")
         return HttpResponse(status=400)
@@ -319,8 +391,16 @@ def organization_item_edit_save(request, pk):
 def attendance_request_item(request, pk):
     attendance_request_item_data = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').get(pk=pk)
 
+    experience_expert_limitation_ids = BeperkingenErvaringsdeskundigen.objects.filter(ervaringsdeskundigen_id=attendance_request_item_data.ervaringsdeskundige.pk).values_list('beperking_id', flat=True)
+    experience_expert_limitations = Beperkingen.objects.filter(id__in=experience_expert_limitation_ids)
+
+    research_limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=attendance_request_item_data.onderzoeks.pk).values_list('beperking_id', flat=True)
+    research_limitations = Beperkingen.objects.filter(id__in=research_limitation_ids)
+
     context = {
         "data": attendance_request_item_data,
+        "experience_expert_limitations": experience_expert_limitations,
+        "research_limitations": research_limitations,
     }
 
     return render(request, "beheerder/dashboard/dashboard_attendance_request_item.html", context)
@@ -329,7 +409,16 @@ def attendance_request_item(request, pk):
 @staff_member_required
 def attendance_request_item_edit(request, pk):
     attendance_request_item_data = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').get(pk=pk)
+
+    experience_expert_limitation_ids = BeperkingenErvaringsdeskundigen.objects.filter(ervaringsdeskundigen_id=attendance_request_item_data.ervaringsdeskundige.pk).values_list('beperking_id', flat=True)
+    experience_expert_limitations = Beperkingen.objects.filter(id__in=experience_expert_limitation_ids)
+
+    research_limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=attendance_request_item_data.onderzoeks.pk).values_list('beperking_id', flat=True)
+    research_limitations = Beperkingen.objects.filter(id__in=research_limitation_ids)
+
     context = {
+        "research_limitations": research_limitations,
+        "experience_expert_limitations": experience_expert_limitations,
         "data": attendance_request_item_data
     }
     return render(request, "beheerder/dashboard/dashboard_attendance_request_item_edit.html", context)
@@ -342,6 +431,7 @@ def attendance_request_item_edit_save(request, pk):
         data = request.POST
         if data['status']:
             instance.status = data['status']
+            instance.contact = data['contact']
             instance.save()
             return redirect(f"/beheerder/dashboard/attendance_request/{pk}")
         return HttpResponse(status=400)
@@ -358,14 +448,33 @@ def get_dashboard(request):
     list_organization = Organisaties.objects.filter(status=1)
     count_organization = list_organization.count()
     list_attendance_request = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').filter(status=1)
-
-    print(list_attendance_request.get(pk=1).ervaringsdeskundige)
     count_attendance_request = list_attendance_request.count()
 
+    research_with_limitations = {}
+    experience_experts_with_limitations = {}
+
+    for research_item in list_research:
+        limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=research_item.onderzoeks_id).values_list('beperking_id', flat=True)
+        limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+
+        research_with_limitations[research_item.onderzoeks_id] = {
+            'research': research_item,
+            'limitations': limitations,
+        }
+
+    for experience_expert in list_experience_expert:
+        limitation_ids = BeperkingenErvaringsdeskundigen.objects.filter(ervaringsdeskundigen_id=experience_expert.id).values_list('beperking_id', flat=True)
+        limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+
+        experience_experts_with_limitations[experience_expert.id] = {
+            'experience_expert': experience_expert,
+            'limitations': limitations,
+        }
+
     context = {
-        'research': list_research,
+        'research': research_with_limitations,
         'count_research': count_research,
-        'experience_expert': list_experience_expert,
+        'experience_expert': experience_experts_with_limitations,
         'count_experience_expert': count_experience_expert,
         'organization': list_organization,
         'count_organization': count_organization,
@@ -379,4 +488,3 @@ def get_dashboard(request):
     data['attendance_request'] = render_to_string("beheerder/dashboard/dashboard_attendance_request.html", context, request)
 
     return JsonResponse(data)
-

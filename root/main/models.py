@@ -23,6 +23,7 @@ class Deelnames(models.Model):
     onderzoeks = models.ForeignKey('Onderzoeken', models.DO_NOTHING)
     ervaringsdeskundige = models.ForeignKey(User, models.DO_NOTHING, )
     status = models.IntegerField()
+    contact = models.IntegerField()
 
     class Meta:
         managed = False
