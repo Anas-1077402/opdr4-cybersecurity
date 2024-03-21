@@ -254,7 +254,7 @@ def register_investigation(request, investigation_id):
 
     if not existing:
         new_register_investigation = Deelnames(
-            ervaringsdeskundige_id=user_id, onderzoeks_id=investigation_id, status=1
+            ervaringsdeskundige_id=user_id, onderzoeks_id=investigation_id, status=1, contact=0
         )
         new_register_investigation.save()
 

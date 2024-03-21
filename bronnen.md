@@ -9,7 +9,8 @@ https://blog.logrocket.com/localstorage-javascript-complete-guide/
 https://stackoverflow.com/questions/10105063/how-to-play-a-notification-sound-on-websites
 https://dequeuniversity.com/rules/axe/4.8/heading-order
 https://www.regex-tutorial.com/getCookieWithRegex.html
-
+https://www.django-rest-framework.org/
+https://www.djangoproject.com/
 
 
 

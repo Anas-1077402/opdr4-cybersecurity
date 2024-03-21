@@ -7,7 +7,13 @@ urlpatterns = [
     path("register", views.register, name="register"),
     path("API", views.API, name="api_list_test"),
     path("API/<int:pk>", views.organisatie_details, name="organisatie_details"),
-    path("API/organisatie/onderzoeken/<int:onderzoeks_id>", views.update_onderzoek, name="update_onderzoek"),
-    path("API/organisatie/onderzoeken", views.lijst_onderzoeken, name="lijst_onderzoeken"),
+    path(
+        "API/organisatie/onderzoeken/<int:onderzoeks_id>",
+        views.update_onderzoek,
+        name="update_onderzoek",
+    ),
+    path(
+        "API/organisatie/onderzoeken", views.lijst_onderzoeken, name="lijst_onderzoeken"
+    ),
     path("login", views.custom_login, name="customlogin"),
 ]

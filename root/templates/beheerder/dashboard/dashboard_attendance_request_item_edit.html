@@ -87,11 +87,11 @@
             <H3 class="h5">Beperkingen:</H3>
             <div class="container-fluid">
                 <p>
-                    {% if data.onderzoeks.Beperkingen.omschrijving %}
-                    {{ data.onderzoeks.Beperkingen.omschrijving }}
-                    {% else %}
-                    Geen
-                    {% endif %}
+                    {% for limitation in research_limitations %}
+                        {{ limitation.omschrijving }}{% if not forloop.last %},{% endif %}
+                    {% empty %}
+                        Geen
+                    {% endfor %}
                 </p>
             </div>
         </div>
@@ -110,12 +110,26 @@
             <H3 class="h5">Beperkingen:</H3>
             <div class="container-fluid">
                 <p>
-                    {% if data.ervaringsdeskundige.Beperkingen.omschrijving %}
-                    {{ data.ervaringsdeskundige.Beperkingen.omschrijving }}
-                    {% else %}
-                    Geen
-                    {% endif %}
+                    {% for limitation in experience_expert_limitations %}
+                        {{ limitation.omschrijving }}{% if not forloop.last %},{% endif %}
+                    {% empty %}
+                        Geen
+                    {% endfor %}
                 </p>
+            </div>
+        </div>
+        <div class="col-md-auto border-end">
+            <H3 id="reached_out_select_label" class="h5">Contact doorgestuurt naar bedrijf:</H3>
+            <div class="container-fluid mb-2">
+                <select aria-labelledby="reached_out_select_label" id="reached_out_select" name="contact" class="form-select mb-1">
+                    {% if data.contact == 0 %}
+                        <option value=0>Nee</option>
+                        <option value=1>Ja</option>
+                    {% elif data.contact == 1 %}
+                        <option value=1 >Ja</option>
+                        <option value=0>Nee</option>
+                    {% endif %}
+                </select>
             </div>
         </div>
     </div>    

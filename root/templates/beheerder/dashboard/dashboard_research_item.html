@@ -69,11 +69,9 @@
             <H3 class="h5">Beperkingen:</H3>
             <div class="container-fluid">
                 <p>
-                    {% if data.Beperkingen.omschrijving %}
-                    {{ data.Beperkingen.omschrijving }}
-                    {% else %}
-                    Geen
-                    {% endif %}
+                {% for limitation in limitations %}
+                    {{ limitation.omschrijving }}{% if not forloop.last %},{% endif %}
+                {% endfor %}
                 </p>
             </div>
         </div>
@@ -121,18 +119,6 @@
     </div>
     <div class="row m-1 border-bottom">
         <H2 class="h3">Toevoegende informatie</H2>
-        <div class="col-md-auto border-end">
-            <H3 class="h5">Contact opgenomen:</H3>
-            <div class="container-fluid">
-                <p>
-                    {% if data.contact_opgenomen == 0 %}
-                    Nee
-                    {% elif data.contact_opgenomen == 1 %}
-                    Ja
-                    {% endif %}
-                </p>
-            </div>
-        </div>
         <div class="col-md-auto border-end">
             <H3 class="h5">Beheerder opmerkingen:</H3>
             <div class="container-fluid">
