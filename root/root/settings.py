@@ -44,37 +44,6 @@ INSTALLED_APPS = [
     'beheerder',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_PARSER_CLASSES': [
-        'rest_framework.parsers.JSONParser',
-        'rest_framework.parsers.FormParser',
-        'rest_framework.parsers.MultiPartParser',
-    ],
-
-    # Standaard renderers voor uitgaande responsen
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    ],
-
-    # Standaard authenticatieklassen
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        # Voeg andere authenticatieklassen toe indien nodig
-    ],
-
-    # Standaard throttling-configuratie
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle',
-        # Voeg andere throttling-klassen toe indien nodig
-    ],
-
-    # Standaard paginering-instellingen
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,  # Aantal items per pagina
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

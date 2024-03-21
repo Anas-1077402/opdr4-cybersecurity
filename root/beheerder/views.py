@@ -132,7 +132,7 @@ def update_deelnames_status(request, id, nieuwe_status):
 
 @transaction.atomic
 def verwijder_onderzoek(request, onderzoeks_id):
-    onderzoek = Onderzoeken.objects.get(pk=onderzoeks_id)
+    onderzoek = Onderzoeken.objects.get(onderzoeks_id=onderzoeks_id)
 
     if request.method == 'POST':
         onderzoek.delete()

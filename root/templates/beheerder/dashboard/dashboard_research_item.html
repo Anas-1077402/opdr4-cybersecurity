@@ -28,7 +28,7 @@
         </H2>
         <div class="position-absolute buttons">
             <button type="button" class="btn btn-primary" onclick="location.href='{{ data.onderzoeks_id }}/edit';">Bewerk</button>
-            <button type="button" class="btn btn-primary">Verwijder</button>
+            <a href="{% url 'verwijder_onderzoek' data.onderzoeks_id %}" class="btn btn-primary">Verwijder</a>
         </div>
         <H2 class="mb-1 h6">Verzocht door: {{ data.organisatie.naam }}</H2>
         <H2 class="m-0 pb-1 h6">

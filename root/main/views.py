@@ -83,13 +83,15 @@ def organisatie_details(request, pk):
 @api_view(['PUT'])
 def update_onderzoek(request, onderzoeks_id):
     API_key = request.GET.get('api')
+    print(API_key)
     try:
         onderzoek = Onderzoeken.objects.get(pk=onderzoeks_id)
     except Onderzoeken.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == 'PUT':
-        serializer = OnderzoekenSerializer(onderzoek, data=request.data, partial=True)
+        serializer_context = {'API_key': API_key}
+        serializer = OnderzoekenSerializer(onderzoek, data=request.data, partial=True, context=serializer_context)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)

@@ -64,7 +64,7 @@ class MedewerkersOrganisatie(models.Model):
 
 class Onderzoeken(models.Model):
     onderzoeks_id = models.AutoField(primary_key=True)
-    organisatie = models.ForeignKey('Organisaties', models.DO_NOTHING)
+    organisatie = models.ForeignKey('Organisatie', on_delete=models.CASCADE)
     status = models.IntegerField()
     titel = models.TextField()
     omschrijving = models.TextField()
@@ -78,7 +78,7 @@ class Onderzoeken(models.Model):
     doelgroep_leeftijd_tot = models.IntegerField()
     contact_opgenomen = models.IntegerField()
     opmerkingen_beheerder = models.IntegerField(blank=True, null=True)
-    type_onderzoek = models.ForeignKey('TypeOnderzoek', models.DO_NOTHING, db_column='type_onderzoek')
+    type_onderzoek = models.ForeignKey('TypeOnderzoek', on_delete=models.CASCADE, db_column='type_onderzoek')
 
     class Meta:
         managed = False
