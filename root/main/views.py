@@ -101,8 +101,7 @@ def lijst_onderzoeken(request):
     if request.method == 'GET':
         try:
             organisation = Organisaties.objects.get(api_key=API_key)
-            organisation_id = organisation.organisatie_id
-            onderzoeken_per_org = Onderzoeken.objects.filter(organisatie_id=organisation_id)
+            onderzoeken_per_org = Onderzoeken.objects.filter(organisatie_id=organisation.organisatie_id)
             serializer = OnderzoekenSerializer(onderzoeken_per_org, many=True)
             return JsonResponse(serializer.data, safe=False)
 
@@ -111,16 +110,15 @@ def lijst_onderzoeken(request):
 
     elif request.method == 'POST':
         try:
-            Organisaties.objects.get(api_key=API_key)
-            data = JSONParser().parse(request)
-            serializer = OnderzoekenSerializer(data=data)
-            print("test1")           
+            organisation = Organisaties.objects.get(api_key=API_key)
+            serializer = OnderzoekenSerializer(data=request.data, organisatie=organisation)
             if serializer.is_valid():
                 serializer.save()
                 print("test2")
                 return JsonResponse(serializer.data, status=201)
             else:
                 print("Validation errors:", serializer.errors)
+                return JsonResponse(serializer.errors, status=400)
 
         except Organisaties.DoesNotExist:
             return JsonResponse({'error': 'Ongeldige API-key'}, status=400)

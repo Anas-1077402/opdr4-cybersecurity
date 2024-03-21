@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Organisaties, Onderzoeken
-from ervaringsdeskundige.models import User
+from ervaringsdeskundige.models import User, BeperkingenOnderzoeken
 
 
 class OrganisatieSerializer(serializers.Serializer):
@@ -40,7 +40,18 @@ class OrganisatieSerializer(serializers.Serializer):
         return instance
 
 
+class BeperkingenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BeperkingenOnderzoeken
+        fields = ['beperking_id']
+
 class OnderzoekenSerializer(serializers.ModelSerializer):
+    beperkingen = BeperkingenSerializer(many=True, required=False)
+
+    def __init__(self, *args, **kwargs):
+        self.organisatie = kwargs.pop('organisatie', None)
+        super().__init__(*args, **kwargs)
+
     class Meta:
         model = Onderzoeken
         fields = [
@@ -59,7 +70,21 @@ class OnderzoekenSerializer(serializers.ModelSerializer):
             'doelgroep_leeftijd_tot',
             'contact_opgenomen',
             'opmerkingen_beheerder',
+            'type_onderzoek',
+            'beperkingen',
         ]
+
+    def create(self, validated_data):
+        beperkingen_data = validated_data.pop('beperkingen', [])
+        onderzoek = Onderzoeken.objects.create(organisatie=self.organisatie, **validated_data)
+        
+        for beperking_data in beperkingen_data:
+            BeperkingenOnderzoeken.objects.create(onderzoeks_id=onderzoek.onderzoeks_id, **beperking_data)
+        
+        return onderzoek
+
+
+
 
 
 class ExperienceExpertSerializer(serializers.ModelSerializer):
