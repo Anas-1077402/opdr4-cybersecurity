@@ -45,7 +45,7 @@ class OnderzoekenSerializer(serializers.ModelSerializer):
         model = Onderzoeken
         fields = [
             'onderzoeks_id',
-            'organisatie',
+            'organisatie_id',
             'status',
             'titel',
             'omschrijving',
@@ -60,7 +60,6 @@ class OnderzoekenSerializer(serializers.ModelSerializer):
             'contact_opgenomen',
             'opmerkingen_beheerder',
         ]
-        read_only_fields = ['status', 'contact_opgenomen']
 
 
 class ExperienceExpertSerializer(serializers.ModelSerializer):

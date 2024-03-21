@@ -20,7 +20,7 @@ def home_view(request):
     return render(request, 'home.html')
 
 
-
+@staff_member_required
 def dashboard_beheerder(request):
     pending_admins = User.objects.filter(status=1).filter(is_staff=1)
     current_user = request.user
@@ -84,7 +84,7 @@ def users(request):
 
     return render(request, 'beheerder/users.html')
 
-
+@staff_member_required
 def update_status(request, onderzoeks_id, nieuwe_status):
     print(f"Update status voor onderzoek {onderzoeks_id} naar {nieuwe_status}")
     onderzoek = Onderzoeken.objects.get(onderzoeks_id=onderzoeks_id)
@@ -92,7 +92,7 @@ def update_status(request, onderzoeks_id, nieuwe_status):
     onderzoek.save()
     return JsonResponse({'message': 'Status bijgewerkt'}, status=200)
 
-
+@staff_member_required
 def update_organisatie_status(request, organisatie_id, nieuwe_status):
     print(f"Update status voor onderzoek {organisatie_id} naar {nieuwe_status}")
     organisatie = Organisaties.objects.get(organisatie_id=organisatie_id)
@@ -100,7 +100,7 @@ def update_organisatie_status(request, organisatie_id, nieuwe_status):
     organisatie.save()
     return JsonResponse({'message': 'Status bijgewerkt'}, status=200)
 
-
+@staff_member_required
 def update_ervaringsdeskundige_status(request, id, nieuwe_status):
     print(f"Update status voor onderzoek {id} naar {nieuwe_status}")
     ervaringsdeskundige = User.objects.get(id=id)
@@ -108,7 +108,7 @@ def update_ervaringsdeskundige_status(request, id, nieuwe_status):
     ervaringsdeskundige.save()
     return JsonResponse({'message': 'Status bijgewerkt'}, status=200)
 
-
+@staff_member_required
 def update_deelnames_status(request, id, nieuwe_status):
     print(f"Update status voor onderzoek {id} naar {nieuwe_status}")
     deelnames = Deelnames.objects.get(id=id)
@@ -141,7 +141,7 @@ def verwijder_onderzoek(request, onderzoeks_id):
 
     return render(request, 'beheerder/verwijder_onderzoek.html', {'onderzoek': onderzoek})
 
-
+@staff_member_required
 def user_list(request):
     beheerders = Beheerders.objects.all()
     ervaringsdeskundigen = User.objects.values('id','first_name', 'last_name', 'is_superuser', 'is_staff', 'date_joined')
@@ -150,7 +150,7 @@ def user_list(request):
 
     return render(request, 'beheerder/users.html', {'all_users': all_users})
 
-
+@staff_member_required
 def search_users(request):
     query = request.GET.get('query', '')
     beheerders = Beheerders.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)).all()
@@ -169,7 +169,7 @@ def search_users(request):
         user_list.append(user_data)
     return JsonResponse({'users': user_list})
 
-
+@staff_member_required
 def user_delete(request, id):
     sql_query = "DELETE FROM ervaringsdeskundige_user WHERE id = %s"
     beheerder_sql_query = "DELETE FROM beheerder_beheerders WHERE id = %s"
@@ -185,7 +185,7 @@ def user_delete(request, id):
     except Exception as e:
         return HttpResponse(f"Fout bij het verwijderen van gebruiker: {e}")
 
-
+@staff_member_required
 def user_edit(request, id):
     # hier gaat checked hij eerst of het beheerder is -> zo niet dan ervaringsdeskundige formulier
         if Beheerders.objects.filter(id=id).exists():
@@ -208,10 +208,12 @@ def user_edit(request, id):
         return render(request, 'beheerder/user_edit.html', {'form': form})
 
 
+@staff_member_required
 def dashboard(request):
     return render(request, "beheerder/dashboard/dashboard.html")
 
 
+@staff_member_required
 def research_item(request, pk):
     research_item_data = Onderzoeken.objects.select_related("organisatie").get(pk=pk)
 
@@ -225,6 +227,7 @@ def research_item(request, pk):
     return render(request, "beheerder/dashboard/dashboard_research_item.html", context)
 
 
+@staff_member_required
 def research_item_edit(request, pk):
     research_item_data = Onderzoeken.objects.select_related("organisatie").get(pk=pk)
 
@@ -250,6 +253,7 @@ def research_item_edit(request, pk):
     return render(request, "beheerder/dashboard/dashboard_research_item_edit.html", context)
 
 
+@staff_member_required
 def research_item_edit_save(request, pk):
 
     if request.method == 'POST':
@@ -283,6 +287,7 @@ def research_item_edit_save(request, pk):
     return redirect(f"/beheerder/dashboard/research/{pk}")
 
 
+@staff_member_required
 def experience_expert_item(request, pk):
     experience_expert_item_data = User.objects.get(pk=pk)
 
@@ -296,6 +301,7 @@ def experience_expert_item(request, pk):
     return render(request, "beheerder/dashboard/dashboard_experience_expert_item.html", context)
 
 
+@staff_member_required
 def experience_expert_item_edit(request, pk):
     experience_expert_item_data = User.objects.get(pk=pk)
     experience_expert_item_data.geboortedatum = str(experience_expert_item_data.geboortedatum)
@@ -316,6 +322,7 @@ def experience_expert_item_edit(request, pk):
     return render(request, "beheerder/dashboard/dashboard_experience_expert_item_edit.html", context)
 
 
+@staff_member_required
 def experience_expert_item_edit_save(request, pk):
     if request.method == 'POST':
         instance = User.objects.get(pk=pk)
@@ -348,6 +355,7 @@ def experience_expert_item_edit_save(request, pk):
     return redirect(f"/beheerder/dashboard/experience_expert/{pk}")
 
 
+@staff_member_required
 def organization_item(request, pk):
     organization_item_data = Organisaties.objects.get(pk=pk)
     context = {
@@ -356,6 +364,7 @@ def organization_item(request, pk):
     return render(request, "beheerder/dashboard/dashboard_organization_item.html", context)
 
 
+@staff_member_required
 def organization_item_edit(request, pk):
     organization_item_data = Organisaties.objects.get(pk=pk)
     context = {
@@ -364,6 +373,7 @@ def organization_item_edit(request, pk):
     return render(request, "beheerder/dashboard/dashboard_organization_item_edit.html", context)
 
 
+@staff_member_required
 def organization_item_edit_save(request, pk):
     if request.method == 'POST':
         instance = Organisaties.objects.get(pk=pk)
@@ -377,6 +387,7 @@ def organization_item_edit_save(request, pk):
     return redirect(f"/beheerder/dashboard/organization/{pk}")
 
 
+@staff_member_required
 def attendance_request_item(request, pk):
     attendance_request_item_data = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').get(pk=pk)
 
@@ -387,6 +398,7 @@ def attendance_request_item(request, pk):
     return render(request, "beheerder/dashboard/dashboard_attendance_request_item.html", context)
 
 
+@staff_member_required
 def attendance_request_item_edit(request, pk):
     attendance_request_item_data = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').get(pk=pk)
     context = {
@@ -395,6 +407,7 @@ def attendance_request_item_edit(request, pk):
     return render(request, "beheerder/dashboard/dashboard_attendance_request_item_edit.html", context)
 
 
+@staff_member_required
 def attendance_request_item_edit_save(request, pk):
     if request.method == 'POST':
         instance = Deelnames.objects.select_related('onderzoeks').select_related('ervaringsdeskundige').get(pk=pk)
@@ -406,7 +419,7 @@ def attendance_request_item_edit_save(request, pk):
         return HttpResponse(status=400)
     return redirect(f"/beheerder/dashboard/attendance_request/{pk}")
 
-
+@staff_member_required
 @api_view(['GET'])
 def get_dashboard(request):
     data = dict()
