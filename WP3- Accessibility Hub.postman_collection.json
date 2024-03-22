@@ -331,7 +331,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n        \"titel\": \"Tevredensheids onderzoek ondersteundende stoel\",\r\n        \"status\": 1,\r\n        \"omschrijving\": \"Wij zijn aan het onderzoeken welk type ondersteunende stoel het beste past bij onze doelgroep. In dit onderzoek plaatsen we bij u een stoel en vragen we u naar uw ervaringen.\",\r\n        \"datum_vanaf\": \"2024-11-02\",\r\n        \"datum_tot\": \"2024-11-06\",\r\n        \"type_onderzoek\": \"Op locatie\",\r\n        \"locatie\": \"Bij u thuis (omgeving Rotterdam)\",\r\n        \"doelgroep_leeftijd_van\": 18,\r\n        \"doelgroep_leeftijd_tot\": 65,\r\n        \"met_beloning\": 1,\r\n        \"beloning\": \"Deelname wordt beloond met een bedrag van €1200,-\"\r\n}",
+					"raw": " {\r\n        \"titel\": \"Tevredensheids onderzoek ondersteundende stoel\",\r\n        \"status\": 1,\r\n        \"omschrijving\": \"Wij zijn aan het onderzoeken welk type ondersteunende stoel het beste past bij onze doelgroep. In dit onderzoek plaatsen we bij u een stoel en vragen we u naar uw ervaringen.\",\r\n        \"datum_vanaf\": \"2024-11-02\",\r\n        \"datum_tot\": \"2024-11-06\",\r\n        \"type_onderzoek\": \"Op locatie\",\r\n        \"locatie\": \"Bij u thuis (omgeving Rotterdam)\",\r\n        \"doelgroep_leeftijd_van\": 18,\r\n        \"doelgroep_leeftijd_tot\": 65,\r\n        \"met_beloning\": 1,\r\n        \"beloning\": \"Deelname wordt beloond met een bedrag van €1200,-\",\r\n        \"beperkingen\": [8, 9, 16]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

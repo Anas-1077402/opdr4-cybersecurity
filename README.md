@@ -63,7 +63,7 @@ Hier zijn de backlogs te vinden van de afgelopen 4 sprints:
 ## API documentatie
 Voor de opzet om een onderzoek te posten of te updaten kijk dan naar: [test_data](docs/test_data.json)
 
-API/organisatie/<int:organisatie_id>/onderzoeken/<int:onderzoeks_id>?api={api_key}:
+API/organisatie/onderzoeken/<int:onderzoeks_id>?api={api_key}:
 
 - **GET (1 specifiek onderzoek)**
     - Retourneert:
