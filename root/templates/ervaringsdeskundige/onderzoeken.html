@@ -107,9 +107,12 @@
                           <button type="submit" class="btn btn-primary">Meld aan</button>
                           {% endif %}
                         </form>
-                          {% if data.status == 1 %}
-                          <button class="btn btn-success">Ingeschreven</button>
-                          {% endif %}
+                        {% if data.status == 1  %}
+                        <button class="btn btn-success">Ingeschreven</button>
+                        {% endif %}
+                    {% if data.status == 2 %}
+                        <button class="btn btn-success">Lopend</button>
+                        {% endif %}
                     </td>
                   </tr>
                     {% endfor %}

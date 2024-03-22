@@ -100,18 +100,21 @@
                       <strong>Beloning: </strong>{{ data.onderzoek.beloning }} <br>
                       {% endif %}
                       <strong>Soort onderzoek: </strong>{{ data.onderzoek.soort_onderzoek }} <br>
-                      <h4 class="h6 mt-1"><strong>Type onderzoek: </strong></h4>
+                      <strong>Type onderzoek: </strong>                        {% if not data.type_onderzoek.telefonisch and not data.type_onderzoek.internet and not data.type_onderzoek.locatie %}
+                      Niet beschikbaar
+                      {% endif %}
                       <ul>
-                          {% if data.type_onderzoek.telefonisch %}
-                              <li>Telefonisch</li>
-                          {% endif %}
-                          {% if data.type_onderzoek.internet %}
-                              <li>Internet</li>
-                          {% endif %}
-                          {% if data.type_onderzoek.locatie %}
-                              <li>Op locatie</li>
-                          {% endif %}
-                      </ul>
+                        {% if data.type_onderzoek.telefonisch %}
+                            <li>Telefonisch</li>
+                        {% endif %}
+                        {% if data.type_onderzoek.internet %}
+                            <li>Internet</li>
+                        {% endif %}
+                        {% if data.type_onderzoek.locatie %}
+                            <li>Op locatie</li>
+                        {% endif %}
+
+                    </ul>
                       <br>
                     </p>
                     

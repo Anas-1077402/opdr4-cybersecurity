@@ -194,12 +194,14 @@ def onderzoeken(request):
         limitations = Beperkingen.objects.filter(id__in=limitation_ids)
         existing = Deelnames.objects.filter(
             ervaringsdeskundige_id=user.id, onderzoeks_id=investigation.onderzoeks_id
-        )
+        ).first()  # Haal de eerste deelname op als die bestaat
 
         status = 0
-
-        if existing:
+        if existing and existing.status == 1:
             status = 1
+
+        if existing and existing.status == 2:
+            status = 2
 
         investigations_with_limitations[investigation.onderzoeks_id] = {
             "onderzoek": investigation,
@@ -212,6 +214,7 @@ def onderzoeken(request):
         "ervaringsdeskundige/onderzoeken.html",
         {"investigations": investigations_with_limitations},
     )
+
 
 
 @login_required
