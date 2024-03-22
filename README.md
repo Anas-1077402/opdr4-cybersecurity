@@ -44,7 +44,7 @@ Voer al deze stappen uit in de opdrachtprompt (cmd)
 
 
 ## API documentatie
-Voor de opzet om een onderzoek te posten of te updaten kijk dan naar: [test_data](test_data.json)
+Voor de opzet om een onderzoek te posten of te updaten kijk dan naar: [test_data](docs/test_data.json)
 
 API/organisatie/<int:organisatie_id>/onderzoeken/<int:onderzoeks_id>?api={api_key}:
 
@@ -171,10 +171,20 @@ API/organisatie/<int:organisatie_id>/onderzoeken?api={api_key}:
 
 
 ## Bronnen
-De bronnen zijn te vinden in een apart bestand: [Bronnen bestand](bronnen.md)
+De bronnen zijn te vinden in een apart bestand: [Bronnen bestand](docs/bronnen.md)
+
 
 ## ERD
-De erd is te vinden in een apart GIF bestand: [ERD bestand](Webmasters_erd.gif)
+De erd is te vinden in een apart GIF bestand: [ERD bestand](docs/Webmasters_erd.gif)
+
+
+## Backlogs
+Hier zijn de backlogs te vinden van de afgelopen 4 sprints:
+1. [Backlog sprint 1](docs/Backlogs/1E5-Webmasters%20-%20Sprint%201%20-%20Backlog.csv)
+2. [Backlog sprint 2](docs/Backlogs/1E5-Webmasters%20-%20Sprint2%20-%20Backlog.csv)
+3. [Backlog sprint 3](docs/Backlogs/1E5-Webmasters%20-%20Sprint3%20-%20Backlog.csv)
+4. [Backlog sprint 4](docs/Backlogs/1E5-Webmasters%20-%20Sprint%204%20-%20Backlog.csv)
+
 
 
 ## Beperkingen
