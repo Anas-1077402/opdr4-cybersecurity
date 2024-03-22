@@ -31,7 +31,9 @@ class User(AbstractUser):
     bijzonderheden = models.TextField(max_length=100, default="", blank=True)
     beschikbaar_vanaf = models.DateTimeField()
     beschikbaar_tot = models.DateTimeField()
-    bijzonderheden_beschikbaarheid = models.TextField(max_length=100, blank=True)
+    bijzonderheden_beschikbaarheid = models.TextField(
+        max_length=100, blank=True
+        )
     username = models.CharField(max_length=100, unique=True)
     voorkeur_benadering = models.CharField(max_length=20)
     status = models.CharField(max_length=10, default=1)
