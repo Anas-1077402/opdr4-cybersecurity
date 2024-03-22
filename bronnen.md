@@ -33,3 +33,11 @@ Prompts ai:
 "Hoe doe ik op een andere manier dan een join een join in python met django."
 "hoe haal ik live data op uit de database als ik het in een functie zet?"
 "ik wil local storage gebruiken, zodat als een melding wordt laten zien dat hij volgende keer niet weer wordt laten zien. Hoe doe ik dat?"
+
+
+Bronnenlijst Anas:<br>
+[Styling]: https://getbootstrap.com/ <br>
+[Javascript]:https://www.w3schools.com/jsref/jsref_foreach.asp, https://www.w3schools.com/jsref/met_document_queryselectorall.asp, https://www.w3schools.com/js/js_if_else.asp, https://www.w3schools.com/jsref/prop_style_display.asp, https://stackoverflow.com/questions/49426650/loop-table-rows-using-foreach-loop-is-it-possible <br>
+[AJAX, Javascript]:https://www.youtube.com/watch?v=dIcCi2SG1CU, https://www.youtube.com/watch?v=mbW-0Pey7Aw <br>
+[Django, CRUD & REST API]:https://www.youtube.com/watch?v=0jR5UFsAHkU, https://www.django-rest-framework.org/ <br>
+https://www.djangoproject.com/, https://www.youtube.com/watch?v=opjyyXoqrxg, https://www.youtube.com/watch?v=4pSPWkrd-1M <br>
