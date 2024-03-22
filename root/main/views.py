@@ -6,7 +6,7 @@ from main.models import Organisaties, Onderzoeken
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
-from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
+from main.serializers import OrganisatieSerializer, OnderzoekenSerializer, OrganisatiePutSerializer
 from rest_framework.response import Response
 
 
@@ -61,22 +61,33 @@ def API(request):
         return JsonResponse(serializer.errors, status=400)
 
 
-@api_view(["GET", "POST", "PUT"])
+@api_view(["GET", "PUT"])
 def organisatie_details(request, pk):
+    api_key = request.GET.get("api_key")
     try:
         organistatie = Organisaties.objects.get(pk=pk)
     except Organisaties.DoesNotExist:
-        return HttpResponse(status=404)
+        return JsonResponse({"error": "Ongeldige organisatie id"}, status=404)
+
+    if organistatie.api_key != api_key:
+        return JsonResponse({"error": "Ongeldige API-key"}, status=403)
 
     if request.method == "GET":
         serializer = OrganisatieSerializer(organistatie)
         return JsonResponse(serializer.data)
 
     elif request.method == "PUT":
-        serializer = OrganisatieSerializer(organistatie, data=request.data)
+        if "organisatie_id" in request.data:
+            return JsonResponse({"error": "Not allow to change id"}, status=403)
+
+        old_phone = request.data['telefoonnummer']
+        request.data['telefoonnummer'] = int(old_phone.replace(" ", ""))
+        serializer = OrganisatiePutSerializer(organistatie, data=request.data)
+        print(serializer.initial_data)
         if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data)
+            print(serializer.data)
+            # serializer.update(organistatie, validated_data=request.data)
+            return JsonResponse(serializer.data, status=204)
         return JsonResponse(serializer.errors, status=400)
 
 

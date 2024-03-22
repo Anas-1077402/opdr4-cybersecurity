@@ -6,7 +6,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("register", views.register, name="register"),
     path("API", views.API, name="api_list_test"),
-    path("API/<int:pk>", views.organisatie_details, name="organisatie_details"),
+    path("api/organisatie/<int:pk>", views.organisatie_details, name="organisatie_details"),
     path(
         "API/organisatie/onderzoeken/<int:onderzoeks_id>",
         views.update_onderzoek,
