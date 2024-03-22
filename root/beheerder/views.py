@@ -1,18 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate, logout
-from django.contrib import messages
+from django.contrib.auth import logout
 from .forms import RegistratieFormulier, UserEditForm
 from django.http import JsonResponse, HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from main.models import Organisaties, Onderzoeken, User, Deelnames, Beperkingen
-from ervaringsdeskundige.models import BeperkingenOnderzoeken, User, BeperkingenErvaringsdeskundigen
+from ervaringsdeskundige.models import (
+    BeperkingenOnderzoeken,
+    User,
+    BeperkingenErvaringsdeskundigen
+    )
 from rest_framework.decorators import api_view
 from django.template.loader import render_to_string
-from main.serializers import OrganisatieSerializer, OnderzoekenSerializer, ExperienceExpertSerializer
+from main.serializers import (
+    OrganisatieSerializer,
+    OnderzoekenSerializer,
+    ExperienceExpertSerializer
+    )
 from ervaringsdeskundige.models import User as TestUser
 from django.db import transaction, connection
 from django.db.models import Q
-
 
 
 def home_view(request):
@@ -21,8 +27,8 @@ def home_view(request):
 
 @staff_member_required
 def dashboard_beheerder(request):
-    pending_admins = User.objects.filter(status=1).filter(is_staff=1)
-    current_user = request.user
+    #pending_admins = User.objects.filter(status=1).filter(is_staff=1)
+    #current_user = request.user
     return render(request, 'beheerder/dashboard/dashboard.html')
 
 
@@ -210,7 +216,7 @@ def admin_create(request):
     else:
         # Maak een leeg formulier voor GET-verzoeken
         reg_form = RegistratieFormulier()
-        
+
     return render(request, 'beheerder/admin_create.html', {'form': reg_form})
 
 
@@ -442,6 +448,7 @@ def attendance_request_item_edit_save(request, pk):
             return redirect(f"/beheerder/dashboard/attendance_request/{pk}")
         return HttpResponse(status=400)
     return redirect(f"/beheerder/dashboard/attendance_request/{pk}")
+
 
 @staff_member_required
 @api_view(['GET'])

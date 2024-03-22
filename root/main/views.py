@@ -1,12 +1,19 @@
-from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
-from main.models import Organisaties, Onderzoeken
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login as auth_login, authenticate, logout
+from main.models import Organisaties, Onderzoeken, Beperkingen, Deelnames
+from ervaringsdeskundige.models import (
+    BeperkingenOnderzoeken,
+    )
+from django.shortcuts import render, redirect
+from django.contrib.auth import login as auth_login, authenticate
 from django.contrib import messages
-from main.serializers import OrganisatieSerializer, OnderzoekenSerializer, OrganisatiePutSerializer
+from main.serializers import (
+    OrganisatieSerializer,
+    OnderzoekenSerializer,
+    OrganisatiePutSerializer,
+    ExperienceExpertSerializer
+    )
 from rest_framework.response import Response
 
 
@@ -78,7 +85,10 @@ def organisatie_details(request, pk):
 
     elif request.method == "PUT":
         if "organisatie_id" in request.data:
-            return JsonResponse({"error": "Not allow to change id"}, status=403)
+            return JsonResponse(
+                {"error": "Not allow to change id"},
+                status=403
+                )
 
         old_phone = request.data['telefoonnummer']
         request.data['telefoonnummer'] = int(old_phone.replace(" ", ""))
@@ -91,19 +101,58 @@ def organisatie_details(request, pk):
         return JsonResponse(serializer.errors, status=400)
 
 
-
-@api_view(['PUT'])
+@api_view(['GET', 'PUT'])
 def update_onderzoek(request, onderzoeks_id):
-    API_key = request.GET.get('api')
-    print(API_key)
+    API_key = request.GET.get('api_key')
     try:
-        onderzoek = Onderzoeken.objects.get(pk=onderzoeks_id)
-    except Onderzoeken.DoesNotExist:
+        organisation = Organisaties.objects.get(api_key=API_key)
+        onderzoek = Onderzoeken.objects.filter(organisatie_id=organisation.pk).get(pk=onderzoeks_id)
+        limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=onderzoek.onderzoeks_id).values_list('beperking_id', flat=True)
+        limitations = Beperkingen.objects.filter(id__in=limitation_ids)
+        list_attendance_request = Deelnames.objects.filter(onderzoeks_id=onderzoeks_id).select_related('ervaringsdeskundige')
+
+        list_limitations_research = []
+
+        for limitation in limitations:
+            list_limitations_research.append(limitation.omschrijving)
+
+        list_experts = []
+        for x in list_attendance_request:
+            list_experts.append(x.ervaringsdeskundige)
+
+    except Onderzoeken.DoesNotExist or Organisaties.DoesNotExist:
         return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = OnderzoekenSerializer(onderzoek)
+        serializer_experts = ExperienceExpertSerializer(
+            list_experts,
+            many=True
+            )
+        data = {
+            "omschrijving": serializer.data["omschrijving"],
+            "doelgroep_beperking": list_limitations_research,
+            "doelgroep_leeftijd_tot": serializer.data["doelgroep_leeftijd_tot"],
+            "doelgroep_leeftijd_van": serializer.data["doelgroep_leeftijd_van"],
+            "datum_vanaf": serializer.data["datum_vanaf"],
+            "datum_tot": serializer.data["datum_tot"],
+            "experts": serializer_experts.data,
+            "onderzoeks_id": serializer.data["onderzoeks_id"],
+            "met_beloning": serializer.data["met_beloning"],
+            "titel": serializer.data["titel"],
+            "status": serializer.data["status"],
+            "type_onderzoek": serializer.data["type_onderzoek"],
+        }
+        return JsonResponse(data)
 
     if request.method == 'PUT':
         serializer_context = {'API_key': API_key}
-        serializer = OnderzoekenSerializer(onderzoek, data=request.data, partial=True, context=serializer_context)
+        serializer = OnderzoekenSerializer(
+            onderzoek,
+            data=request.data,
+            partial=True,
+            context=serializer_context
+            )
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
@@ -112,7 +161,7 @@ def update_onderzoek(request, onderzoeks_id):
 
 @api_view(["GET", "POST"])
 def lijst_onderzoeken(request):
-    API_key = request.GET.get("api")
+    API_key = request.GET.get("api_key")
 
     if request.method == "GET":
         try:
