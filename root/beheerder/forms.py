@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from ervaringsdeskundige.models import User
 
+
 class RegistratieFormulier(UserCreationForm):
     functie = forms.CharField(max_length=100,)
 
