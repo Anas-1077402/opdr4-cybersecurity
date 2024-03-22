@@ -32,7 +32,6 @@ def custom_login(request):
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
-        print(user)
         if user is not None and user.status == 2:
             auth_login(request, user)
             if request.user.is_authenticated and request.user.is_staff == 1:
@@ -93,10 +92,8 @@ def organisatie_details(request, pk):
         old_phone = request.data['telefoonnummer']
         request.data['telefoonnummer'] = int(old_phone.replace(" ", ""))
         serializer = OrganisatiePutSerializer(organistatie, data=request.data)
-        print(serializer.initial_data)
         if serializer.is_valid():
-            print(serializer.data)
-            # serializer.update(organistatie, validated_data=request.data)
+            serializer.update(organistatie, validated_data=request.data)
             return JsonResponse(serializer.data, status=204)
         return JsonResponse(serializer.errors, status=400)
 

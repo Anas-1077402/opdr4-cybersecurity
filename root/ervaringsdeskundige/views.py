@@ -414,7 +414,6 @@ def inspect_investigation(request, investigation_id):
         type_investigation = TypeOnderzoek.objects.filter(
             onderzoeks_id=investigation_id
         ).first()
-        print(type_investigation.internet)
         investigations_with_limitations[investigation.onderzoeks_id] = {
             "onderzoek": investigation,
             "beperkingen": limitations,

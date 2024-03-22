@@ -66,7 +66,6 @@ def logout_beheerder(request):
 def change_status(request, user_id, action):
     pending_admin = get_object_or_404(User, id=user_id)
     if action == 'approved':
-        print("check2")
         pending_admin.status = 2
         pending_admin.save()
         return redirect('/beheerder/dashboard')
@@ -490,7 +489,6 @@ def organization_item_edit_save(request, pk):
         if serializer.is_valid():
             serializer.save()
             return redirect(f"/beheerder/dashboard/organization/{pk}")
-        print(serializer.errors)
         return HttpResponse(status=400)
     return redirect(f"/beheerder/dashboard/organization/{pk}")
 
