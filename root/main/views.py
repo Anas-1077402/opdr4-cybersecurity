@@ -1,10 +1,9 @@
-from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from main.models import Organisaties, Onderzoeken
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login as auth_login, authenticate, logout
+from django.shortcuts import render, redirect
+from django.contrib.auth import login as auth_login, authenticate
 from django.contrib import messages
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer
 from rest_framework.response import Response

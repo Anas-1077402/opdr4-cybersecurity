@@ -120,13 +120,3 @@ class ExperienceExpertSerializer(serializers.ModelSerializer):
             "bijzonderheden_beschikbaarheid",
             "status",
         ]
-
-
-# 'password',
-# 'last_login',
-# 'is_superuser',
-# 'is_staff',
-# 'is_active',
-# 'date_joined',
-# 'datum_goedgekeurd',
-# 'goedegekeurd_door',
