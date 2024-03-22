@@ -210,7 +210,6 @@ def admin_create(request):
     else:
         # Maak een leeg formulier voor GET-verzoeken
         reg_form = RegistratieFormulier()
-        
     return render(request, 'beheerder/admin_create.html', {'form': reg_form})
 
 
