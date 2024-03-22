@@ -59,13 +59,13 @@ API/organisatie/<int:organisatie_id>/onderzoeken/<int:onderzoeks_id>?api={api_ke
         - beloning (string)
         - doelgroep_leeftijd_van (integer)
         - doelgroep_leeftijd_tot (integer)
+        - type_onderzoek (integer)
         - contact_opgenomen (boolean)
         - opmerkingen_beheerder (string)
 
 
 - **PUT (1 specifiek onderzoek)**
     - Een JSON-object met de velden die bijgewerkt moeten worden:
-        - api (string): API-key van de organisatie
         - titel (string): Titel van het onderzoek
         - omschrijving (string): Omschrijving van het onderzoek
         - datum_vanaf (date): Begindatum van het onderzoek
@@ -76,8 +76,11 @@ API/organisatie/<int:organisatie_id>/onderzoeken/<int:onderzoeks_id>?api={api_ke
         - beloning (string): Omschrijving van de beloning (optioneel)
         - doelgroep_leeftijd_van (integer): Minimale leeftijd van de doelgroep
         - doelgroep_leeftijd_tot (integer): Maximale leeftijd van de doelgroep
+
+        - beperkingen (array): Een array van objecten die de beperkingen van het onderzoek beschrijven. Elk object heeft een beperking_id veld dat het ID van de beperking vertegenwoordigt. Voor meer informatie, scroll verder naar beneden om te
+        kijken welke id bij welke beperking hoort.
+
         - contact_opgenomen (boolean): Geeft aan of er contact is opgenomen met de doelgroep
-        - opmerkingen_beheerder (string): Eventuele opmerkingen van de beheerder
 
     - Retourneert:
         - onderzoeks_id (integer)
@@ -93,6 +96,7 @@ API/organisatie/<int:organisatie_id>/onderzoeken/<int:onderzoeks_id>?api={api_ke
         - beloning (string)
         - doelgroep_leeftijd_van (integer)
         - doelgroep_leeftijd_tot (integer)
+        - type_onderzoek (integer): 1 = locatie, 2 = telefonisch, 3 = online
         - contact_opgenomen (boolean)
         - opmerkingen_beheerder (string)
 
@@ -101,7 +105,6 @@ API/organisatie/<int:organisatie_id>/onderzoeken?api={api_key}:
 
 - **POST (nieuw onderzoek aanmaken)**
     - Een JSON-object met de velden die bijgewerkt moeten worden:
-        - api (string): API-key van de organisatie
         - titel (string): Titel van het onderzoek
         - omschrijving (string): Omschrijving van het onderzoek
         - datum_vanaf (date): Begindatum van het onderzoek
@@ -112,6 +115,11 @@ API/organisatie/<int:organisatie_id>/onderzoeken?api={api_key}:
         - beloning (string): Omschrijving van de beloning (optioneel)
         - doelgroep_leeftijd_van (integer): Minimale leeftijd van de doelgroep
         - doelgroep_leeftijd_tot (integer): Maximale leeftijd van de doelgroep
+        - type_onderzoek (integer): 1 = locatie, 2 = telefonisch, 3 = online
+
+        - beperkingen (array): Een array van objecten die de beperkingen van het onderzoek beschrijven. Elk object heeft een beperking_id veld dat het ID van de beperking vertegenwoordigt. Voor meer informatie, scroll verder naar beneden om te
+        kijken welke id bij welke beperking hoort.
+
         - contact_opgenomen (boolean): Geeft aan of er contact is opgenomen met de doelgroep
         - opmerkingen_beheerder (string): Eventuele opmerkingen van de beheerder
 
@@ -129,6 +137,7 @@ API/organisatie/<int:organisatie_id>/onderzoeken?api={api_key}:
         - beloning (string)
         - doelgroep_leeftijd_van (integer)
         - doelgroep_leeftijd_tot (integer)
+        - type_onderzoek (integer)
         - contact_opgenomen (boolean)
         - opmerkingen_beheerder (string)
 
@@ -148,6 +157,7 @@ API/organisatie/<int:organisatie_id>/onderzoeken?api={api_key}:
         - beloning (string)
         - doelgroep_leeftijd_van (integer)
         - doelgroep_leeftijd_tot (integer)
+        - type_onderzoek (integer)
         - contact_opgenomen (boolean)
         - opmerkingen_beheerder (string)
 
@@ -155,3 +165,29 @@ API/organisatie/<int:organisatie_id>/onderzoeken?api={api_key}:
 
 ## Bronnen
 De bronnen zijn te vinden in een apart bestand genaamd: `bronnen.md`
+
+
+## Beperkingen
+1	Doof	                        Auditieve beperking
+2	Slechthorend	                Auditieve beperking
+3	Doofblind	                    Auditieve beperking
+4	Blind	                        Visuele beperking
+5	Slechtziend	                    Visuele beperking
+6	Kleurenblind	                Visuele beperking
+7	Doofblind	                    Visuele beperking
+8	Amputatie of mismaaktheid	    Motorische / lichamelijke beperkingen
+9	Artritus	                    Motorische / lichamelijke beperkingen
+10	Fibromyalgie	                Motorische / lichamelijke beperkingen
+11	Reuma	                        Motorische / lichamelijke beperkingen
+12	Verminderde handvaardigheid	    Motorische / lichamelijke beperkingen
+13	Spierdystrofie	                Motorische / lichamelijke beperkingen
+14	RSI	                            Motorische / lichamelijke beperkingen
+15	Tremor en Spasmen	            Motorische / lichamelijke beperkingen
+16	Quadriplegie of tetraplegie	    Motorische / lichamelijke beperkingen
+17	ADHD	                        Cognitieve / neurologische beperkingen
+18	Autisme	                        Cognitieve / neurologische beperkingen
+19	Leerstoornis	                Cognitieve / neurologische beperkingen
+20	Geheugen beperking	            Cognitieve / neurologische beperkingen
+21	Multiple Sclerose	            Cognitieve / neurologische beperkingen
+22	Epilepsie	                    Cognitieve / neurologische beperkingen
+23	Migraine	                    Cognitieve / neurologische beperkingen
