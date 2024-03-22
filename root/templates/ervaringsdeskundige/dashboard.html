@@ -107,7 +107,7 @@
                         {% if ongoing_investigations %}
                             {% for investigation_id, data in ongoing_investigations.items %}
                                 <tr>
-                                    <td>{{ data.onderzoek.titel }}</td>
+                                    <td><a href="inspect_investigation/{{ data.onderzoek.onderzoeks_id }}">{{ data.onderzoek.titel }}</a></td>
                                     <td>{{ data.onderzoek.omschrijving }}</td>
                                     <td>{% if data.onderzoek.met_beloning == 1 %}
                                         {{ data.onderzoek.beloning }}
@@ -115,10 +115,13 @@
                                         Geen beloning beschikbaar
                                     {% endif %}</td>
                                     <td>
-                                        <form method="post" action="unsubscribe_investigation/{{ data.onderzoek.onderzoeks_id }}">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-danger">Schrijf uit</button>
-                                        </form>
+                                        {% if data.beperkingen %}
+                                            {% for limitation in data.beperkingen %}
+                                                {{ limitation.omschrijving }}{% if not forloop.last %},{% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            Geen beperkingen beschikbaar
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -146,7 +149,7 @@
                         {% if finished_investigations %}
                             {% for investigation_id, data in finished_investigations.items %}
                                 <tr>
-                                    <td>{{ data.onderzoek.titel }}</td>
+                                    <td><a href="inspect_investigation/{{ data.onderzoek.onderzoeks_id }}">{{ data.onderzoek.titel }}</a></td>
                                     <td>{{ data.onderzoek.omschrijving }}</td>
                                     <td>{% if data.onderzoek.met_beloning == 1 %}
                                         {{ data.onderzoek.beloning }}

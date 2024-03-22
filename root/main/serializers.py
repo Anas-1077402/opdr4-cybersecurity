@@ -5,7 +5,9 @@ from ervaringsdeskundige.models import User, BeperkingenOnderzoeken
 
 class OrganisatieSerializer(serializers.Serializer):
     organistatie_id = serializers.IntegerField(read_only=True)
-    naam = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    naam = serializers.CharField(
+        max_length=255, allow_blank=True, allow_null=True
+    )
     kvk = serializers.CharField(
         max_length=255, allow_blank=True, allow_null=True, source="KVK"
     )
@@ -20,9 +22,15 @@ class OrganisatieSerializer(serializers.Serializer):
     telefoonnummer = serializers.CharField(
         max_length=64, allow_blank=True, allow_null=True
     )
-    api_key = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
-    status = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
-    type = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    api_key = serializers.CharField(
+        max_length=255, allow_blank=True, allow_null=True
+    )
+    status = serializers.CharField(
+        max_length=255, allow_blank=True, allow_null=True
+    )
+    type = serializers.CharField(
+        max_length=255, allow_blank=True, allow_null=True
+    )
 
     class Meta:
         managed = False
@@ -39,7 +47,7 @@ class OrganisatieSerializer(serializers.Serializer):
             "beschrijving", instance.beschrijving
         )
         instance.contact_persoon = validated_data.get(
-            "contact_persoon", instance.contact_persoon
+            "contactpersoon", instance.contact_persoon
         )
         instance.email = validated_data.get("email", instance.email)
         instance.telefoonnummer = validated_data.get(
@@ -52,9 +60,14 @@ class OrganisatieSerializer(serializers.Serializer):
         instance.save()
         return instance
 
+
 class OrganisatiePutSerializer(serializers.Serializer):
     organistatie_id = serializers.IntegerField(read_only=True)
-    naam = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    naam = serializers.CharField(
+        max_length=255,
+        allow_blank=True,
+        allow_null=True
+        )
     kvk = serializers.CharField(
         max_length=255, allow_blank=True, allow_null=True, source="KVK"
     )
@@ -69,7 +82,9 @@ class OrganisatiePutSerializer(serializers.Serializer):
     telefoonnummer = serializers.CharField(
         max_length=64, allow_blank=True, allow_null=True
     )
-    type = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    type = serializers.CharField(
+        max_length=255, allow_blank=True, allow_null=True
+    )
 
     class Meta:
         managed = False
@@ -165,13 +180,3 @@ class ExperienceExpertSerializer(serializers.ModelSerializer):
             "bijzonderheden_beschikbaarheid",
             "status",
         ]
-
-
-# 'password',
-# 'last_login',
-# 'is_superuser',
-# 'is_staff',
-# 'is_active',
-# 'date_joined',
-# 'datum_goedgekeurd',
-# 'goedegekeurd_door',

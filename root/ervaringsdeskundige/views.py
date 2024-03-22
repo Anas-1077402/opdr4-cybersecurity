@@ -2,7 +2,6 @@ from .forms import RegisterForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from ervaringsdeskundige.models import User
 from .forms import RegisterForm, ToezichthoudersForm, UserEditForm
 from main.models import (
     Onderzoeken,
@@ -15,7 +14,6 @@ from main.models import (
 from .models import BeperkingenOnderzoeken
 from django.http import JsonResponse, FileResponse
 from django.contrib.staticfiles import finders
-from main.models import User
 import datetime
 
 
@@ -29,7 +27,10 @@ def register(request):
         if form.is_valid():
             user = form.save()
 
+            #lijst uit het formulier ophalen
             selected_limitations = request.POST.getlist("selected_limitations[]")
+
+            #per beperking opslaan als losse rij in de database
             for selected_limitation in selected_limitations:
                 ervaringsdeskundige_beperking = BeperkingenErvaringsdeskundigen(
                     beperking_id=int(selected_limitation),
@@ -40,6 +41,7 @@ def register(request):
             type_onderzoek = TypeOnderzoek()
             type_onderzoek.ervaringsdeskundige_id = user.id
 
+            #per type beperking opslaan als losse rij in de database
             type_investigation = request.POST.getlist("type_investigation[]")
             for investigation_type in type_investigation:
                 if "Telefonisch" in investigation_type:
@@ -51,6 +53,7 @@ def register(request):
 
             type_onderzoek.save()
 
+            # dubbelcheck als iemand onder de 18 is wordt toezichthouder opgeslagen
             if (
                 user.geboortedatum
                 and (datetime.date.today() - user.geboortedatum).days / 365 < 18
@@ -78,6 +81,7 @@ def dashboard_ervaringsdeskundige(request):
 
     user_id = request.user.id
 
+    # haal de data op voor lopende onderzoeken
     current_investigations = Deelnames.objects.filter(
         ervaringsdeskundige_id=user_id
     ).filter(status=2)
@@ -100,6 +104,9 @@ def dashboard_ervaringsdeskundige(request):
             "beperkingen": limitations,
         }
 
+
+
+    # haal de data voor lopende onderzoeken
     current_investigations_2 = Deelnames.objects.filter(
         ervaringsdeskundige_id=user_id
     ).filter(status=4)
@@ -112,6 +119,7 @@ def dashboard_ervaringsdeskundige(request):
 
     investigations_with_limitations_2 = {}
 
+    # haal daarbij elke losse rij met beperking op voor het onderzoek
     for investigation in investigations_2:
         limitation_ids = BeperkingenOnderzoeken.objects.filter(
             onderzoeks_id=investigation.onderzoeks_id
@@ -194,12 +202,14 @@ def onderzoeken(request):
         limitations = Beperkingen.objects.filter(id__in=limitation_ids)
         existing = Deelnames.objects.filter(
             ervaringsdeskundige_id=user.id, onderzoeks_id=investigation.onderzoeks_id
-        )
+        ).first()
 
         status = 0
-
-        if existing:
+        if existing and existing.status == 1:
             status = 1
+
+        if existing and existing.status == 2:
+            status = 2
 
         investigations_with_limitations[investigation.onderzoeks_id] = {
             "onderzoek": investigation,
@@ -212,6 +222,7 @@ def onderzoeken(request):
         "ervaringsdeskundige/onderzoeken.html",
         {"investigations": investigations_with_limitations},
     )
+
 
 
 @login_required

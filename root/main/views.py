@@ -106,10 +106,16 @@ def update_onderzoek(request, onderzoeks_id):
     API_key = request.GET.get('api_key')
     try:
         organisation = Organisaties.objects.get(api_key=API_key)
-        onderzoek = Onderzoeken.objects.filter(organisatie_id=organisation.pk).get(pk=onderzoeks_id)
-        limitation_ids = BeperkingenOnderzoeken.objects.filter(onderzoeks_id=onderzoek.onderzoeks_id).values_list('beperking_id', flat=True)
+        onderzoek = Onderzoeken.objects.filter(
+            organisatie_id=organisation.pk
+            ).get(pk=onderzoeks_id)
+        limitation_ids = BeperkingenOnderzoeken.objects.filter(
+            onderzoeks_id=onderzoek.onderzoeks_id
+            ).values_list('beperking_id', flat=True)
         limitations = Beperkingen.objects.filter(id__in=limitation_ids)
-        list_attendance_request = Deelnames.objects.filter(onderzoeks_id=onderzoeks_id).select_related('ervaringsdeskundige')
+        list_attendance_request = Deelnames.objects.filter(
+            onderzoeks_id=onderzoeks_id
+            ).select_related('ervaringsdeskundige')
 
         list_limitations_research = []
 
@@ -117,8 +123,8 @@ def update_onderzoek(request, onderzoeks_id):
             list_limitations_research.append(limitation.omschrijving)
 
         list_experts = []
-        for x in list_attendance_request:
-            list_experts.append(x.ervaringsdeskundige)
+        for attendance in list_attendance_request:
+            list_experts.append(attendance.ervaringsdeskundige)
 
     except Onderzoeken.DoesNotExist or Organisaties.DoesNotExist:
         return HttpResponse(status=404)
@@ -132,8 +138,12 @@ def update_onderzoek(request, onderzoeks_id):
         data = {
             "omschrijving": serializer.data["omschrijving"],
             "doelgroep_beperking": list_limitations_research,
-            "doelgroep_leeftijd_tot": serializer.data["doelgroep_leeftijd_tot"],
-            "doelgroep_leeftijd_van": serializer.data["doelgroep_leeftijd_van"],
+            "doelgroep_leeftijd_tot": serializer.data[
+                "doelgroep_leeftijd_tot"
+                ],
+            "doelgroep_leeftijd_van": serializer.data[
+                "doelgroep_leeftijd_van"
+                ],
             "datum_vanaf": serializer.data["datum_vanaf"],
             "datum_tot": serializer.data["datum_tot"],
             "experts": serializer_experts.data,
