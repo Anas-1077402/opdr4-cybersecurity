@@ -14,19 +14,21 @@ class Toezichthouders(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'Toezichthouders'
+        db_table = "Toezichthouders"
 
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     postcode = models.CharField(max_length=10)
-    geslacht = models.CharField(max_length=10, choices=[('M','Man'),('V', 'Vrouw'), ('0', 'Anders')])
+    geslacht = models.CharField(
+        max_length=10, choices=[("M", "Man"), ("V", "Vrouw"), ("0", "Anders")]
+    )
     email = models.EmailField()
     telefoonnummer = models.CharField(max_length=100)
     geboortedatum = models.DateField()
     gebruikte_hulpmiddelen = models.TextField(max_length=200)
-    bijzonderheden = models.TextField(max_length=100, default='', blank=True)
+    bijzonderheden = models.TextField(max_length=100, default="", blank=True)
     beschikbaar_vanaf = models.DateTimeField()
     beschikbaar_tot = models.DateTimeField()
     bijzonderheden_beschikbaarheid = models.TextField(max_length=100, blank=True)
@@ -36,27 +38,34 @@ class User(AbstractUser):
     opmerking_verwijderd = models.TextField(blank=True, null=True)
     datum_goedgekeurd = models.DateTimeField(blank=True, null=True)
     goedegekeurd_door = models.CharField(max_length=100, null=True)
-    #userpermission
+    # userpermission
     groups = models.ManyToManyField(
         Group,
-        verbose_name='groups',
-        related_name='user_groups',
+        verbose_name="groups",
+        related_name="user_groups",
         blank=True,
-        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
-        related_query_name='user',
+        help_text="The groups this user belongs to. A user will get all permissions granted to each of their groups.",
+        related_query_name="user",
     )
     user_permissions = models.ManyToManyField(
         Permission,
-        verbose_name='user permissions',
-        related_name='user_user_permissions',
+        verbose_name="user permissions",
+        related_name="user_user_permissions",
         blank=True,
-        help_text='Specific permissions for this user.',
-        related_query_name='user',
+        help_text="Specific permissions for this user.",
+        related_query_name="user",
     )
 
     def age(self):
         date_today = date.today()
-        leeftijd = date_today.year - self.geboortedatum.year - ((date_today.month, date_today.day) < (self.geboortedatum.month, self.geboortedatum.day))
+        leeftijd = (
+            date_today.year
+            - self.geboortedatum.year
+            - (
+                (date_today.month, date_today.day)
+                < (self.geboortedatum.month, self.geboortedatum.day)
+            )
+        )
         return leeftijd
 
 
@@ -66,7 +75,7 @@ class BeperkingenErvaringsdeskundigen(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'Beperkingen_ervaringsdeskundigen'
+        db_table = "Beperkingen_ervaringsdeskundigen"
 
 
 class BeperkingenOnderzoeken(models.Model):
@@ -75,4 +84,4 @@ class BeperkingenOnderzoeken(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'Beperkingen_onderzoeken'
+        db_table = "Beperkingen_onderzoeken"

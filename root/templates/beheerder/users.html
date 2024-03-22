@@ -85,34 +85,50 @@ function updateUsersTable(users) {
 
 </script>
           <br>
-          <div class="d-flex justify-content-center align-items-center">
-              <div id="card" class="container m-3 p-1">
-              <!-- Filteren op beheerder -->
-                  <form id="filterForm" class="mb-3">
-                    <label for="filterType">Filter op:</label>
-                    <select id="filterType" class="form-select">
-                        <option value="all">Alle Gebruikers</option>
-                        <option value="is_staff">Is Beheerder</option>
-                    </select>
-                    <button type="button" class="btn btn-primary" onclick="applyFilter()">
-                         Filteren
-                    </button>
-                  </form>
-              <!-- Tabel met loop user uit db halen -->
-                  <table id="users-table" class="table">
-                    <h2 class="p-3">Alle Gebruikers</h2>
-                      <thead>
-                      <tr>
-                          <th scope="col">Voornaam</th>
-                          <th scope="col">Achternaam</th>
-                          <th scope="col">Is Beheerder</th>
-                          <th scope="col">Datum Deelname</th>
-                          <th scope="col">Actie</th>
-                          <label>Zoek op keywords:</label><br>
-                          <input type="text" id="search-input" placeholder="Zoeken...">
-                      </tr>
-                      </thead>
-                      <tbody>
+          <div class="d-flex justify-content-center align-items-center" >
+            <div id="card" class="container m-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="p-3 text-center">Gebruikers</h2>
+                    <a href="/beheerder/admin_create"><button class="btn btn-success me-3">Maak admin aan</button></a>
+                </div>
+                
+                <div class="row mb-3">
+                    <!-- Filteren op beheerder -->
+                    <div class="col-md-6">
+                        <form id="filterForm" style="padding-left: 15px;">
+                            <div class="input-group">
+                                <label for="filterType" class="me-2 align-self-center">Filter op:</label>
+                                <select id="filterType" class="form-select">
+                                    <option value="all">Alle Gebruikers</option>
+                                    <option value="is_staff">Is Beheerder</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Zoeken op keywords -->
+                    <div class="col-md-6">
+                        <div class="input-group" style="padding-right: 15px;">
+                            <label for="search-input" class="me-2 align-self-center">Zoek op keywords:</label>
+                            <input type="text" id="search-input" class="form-control" placeholder="Zoeken...">
+                        </div>
+                    </div>
+                </div>
+                
+
+                
+                <!-- Tabel met loop user uit db halen -->
+                <table id="users-table" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Voornaam</th>
+                            <th scope="col">Achternaam</th>
+                            <th scope="col">Is Beheerder</th>
+                            <th scope="col">Datum Deelname</th>
+                            <th scope="col">Actie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {% for user in all_users %}
                             <tr>
                                 <td>{{ user.first_name }}</td>
@@ -125,16 +141,8 @@ function updateUsersTable(users) {
                                 </td>
                             </tr>
                         {% endfor %}
-                          {% for admin in pending_admins %}
-                      <tr>
-                          <td><a href="/beheerder/checkout_admin/{{ admin.id }}">{{ admin.first_name }} {{ admin.last_name}}</a></td>
-                          <td>{{ admin.email }}</td>
-                          <td>{{ admin.functie }}</td>
-                          <td>{% if admin.status == 1 %}In afwachting... {% endif %}</td>
-                      </tr>
-                      {% endfor %}
-                      </tbody>
-                  </table>
-              </div>
-          </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 {% endblock %}

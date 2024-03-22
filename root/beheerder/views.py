@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .forms import RegistratieFormulier, UserEditForm, UserBeheerderForm
+from .forms import RegistratieFormulier, UserEditForm
 from django.http import JsonResponse, HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from main.models import Organisaties, Onderzoeken, User, Deelnames, Beperkingen
@@ -9,7 +9,6 @@ from ervaringsdeskundige.models import BeperkingenOnderzoeken, User, Beperkingen
 from rest_framework.decorators import api_view
 from django.template.loader import render_to_string
 from main.serializers import OrganisatieSerializer, OnderzoekenSerializer, ExperienceExpertSerializer
-from beheerder.models import Beheerders
 from ervaringsdeskundige.models import User as TestUser
 from django.db import transaction, connection
 from django.db.models import Q
@@ -144,10 +143,10 @@ def verwijder_onderzoek(request, onderzoeks_id):
 
 @staff_member_required
 def user_list(request):
-    beheerders = Beheerders.objects.all()
+    # beheerders = Beheerders.objects.all()
     ervaringsdeskundigen = User.objects.values('id','first_name', 'last_name', 'is_superuser', 'is_staff', 'date_joined')
 
-    all_users = list(beheerders) + list(ervaringsdeskundigen)
+    all_users = list(ervaringsdeskundigen)
 
     return render(request, 'beheerder/users.html', {'all_users': all_users})
 
@@ -155,11 +154,11 @@ def user_list(request):
 @staff_member_required
 def search_users(request):
     query = request.GET.get('query', '')
-    beheerders = Beheerders.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)).all()
+    # beheerders = Beheerders.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)).all()
     ervaringsdeskundigen = TestUser.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query)).all()
 
     user_list = []
-    for user in list(beheerders) + list(ervaringsdeskundigen):
+    for user in list(ervaringsdeskundigen):
         user_data = {
             'id': user.id,
             'first_name': user.first_name,
@@ -174,7 +173,7 @@ def search_users(request):
 @staff_member_required
 def user_delete(request, id):
     sql_query = "DELETE FROM ervaringsdeskundige_user WHERE id = %s"
-    beheerder_sql_query = "DELETE FROM beheerder_beheerders WHERE id = %s"
+    beheerder_sql_query = "DELETE FROM ervaringsdeskundige_user WHERE id = %s"
 
     try:
       with transaction.atomic():
@@ -190,15 +189,7 @@ def user_delete(request, id):
 @staff_member_required
 def user_edit(request, id):
     # hier checked hij eerst of het beheerder is -> zo niet dan ervaringsdeskundige formulier
-        if Beheerders.objects.filter(id=id).exists():
-            user = get_object_or_404(Beheerders, id=id)
-            if request.method == 'POST':
-                form = UserBeheerderForm(request.POST, instance=user)
-                if form.is_valid():
-                    form.save()
-                    return redirect('user_list')
-        else:
-            user = get_object_or_404(User, id=id)
+        user = get_object_or_404(User, id=id)
 
         if request.method == 'POST':
             form = UserEditForm(request.POST, instance=user)
@@ -208,6 +199,19 @@ def user_edit(request, id):
         else:
             form = UserEditForm(instance=user)
         return render(request, 'beheerder/user_edit.html', {'form': form})
+
+@staff_member_required
+def admin_create(request):
+    if request.method == "POST":
+        reg_form = RegistratieFormulier(request.POST)
+        if reg_form.is_valid():
+            reg_form.save()
+            return redirect('user_list')
+    else:
+        # Maak een leeg formulier voor GET-verzoeken
+        reg_form = RegistratieFormulier()
+        
+    return render(request, 'beheerder/admin_create.html', {'form': reg_form})
 
 
 @staff_member_required
