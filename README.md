@@ -3,6 +3,8 @@ Applicatie geproduceerd door Rachaan de Graaff, Anas Amhaou & Niels Hoogeveen. D
 applicatie is ontworpen voor Stichting Accessibility (zie ook de [opdracht](CASUS.md)) 
 
 
+
+
 ## Installatie
 Voer al deze stappen uit in de opdrachtprompt (cmd)
 
@@ -37,6 +39,8 @@ Voer al deze stappen uit in de opdrachtprompt (cmd)
     - Ervaringsdeskundige:
         - Gebruikersnaam: test_niels
         - Wachtwoord: Test123N
+
+
 
 
 ## API documentatie
@@ -101,6 +105,7 @@ API/organisatie/<int:organisatie_id>/onderzoeken/<int:onderzoeks_id>?api={api_ke
         - opmerkingen_beheerder (string)
 
 
+
 API/organisatie/<int:organisatie_id>/onderzoeken?api={api_key}:
 
 - **POST (nieuw onderzoek aanmaken)**
@@ -163,31 +168,36 @@ API/organisatie/<int:organisatie_id>/onderzoeken?api={api_key}:
 
 
 
+
+
 ## Bronnen
 De bronnen zijn te vinden in een apart bestand genaamd: `bronnen.md`
 
 
+
+
+
 ## Beperkingen
-1	Doof	                        Auditieve beperking
-2	Slechthorend	                Auditieve beperking
-3	Doofblind	                    Auditieve beperking
-4	Blind	                        Visuele beperking
-5	Slechtziend	                    Visuele beperking
-6	Kleurenblind	                Visuele beperking
-7	Doofblind	                    Visuele beperking
-8	Amputatie of mismaaktheid	    Motorische / lichamelijke beperkingen
-9	Artritus	                    Motorische / lichamelijke beperkingen
-10	Fibromyalgie	                Motorische / lichamelijke beperkingen
-11	Reuma	                        Motorische / lichamelijke beperkingen
-12	Verminderde handvaardigheid	    Motorische / lichamelijke beperkingen
-13	Spierdystrofie	                Motorische / lichamelijke beperkingen
-14	RSI	                            Motorische / lichamelijke beperkingen
-15	Tremor en Spasmen	            Motorische / lichamelijke beperkingen
-16	Quadriplegie of tetraplegie	    Motorische / lichamelijke beperkingen
-17	ADHD	                        Cognitieve / neurologische beperkingen
-18	Autisme	                        Cognitieve / neurologische beperkingen
-19	Leerstoornis	                Cognitieve / neurologische beperkingen
-20	Geheugen beperking	            Cognitieve / neurologische beperkingen
-21	Multiple Sclerose	            Cognitieve / neurologische beperkingen
-22	Epilepsie	                    Cognitieve / neurologische beperkingen
-23	Migraine	                    Cognitieve / neurologische beperkingen
+1. 	Doof	                        Auditieve beperking
+2.	Slechthorend	                Auditieve beperking
+3.	Doofblind	                    Auditieve beperking
+4.	Blind	                        Visuele beperking
+5.	Slechtziend	                    Visuele beperking
+6.	Kleurenblind	                Visuele beperking
+7.	Doofblind	                    Visuele beperking
+8.	Amputatie of mismaaktheid	    Motorische / lichamelijke beperkingen
+9.	Artritus	                    Motorische / lichamelijke beperkingen
+10.	Fibromyalgie	                Motorische / lichamelijke beperkingen
+11.	Reuma	                        Motorische / lichamelijke beperkingen
+12.	Verminderde handvaardigheid	    Motorische / lichamelijke beperkingen
+13.	Spierdystrofie	                Motorische / lichamelijke beperkingen
+14.	RSI	                            Motorische / lichamelijke beperkingen
+15.	Tremor en Spasmen	            Motorische / lichamelijke beperkingen
+16.	Quadriplegie of tetraplegie	    Motorische / lichamelijke beperkingen
+17.	ADHD	                        Cognitieve / neurologische beperkingen
+18.	Autisme	                        Cognitieve / neurologische beperkingen
+19.	Leerstoornis	                Cognitieve / neurologische beperkingen
+20.	Geheugen beperking	            Cognitieve / neurologische beperkingen
+21.	Multiple Sclerose	            Cognitieve / neurologische beperkingen
+22.	Epilepsie	                    Cognitieve / neurologische beperkingen
+23.	Migraine	                    Cognitieve / neurologische beperkingen
