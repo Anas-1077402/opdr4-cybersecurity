@@ -193,7 +193,6 @@ def lijst_onderzoeken(request):
             )
             if serializer.is_valid():
                 serializer.save()
-                print("test2")
                 return JsonResponse(serializer.data, status=201)
             else:
                 print("Validation errors:", serializer.errors)

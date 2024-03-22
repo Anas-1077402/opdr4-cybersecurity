@@ -136,7 +136,6 @@ class OnderzoekenSerializer(serializers.ModelSerializer):
             "omschrijving",
             "datum_vanaf",
             "datum_tot",
-            "soort_onderzoek",
             "locatie",
             "met_beloning",
             "beloning",
