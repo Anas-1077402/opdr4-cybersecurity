@@ -171,10 +171,10 @@ API/organisatie/<int:organisatie_id>/onderzoeken?api={api_key}:
 
 
 ## Bronnen
-De bronnen zijn te vinden in een apart bestand genaamd: `bronnen.md`
+De bronnen zijn te vinden in een apart bestand: [Bronnen bestand](bronnen.md)
 
-
-
+## ERD
+De erd is te vinden in een apart GIF bestand: [ERD bestand](Webmasters_erd.gif)
 
 
 ## Beperkingen
