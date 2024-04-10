@@ -60,7 +60,7 @@ class Onderzoeken(models.Model):
     doelgroep_leeftijd_van = models.IntegerField()
     doelgroep_leeftijd_tot = models.IntegerField()
     contact_opgenomen = models.IntegerField(default=0)
-    opmerkingen_beheerder = models.IntegerField(blank=True, null=True)
+    opmerkingen_beheerder = models.TextField(blank=True, null=True)
     type_onderzoek = models.ForeignKey(
         "TypeOnderzoek", models.DO_NOTHING, db_column="type_onderzoek"
     )

@@ -328,6 +328,7 @@ def research_item_edit_save(request, pk):
     if request.method == 'POST':
         instance = Onderzoeken.objects.select_related("organisatie").get(pk=pk)
         data = request.POST
+        print(data)
         serializer = OnderzoekenSerializer(instance, data)
         if serializer.is_valid():
             old_limitations = BeperkingenOnderzoeken.objects.filter(
@@ -360,6 +361,7 @@ def research_item_edit_save(request, pk):
 
             serializer.save()
             return redirect(f"/beheerder/dashboard/research/{pk}")
+        print(serializer.errors)
         return HttpResponse(status=400)
     return redirect(f"/beheerder/dashboard/research/{pk}")
 

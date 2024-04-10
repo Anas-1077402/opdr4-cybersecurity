@@ -173,7 +173,7 @@
         <div class="col-md-auto border-end">
             <H3 id="research_type_select_label" class="h5">Soort onderzoek:</H3>
             <div class="container-fluid mb-2">
-                <select aria-labelledby="research_type_select_label" id="research_type_select" name="soort_onderzoek" class="form-select">
+                <select aria-labelledby="research_type_select_label" id="research_type_select" name="type_onderzoek" class="form-select">
                     {% if data.soort_onderzoek == 1 %}
                         <option value=1>Telefonisch</option>
                         <option value=2>Via internet</option>
@@ -242,7 +242,7 @@
         <div class="col-md-auto border-end">
             <H3 id="admin_comments_label" class="h5">Beheerder opmerkingen:</H3>
             <div class="container-fluid mb-2">
-                <textarea id="admin_comments" name="opmerkingen_beheerder" type="text" aria-labelledby="admin_comments_label" class="form-control" placeholder="{{ data.opmerking_beheerder }}">{{ data.opmerking_beheerder }}</textarea>
+                <textarea id="admin_comments" name="opmerkingen_beheerder" type="text" aria-labelledby="admin_comments_label" class="form-control" placeholder="{{ data.opmerkingen_beheerder }}">{{ data.opmerkingen_beheerder }}</textarea>
             </div>
         </div>
     </div>

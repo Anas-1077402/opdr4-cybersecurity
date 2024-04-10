@@ -123,10 +123,10 @@
             <H3 class="h5">Beheerder opmerkingen:</H3>
             <div class="container-fluid">
                 <p>
-                    {% if data.opmerking_beheerder != NULL %}
-                    {{ data.opmerking_beheerder }}
+                    {% if data.opmerkingen_beheerder == NULL %}
+                        Leeg
                     {% else %}
-                    Leeg
+                        {{ data.opmerkingen_beheerder }}
                     {% endif %}
                 </p>
             </div>
