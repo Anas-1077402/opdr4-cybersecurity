@@ -67,10 +67,11 @@ function updateStatusDeelnames(Id, nieuweStatus) {
 async function getDashboardData() {
     const response_promise = await fetch("/beheerder/dashboard/all");
     const anwser = await response_promise.json();
-    document.getElementById('research').innerHTML = anwser['research'];
-    document.getElementById('experience_expert').innerHTML = anwser['experience_expert'];
-    document.getElementById('organization').innerHTML = anwser['organization'];
-    document.getElementById('attendance_request').innerHTML = anwser['attendance_request'];
+    // fixed code for potential XSS vulnerability
+    document.getElementById('research').innerText = anwser['research'];
+    document.getElementById('experience_expert').innerText = anwser['experience_expert'];
+    document.getElementById('organization').innerText = anwser['organization'];
+    document.getElementById('attendance_request').innerText = anwser['attendance_request'];
     console.log(anwser)
 }
 

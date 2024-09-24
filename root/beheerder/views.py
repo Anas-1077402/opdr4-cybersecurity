@@ -225,7 +225,7 @@ def user_delete(request, id):
             return redirect('user_list')
 
     except Exception as e:
-        return HttpResponse(f"Fout bij het verwijderen van gebruiker: {e}")
+        return HttpResponse("Fout bij verwijderen")
 
 
 @staff_member_required
