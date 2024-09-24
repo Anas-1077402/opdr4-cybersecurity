@@ -15,6 +15,7 @@ from .models import BeperkingenOnderzoeken
 from django.http import JsonResponse, FileResponse
 from django.contrib.staticfiles import finders
 import datetime
+from django.contrib.auth.hashers import make_password
 
 
 def register(request):
@@ -25,12 +26,16 @@ def register(request):
         form = RegisterForm(request.POST)
 
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
 
-            #lijst uit het formulier ophalen
+            # Voeg hier de hashing van het wachtwoord toe
+            user.password = make_password(form.cleaned_data.get('password'))
+            user.save()
+
+            # lijst uit het formulier ophalen
             selected_limitations = request.POST.getlist("selected_limitations[]")
 
-            #per beperking opslaan als losse rij in de database
+            # per beperking opslaan als losse rij in de database
             for selected_limitation in selected_limitations:
                 ervaringsdeskundige_beperking = BeperkingenErvaringsdeskundigen(
                     beperking_id=int(selected_limitation),
@@ -41,7 +46,7 @@ def register(request):
             type_onderzoek = TypeOnderzoek()
             type_onderzoek.ervaringsdeskundige_id = user.id
 
-            #per type beperking opslaan als losse rij in de database
+            # per type beperking opslaan als losse rij in de database
             type_investigation = request.POST.getlist("type_investigation[]")
             for investigation_type in type_investigation:
                 if "Telefonisch" in investigation_type:
