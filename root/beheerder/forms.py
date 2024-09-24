@@ -5,7 +5,7 @@ from ervaringsdeskundige.models import User
 
 
 class RegistratieFormulier(UserCreationForm):
-    functie = forms.CharField(max_length=100,)
+    functie = forms.CharField(max_length=105,)
 
     class Meta:
         model = User
